@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <>
       <section className="w-full lg:w-[55%] h-full flex flex-col items-start">
-        <div className="mx-auto md:block mb-16 lg:hidden w-[120px] h-[98px] md:w-[211px] md:h-[173px] relative">
+        <div className="block mx-auto md:mb-16 lg:hidden w-[120px] h-[98px] md:w-[211px] md:h-[173px] relative">
           <Image alt="Logo CutNow" fill src="/logo.svg" className="object-fill"/>
         </div>
         <h1 className="hidden md:block md:text-title-2 lg:text-title-1 xl:text-tile self-center">Bem vindo a sua <span className="text-secondary-green uppercase">barbearia</span> Online</h1>
@@ -23,7 +23,7 @@ const Login = () => {
             <Scissors className="w-8 h-8 md:w-12 md:h-12 mx-auto"/>
           </button>
         </article>
-        <article>
+        <article className="w-full h-full mt-16">
           <FormLogin />
         </article>
       </section>

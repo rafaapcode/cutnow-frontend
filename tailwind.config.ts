@@ -35,6 +35,7 @@ const config: Config = {
         "title-3": "22px",
         "subtitle-1": "32px",
         "subtitle-2": "28px",
+        "subtitle-3": "22px",
         "paragraph-1": "16px",
         "paragraph-2": "10px",
       },
