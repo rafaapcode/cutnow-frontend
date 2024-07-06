@@ -3,6 +3,7 @@ import { cn } from "@/app/lib/utils";
 import { Scissors, User } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import FormLogin from "./Form";
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
   return (
     <>
       <section className="w-full lg:w-[55%] h-full flex flex-col items-start">
+        <Toaster />
         <div className="block mx-auto md:mb-16 lg:hidden w-[120px] h-[98px] md:w-[211px] md:h-[173px] relative">
           <Image alt="Logo CutNow" fill src="/logo.svg" className="object-fill"/>
         </div>
