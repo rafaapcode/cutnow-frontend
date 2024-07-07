@@ -1,19 +1,17 @@
 "use client";
+import { SignUpSchema } from "@/app/schema/SignUpFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-
-interface IFormData {
-  nome: string;
-  nomeBarbearia: string;
-  email: string;
-  cnpj: number;
-  senha: string;
-  confirmeSenha: string;
-}
+type IFormData = z.infer<typeof SignUpSchema>
 
 const FormSignUp = () => {
 
-  const {handleSubmit, register, formState: {errors} } = useForm<IFormData>();
+  const {handleSubmit, register, formState: {errors} } = useForm<IFormData>({
+    resolver: zodResolver(SignUpSchema, undefined, {mode: "async"}),
+    mode: 'onChange'
+  });
 
   const onSubmit = handleSubmit( async (data: any) => {
     console.log(data);
