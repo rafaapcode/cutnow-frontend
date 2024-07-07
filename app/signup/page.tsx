@@ -1,4 +1,5 @@
 import Image from "next/image";
+import FormSignUp from "./_components/FormSignUp";
 
 const SignUp = () => {
   return (
@@ -12,7 +13,7 @@ const SignUp = () => {
         <Image alt="Logo CutNow" fill src="/logo.svg" className="object-fill"/>
       </div>
       <div className="w-full lg:w-[67%] h-full bg-white/10 rounded-3xl  py-4 px-5 md:px-12">
-          <h1>Step Form HERE</h1>
+        <FormSignUp />
       </div>
     </main>
   )
