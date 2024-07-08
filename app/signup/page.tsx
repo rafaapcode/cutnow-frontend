@@ -3,7 +3,7 @@ import FormSignUp from "./_components/FormSignUp";
 
 const SignUp = () => {
   return (
-    <main className="bg-main-black flex flex-col gap-8 lg:gap-0 lg:flex-row justify-between items-center h-screen p-3 md:p-9">
+    <main className="bg-main-black flex flex-col gap-8 lg:gap-0 lg:flex-row justify-between items-center h-screen p-3 md:p-5">
       <div className="hidden h-full w-[30%] bg-white/10 lg:flex justify-center items-center rounded-3xl">
         <div className="w-[248px] h-[203px] relative">
           <Image alt="Logo CutNow" fill src="/logo.svg" className="object-fill"/>

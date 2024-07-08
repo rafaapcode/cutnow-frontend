@@ -7,9 +7,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const validateCnpj = (value: string) => {
-    const regex = /^\d+$/;
-    if(regex.test(value)) {
-      return validate(parseInt(value));
-    }
-    return false;
+  const regex = /^\d+$/;
+  if(regex.test(value)) {
+    return validate(parseInt(value));
+  }
+    
+  return false;
 }
