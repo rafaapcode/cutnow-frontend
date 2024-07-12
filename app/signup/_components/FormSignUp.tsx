@@ -3,6 +3,7 @@ import { SignUpSchema } from "@/app/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { NextStepperButton } from "./Stepper/Stepper";
 
 type IFormData = z.infer<typeof SignUpSchema>;
 
@@ -25,7 +26,6 @@ const FormSignUp = () => {
       className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
       onSubmit={onSubmit}
     >
-      <div className="mx-auto">loader</div>
       <div>
         <label htmlFor="nome" className="text-paragraph-1 md:text-subtitle-3">
           Nome
@@ -138,13 +138,8 @@ const FormSignUp = () => {
           </small>
         )}
       </div>
-      <div className="w-full mt-5 md:mt-0 flex justify-between items-center">
-        <button className="transition-all duration-200 bg-secondary-black text-white p-3 rounded-md font-bold hover:bg-white/10">
-          Anterior
-        </button>
-        <button className="transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green">
-          Próxima
-        </button>
+      <div className="w-full mt-5 md:mt-0 flex justify-end items-center">
+        <NextStepperButton />
       </div>
     </form>
   );
