@@ -11,16 +11,18 @@ const FormSignUp = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IFormData>({
     resolver: zodResolver(SignUpSchema, undefined, { mode: "async" }),
     mode: "onBlur",
   });
 
   const onSubmit = handleSubmit(async (data: any) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     console.log(data);
   });
 
+  console.log(isSubmitting);
   return (
     <form
       className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
@@ -139,7 +141,7 @@ const FormSignUp = () => {
         )}
       </div>
       <div className="w-full mt-5 md:mt-0 flex justify-end items-center">
-        <NextStepperButton />
+        <NextStepperButton disabled={isSubmitting} preventDefault/>
       </div>
     </form>
   );
