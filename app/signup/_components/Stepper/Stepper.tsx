@@ -14,7 +14,6 @@ export type StepperType = {
 interface IStepperContext {
   nextStep: () => void;
   previousStep: () => void;
-  stepIndex?: number;
 }
 
 export const StepperContext = createContext<IStepperContext>(
@@ -50,13 +49,14 @@ const Stepper = ({ steps }: StepperType) => {
 };
 
 
-export function NextStepperButton() {
+export function NextStepperButton({preventDefault = false, disabled = false }: {preventDefault?: boolean, disabled?: boolean}) {
   const { nextStep } = useContext(StepperContext);
   return (
     <button
+      disabled={disabled}
       type="submit"
-      onClick={nextStep}
-      className="transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green"
+      onClick={!preventDefault ? nextStep : undefined}
+      className="transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
     >
       Próxima
     </button>
@@ -66,7 +66,7 @@ export function NextStepperButton() {
 export function PrevStepperButton() {
   const { previousStep } = useContext(StepperContext);
   return (
-    <button onClick={previousStep} className="transition-all duration-200 bg-secondary-black text-white p-3 rounded-md font-bold hover:bg-white/10">
+    <button type="button" onClick={previousStep} className="transition-all duration-200 bg-secondary-black text-white p-3 rounded-md font-bold hover:bg-white/10">
       Anterior
     </button> 
   )
