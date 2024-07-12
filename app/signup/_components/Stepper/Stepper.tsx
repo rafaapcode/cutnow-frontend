@@ -20,6 +20,11 @@ export const StepperContext = createContext<IStepperContext>(
   {} as IStepperContext
 );
 
+const useStepper = () => {
+  return useContext(StepperContext);
+}
+
+
 const Stepper = ({ steps }: StepperType) => {
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -50,7 +55,7 @@ const Stepper = ({ steps }: StepperType) => {
 
 
 export function NextStepperButton({preventDefault = false, disabled = false }: {preventDefault?: boolean, disabled?: boolean}) {
-  const { nextStep } = useContext(StepperContext);
+  const { nextStep } = useStepper();
   return (
     <button
       disabled={disabled}
@@ -64,7 +69,7 @@ export function NextStepperButton({preventDefault = false, disabled = false }: {
 }
 
 export function PrevStepperButton() {
-  const { previousStep } = useContext(StepperContext);
+  const { previousStep } = useStepper();
   return (
     <button type="button" onClick={previousStep} className="transition-all duration-200 bg-secondary-black text-white p-3 rounded-md font-bold hover:bg-white/10">
       Anterior

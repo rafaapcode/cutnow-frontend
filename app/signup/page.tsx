@@ -1,11 +1,11 @@
 import Image from "next/image";
-import FormSignUp from "./_components/FormSignUp";
+import InforForm from "./_components/forms/InfoForm";
 import Stepper, { StepperType } from "./_components/Stepper/Stepper";
 
 const SignUp = () => {
   const steps: StepperType = {
     steps: [
-      { label: "Conta", content: <FormSignUp /> },
+      { label: "Conta", content: <InforForm /> },
       { label: "Infos", content: "Info" },
       { label: "Pagamento", content: "Pags" }
     ]

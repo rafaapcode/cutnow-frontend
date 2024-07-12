@@ -3,11 +3,11 @@ import { SignUpSchema } from "@/app/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { NextStepperButton } from "./Stepper/Stepper";
+import { NextStepperButton } from "../Stepper/Stepper";
 
 type IFormData = z.infer<typeof SignUpSchema>;
 
-const FormSignUp = () => {
+const InfoForm = () => {
   const {
     handleSubmit,
     register,
@@ -147,4 +147,4 @@ const FormSignUp = () => {
   );
 };
 
-export default FormSignUp;
+export default InfoForm;
