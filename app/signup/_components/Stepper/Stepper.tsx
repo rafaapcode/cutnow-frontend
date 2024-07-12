@@ -1,6 +1,8 @@
 "use client";
+import { useStepper } from "@/app/hooks/useStepper";
 import { cn } from "@/app/lib/utils";
-import React, { createContext, useContext, useState } from "react";
+import { LoaderCircle } from "lucide-react";
+import React, { createContext, useState } from "react";
 
 type StepsType = {
   label: string;
@@ -19,10 +21,6 @@ interface IStepperContext {
 export const StepperContext = createContext<IStepperContext>(
   {} as IStepperContext
 );
-
-const useStepper = () => {
-  return useContext(StepperContext);
-}
 
 
 const Stepper = ({ steps }: StepperType) => {
@@ -54,16 +52,16 @@ const Stepper = ({ steps }: StepperType) => {
 };
 
 
-export function NextStepperButton({preventDefault = false, disabled = false }: {preventDefault?: boolean, disabled?: boolean}) {
+export function NextStepperButton({preventDefault = false, disabled = false, isValid }: {preventDefault?: boolean, disabled?: boolean, isValid: boolean}) {
   const { nextStep } = useStepper();
   return (
     <button
-      disabled={disabled}
+      disabled={disabled || !isValid}
       type="submit"
       onClick={!preventDefault ? nextStep : undefined}
-      className="transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
+      className="w-[8%] transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
     >
-      Próxima
+      {disabled ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Próxima"}
     </button>
   );
 }

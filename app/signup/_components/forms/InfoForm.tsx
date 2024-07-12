@@ -11,7 +11,7 @@ const InfoForm = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     resolver: zodResolver(SignUpSchema, undefined, { mode: "async" }),
     mode: "onBlur",
@@ -22,7 +22,6 @@ const InfoForm = () => {
     console.log(data);
   });
 
-  console.log(isSubmitting);
   return (
     <form
       className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
@@ -141,7 +140,7 @@ const InfoForm = () => {
         )}
       </div>
       <div className="w-full mt-5 md:mt-0 flex justify-end items-center">
-        <NextStepperButton disabled={isSubmitting} preventDefault/>
+        <NextStepperButton isValid={isValid} disabled={isSubmitting} preventDefault/>
       </div>
     </form>
   );
