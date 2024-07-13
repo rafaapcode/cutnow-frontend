@@ -2,7 +2,7 @@
 import { useStepper } from "@/app/hooks/useStepper";
 import { cn } from "@/app/lib/utils";
 import { LoaderCircle } from "lucide-react";
-import React, { createContext, useState } from "react";
+import React, { createContext, useCallback, useState } from "react";
 
 type StepsType = {
   label: string;
@@ -26,8 +26,8 @@ export const StepperContext = createContext<IStepperContext>(
 const Stepper = ({ steps }: StepperType) => {
   const [stepIndex, setStepIndex] = useState(0);
 
-  const nextStep = () => setStepIndex((prev) => prev + 1);
-  const previousStep = () => setStepIndex((prev) => prev - 1);
+  const nextStep = useCallback(() => setStepIndex((prev) => prev + 1), []);
+  const previousStep = useCallback(() => setStepIndex((prev) => prev - 1), []);
 
   return (
     <StepperContext.Provider value={{ nextStep, previousStep }}>

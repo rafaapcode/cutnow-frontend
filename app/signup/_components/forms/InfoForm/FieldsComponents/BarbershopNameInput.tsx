@@ -1,6 +1,6 @@
 import { FieldInputType } from "../Form.type"
 
-const BarbershopNameInput = ({register, errors}: FieldInputType) => {
+const BarbershopNameInput = ({register, errors, isSubmitting = false}: FieldInputType) => {
   return (
     <div>
     <label
@@ -10,11 +10,13 @@ const BarbershopNameInput = ({register, errors}: FieldInputType) => {
       Nome da barbearia
     </label>
     <input
+      autoComplete="off"
+      disabled={isSubmitting}
       {...register("nomeBarbearia")}
       id="nome da barbearia"
       type="text"
       placeholder="Barbearia ..."
-      className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10"
+      className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10 disabled:bg-secondary-black/40"
     />
     {errors.nomeBarbearia?.message && (
       <small className="text-paragraph-2 md:text-paragraph-1 text-red-300">

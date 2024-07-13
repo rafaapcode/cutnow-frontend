@@ -40,12 +40,12 @@ const LocalizationForm = () => {
       className="w-full h-full grid grid-cols-3 gap-3 overflow-y-auto mt-16"
       onSubmit={onSubmit}
     >
-      <CEPInput register={register} errors={errors} />
+      <CEPInput register={register} errors={errors} isSubmitting={isSubmitting}/>
       <RuaInput register={register} errors={errors} />
       <BairroInput register={register} errors={errors} />
       <CidadeInput register={register} errors={errors} />
       <EstadoInput register={register} errors={errors} />
-      <NumeroInput register={register} errors={errors} />
+      <NumeroInput register={register} errors={errors} isSubmitting={isSubmitting}/>
       <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
         <PrevStepperButton />
         <NextStepperButton isValid={isValid} disabled={isSubmitting} />

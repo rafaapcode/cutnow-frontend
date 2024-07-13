@@ -1,6 +1,6 @@
 import { FieldInputType } from "../Form.type";
 
-const ConfirmPasswordInput = ({ register, errors }: FieldInputType) => {
+const ConfirmPasswordInput = ({ register, errors, isSubmitting = false }: FieldInputType) => {
   return (
     <div>
       <label
@@ -10,11 +10,13 @@ const ConfirmPasswordInput = ({ register, errors }: FieldInputType) => {
         Confirme sua senha
       </label>
       <input
+        
+        disabled={isSubmitting}
         {...register("confirmeSenha")}
         id="Confirme sua senha"
         type="password"
         placeholder="12345678901234"
-        className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10"
+        className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10 disabled:bg-secondary-black/40"
       />
       {errors.confirmeSenha?.message && (
         <small className="text-paragraph-2 md:text-paragraph-1 text-red-300">

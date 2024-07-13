@@ -6,4 +6,4 @@ export type IFormData = z.infer<typeof LocalizationFormSchema>;
 type RegisterType = UseFormRegister<IFormData>
 type FieldType = FieldErrors<IFormData>
 
-export type FieldInputType = {register: RegisterType, errors: FieldType}
+export type FieldInputType = {register: RegisterType, errors: FieldType, isSubmitting?: boolean}

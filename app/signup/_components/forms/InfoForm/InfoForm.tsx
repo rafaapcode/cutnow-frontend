@@ -42,12 +42,12 @@ const InfoForm = () => {
       className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
       onSubmit={onSubmit}
     >
-      <NameInput register={register} errors={errors} />
-      <BarbershopNameInput register={register} errors={errors} />
-      <EmailInput register={register} errors={errors} />
-      <CnpjInput register={register} errors={errors} />
-      <PasswordInput register={register} errors={errors} />
-      <ConfirmPasswordInput register={register} errors={errors} />
+      <NameInput register={register} errors={errors} isSubmitting={isSubmitting} />
+      <BarbershopNameInput register={register} errors={errors} isSubmitting={isSubmitting} />
+      <EmailInput register={register} errors={errors} isSubmitting={isSubmitting} />
+      <CnpjInput register={register} errors={errors} isSubmitting={isSubmitting} />
+      <PasswordInput register={register} errors={errors} isSubmitting={isSubmitting} />
+      <ConfirmPasswordInput register={register} errors={errors} isSubmitting={isSubmitting} />
       <div className="w-full mt-5 md:mt-0 flex justify-end items-center">
         <NextStepperButton isValid={isValid} disabled={isSubmitting} />
       </div>
