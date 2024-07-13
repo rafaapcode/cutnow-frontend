@@ -15,7 +15,7 @@ const ConfirmPasswordInput = ({ register, errors, isSubmitting = false }: FieldI
         {...register("confirmeSenha")}
         id="Confirme sua senha"
         type="password"
-        placeholder="12345678901234"
+        placeholder="********"
         className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10 disabled:bg-secondary-black/40"
       />
       {errors.confirmeSenha?.message && (

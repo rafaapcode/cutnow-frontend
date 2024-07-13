@@ -1,5 +1,6 @@
 "use client";
 import { useStepper } from "@/app/hooks/useStepper";
+import { sessionStorageGetItem } from "@/app/lib/utils";
 import { LocalizationFormSchema } from "@/app/schema/LocalizationFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -15,6 +16,9 @@ import RuaInput from "./FieldsComponents/RuaInput";
 
 const LocalizationForm = () => {
   const { nextStep } = useStepper();
+
+  const locData = sessionStorageGetItem<IFormData>("localization-data");
+
   const {
     handleSubmit,
     register,
@@ -24,12 +28,12 @@ const LocalizationForm = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     defaultValues: {
-      CEP: "",
+      CEP: locData?.CEP ?? "",
       bairro: "",
       cidade: "",
       estado: "",
       numero: "",
-      rua: "",
+      rua: locData?.rua ?? "",
     },
     mode: "onBlur",
     resolver: zodResolver(LocalizationFormSchema),
@@ -37,6 +41,7 @@ const LocalizationForm = () => {
   const onSubmit = handleSubmit(async (data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
+    sessionStorage.setItem("localization-data", JSON.stringify(data));
     nextStep();
   });
 

@@ -1,5 +1,6 @@
 "use client";
 import { useStepper } from "@/app/hooks/useStepper";
+import { sessionStorageGetItem } from "@/app/lib/utils";
 import { SignUpSchema } from "@/app/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,18 +15,21 @@ import { IFormData } from "./Form.type";
 
 const InfoForm = () => {
   const { nextStep } = useStepper();
+
+  const infoData = sessionStorageGetItem<IFormData>("info-data");
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     defaultValues: {
-      cnpj: "",
-      confirmeSenha: "",
-      email: "",
-      nome: "",
-      nomeBarbearia: "",
-      senha: "",
+      cnpj: infoData?.cnpj ?? "",
+      confirmeSenha: infoData?.confirmeSenha ?? "",
+      email: infoData?.email ?? "",
+      nome: infoData?.nome ?? "",
+      nomeBarbearia: infoData?.nomeBarbearia ?? "",
+      senha: infoData?.senha ?? "",
     },
     resolver: zodResolver(SignUpSchema, undefined, { mode: "async" }),
     mode: "onBlur",
@@ -34,6 +38,7 @@ const InfoForm = () => {
   const onSubmit = handleSubmit(async (data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
+    sessionStorage.setItem("info-data", JSON.stringify(data));
     nextStep();
   });
 

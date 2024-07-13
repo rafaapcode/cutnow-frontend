@@ -11,7 +11,7 @@ const PasswordInput = ({ register, errors, isSubmitting = false }: FieldInputTyp
         {...register("senha")}
         id="senha"
         type="password"
-        placeholder="12345678901234"
+        placeholder="********"
         className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10 disabled:bg-secondary-black/40"
       />
       {errors.senha?.message && (
