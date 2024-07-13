@@ -1,11 +1,16 @@
-'use client';
+"use client";
 import { useStepper } from "@/app/hooks/useStepper";
 import { LocalizationFormSchema } from "@/app/schema/LocalizationFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
-
-type IFormData = z.infer<typeof LocalizationFormSchema>;
+import { NextStepperButton, PrevStepperButton } from "../../Stepper/Stepper";
+import { IFormData } from "../LocalizationForm/Form.type";
+import BairroInput from "./FieldsComponents/BairroInput";
+import CEPInput from "./FieldsComponents/CEPInput";
+import CidadeInput from "./FieldsComponents/CidadeInput";
+import EstadoInput from "./FieldsComponents/EstadoInput";
+import NumeroInput from "./FieldsComponents/NumeroInput";
+import RuaInput from "./FieldsComponents/RuaInput";
 
 const LocalizationForm = () => {
   const { nextStep } = useStepper();
@@ -19,7 +24,7 @@ const LocalizationForm = () => {
       bairro: "",
       cidade: "",
       estado: "",
-      numero: 0,
+      numero: "",
       rua: "",
     },
     mode: "onBlur",
@@ -32,25 +37,18 @@ const LocalizationForm = () => {
   });
   return (
     <form
-      className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
+      className="w-full h-full grid grid-cols-3 gap-3 overflow-y-auto mt-16"
       onSubmit={onSubmit}
     >
-      <div className="flex flex-col gap-2">
-        <label htmlFor="cep" className="text-paragraph-1 md:text-subtitle-3">
-          CEP
-        </label>
-        <input
-          {...register("CEP")}
-          id="cep"
-          type="text"
-          placeholder="12345678"
-          className="w-1/4 p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10"
-        />
-        {errors.CEP?.message && (
-          <small className="text-paragraph-2 md:text-paragraph-1 text-red-300">
-            {errors.CEP?.message}
-          </small>
-        )}
+      <CEPInput register={register} errors={errors} />
+      <RuaInput register={register} errors={errors} />
+      <BairroInput register={register} errors={errors} />
+      <CidadeInput register={register} errors={errors} />
+      <EstadoInput register={register} errors={errors} />
+      <NumeroInput register={register} errors={errors} />
+      <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
+        <PrevStepperButton />
+        <NextStepperButton isValid={isValid} disabled={isSubmitting} />
       </div>
     </form>
   );

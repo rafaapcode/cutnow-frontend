@@ -7,5 +7,5 @@ export const LocalizationFormSchema = z.object({
   bairro: z.string(),
   cidade: z.string(),
   estado: z.string(),
-  numero: z.number({message: "O número é obrigatório"}).min(1, "Deve ter pelo meno 1 caractere")
+  numero: z.string({message: "O número é obrigatório"}).min(1, "Deve ter pelo meno 1 caractere")
 });

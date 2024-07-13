@@ -45,7 +45,9 @@ const Stepper = ({ steps }: StepperType) => {
             </li>
           ))}
         </ul>
-        {steps[stepIndex].content}
+        <div>
+          {steps[stepIndex].content}
+        </div>
       </div>
     </StepperContext.Provider>
   );
@@ -58,7 +60,7 @@ export function NextStepperButton({disabled = false, isValid }: {disabled?: bool
       disabled={disabled || !isValid}
       type="submit"
       onClick={() => {}}
-      className="w-[8%] transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
+      className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
     >
       {disabled ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Próximo"}
     </button>

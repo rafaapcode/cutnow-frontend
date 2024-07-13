@@ -6,8 +6,8 @@ import Stepper, { StepperType } from "./_components/Stepper/Stepper";
 const SignUp = () => {
   const steps: StepperType = {
     steps: [
-      { label: "Localização", content: <LocalizationForm /> },
       { label: "Informações", content: <InforForm /> },
+      { label: "Localização da Barbearia", content: <LocalizationForm /> },
       { label: "Serviços", content: "Pags" }
     ]
   }
