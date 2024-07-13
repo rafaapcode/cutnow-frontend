@@ -47,18 +47,22 @@ const LocalizationForm = () => {
 
   useEffect(() => {
     const { unsubscribe } = watch(async ({ CEP }, { name }) => {
-      if (name === "CEP" && CEP?.length === 8) {
-        const req = await fetch(`https://viacep.com.br/ws/${CEP}/json/`);
-        const data = await req.json();
-
-        if (!data.erro) {
-          setValue("bairro", data.bairro);
-          setValue("cidade", data.localidade);
-          setValue("estado", data.uf);
-          setValue("rua", data.logradouro);
-        } else {
-          setError('CEP', {type :'cutom', message: "CEP inválido"});
+      try {
+        if (name === "CEP" && CEP?.length === 8) {
+          const req = await fetch(`https://viacep.com.br/ws/${CEP}/json/`);
+          const data = await req.json();
+  
+          if (!data.erro) {
+            setValue("bairro", data.bairro);
+            setValue("cidade", data.localidade);
+            setValue("estado", data.uf);
+            setValue("rua", data.logradouro);
+          } else {
+            setError('CEP', {type :'cutom', message: "CEP inválido"});
+          }
         }
+      } catch  {
+        setError('CEP', {type :'cutom', message: "CEP inválido"})
       }
     });
 
