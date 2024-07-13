@@ -2,6 +2,7 @@
 import { useStepper } from "@/app/hooks/useStepper";
 import { LocalizationFormSchema } from "@/app/schema/LocalizationFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NextStepperButton, PrevStepperButton } from "../../Stepper/Stepper";
 import { IFormData } from "../LocalizationForm/Form.type";
@@ -17,6 +18,9 @@ const LocalizationForm = () => {
   const {
     handleSubmit,
     register,
+    watch,
+    setValue,
+    setError,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     defaultValues: {
@@ -35,17 +39,46 @@ const LocalizationForm = () => {
     console.log(data);
     nextStep();
   });
+
+  useEffect(() => {
+    const { unsubscribe } = watch(async ({ CEP }, { name }) => {
+      if (name === "CEP" && CEP?.length === 8) {
+        const req = await fetch(`https://viacep.com.br/ws/${CEP}/json/`);
+        const data = await req.json();
+
+        if (!data.erro) {
+          setValue("bairro", data.bairro);
+          setValue("cidade", data.localidade);
+          setValue("estado", data.uf);
+          setValue("rua", data.logradouro);
+        } else {
+          setError('CEP', {type :'cutom', message: "CEP inválido"});
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, [watch, setValue, setError]);
+
   return (
     <form
       className="w-full h-full grid grid-cols-3 gap-3 overflow-y-auto mt-16"
       onSubmit={onSubmit}
     >
-      <CEPInput register={register} errors={errors} isSubmitting={isSubmitting}/>
+      <CEPInput
+        register={register}
+        errors={errors}
+        isSubmitting={isSubmitting}
+      />
       <RuaInput register={register} errors={errors} />
       <BairroInput register={register} errors={errors} />
       <CidadeInput register={register} errors={errors} />
       <EstadoInput register={register} errors={errors} />
-      <NumeroInput register={register} errors={errors} isSubmitting={isSubmitting}/>
+      <NumeroInput
+        register={register}
+        errors={errors}
+        isSubmitting={isSubmitting}
+      />
       <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
         <PrevStepperButton />
         <NextStepperButton isValid={isValid} disabled={isSubmitting} />
