@@ -14,3 +14,8 @@ export const validateCnpj = (value: string) => {
     
   return false;
 }
+
+export const validateCEP = (value: string) => {
+  const regex = /^\d+$/;
+  return regex.test(value);
+}
