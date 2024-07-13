@@ -5,7 +5,7 @@ import { LocalizationFormSchema } from "@/app/schema/LocalizationFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { NextStepperButton, PrevStepperButton } from "../../Stepper/Stepper";
+import { NextStepperButton } from "../../Stepper/Stepper";
 import { IFormData } from "../LocalizationForm/Form.type";
 import BairroInput from "./FieldsComponents/BairroInput";
 import CEPInput from "./FieldsComponents/CEPInput";
@@ -84,8 +84,7 @@ const LocalizationForm = () => {
         errors={errors}
         isSubmitting={isSubmitting}
       />
-      <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
-        <PrevStepperButton />
+      <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-end items-center">
         <NextStepperButton isValid={isValid} disabled={isSubmitting} />
       </div>
     </form>
