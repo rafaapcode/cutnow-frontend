@@ -52,16 +52,15 @@ const Stepper = ({ steps }: StepperType) => {
 };
 
 
-export function NextStepperButton({preventDefault = false, disabled = false, isValid }: {preventDefault?: boolean, disabled?: boolean, isValid: boolean}) {
-  const { nextStep } = useStepper();
+export function NextStepperButton({disabled = false, isValid }: {disabled?: boolean, isValid: boolean}) {
   return (
     <button
       disabled={disabled || !isValid}
       type="submit"
-      onClick={!preventDefault ? nextStep : undefined}
+      onClick={() => {}}
       className="w-[8%] transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
     >
-      {disabled ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Próxima"}
+      {disabled ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Próximo"}
     </button>
   );
 }

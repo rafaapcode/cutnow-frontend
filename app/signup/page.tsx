@@ -1,5 +1,5 @@
 import Image from "next/image";
-import InforForm from "./_components/forms/InfoForm";
+import InforForm from "./_components/forms/InfoForm/InfoForm";
 import Stepper, { StepperType } from "./_components/Stepper/Stepper";
 
 const SignUp = () => {
