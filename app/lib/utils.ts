@@ -14,3 +14,21 @@ export const validateCnpj = (value: string) => {
     
   return false;
 }
+
+export const validateCEP = (value: string) => {
+  const regex = /^\d+$/;
+  return regex.test(value);
+}
+
+export function sessionStorageGetItem<T>(key: string): T | null {
+  try {
+    const data = sessionStorage.getItem(key);
+    if(!data) {
+      return null
+    }
+
+    return JSON.parse(data);
+  } catch  {
+    return null;
+  }
+}

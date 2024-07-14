@@ -1,6 +1,8 @@
 "use client";
+import { useStepper } from "@/app/hooks/useStepper";
 import { cn } from "@/app/lib/utils";
-import React, { createContext, useContext, useState } from "react";
+import { LoaderCircle } from "lucide-react";
+import React, { createContext, useCallback, useState } from "react";
 
 type StepsType = {
   label: string;
@@ -14,18 +16,18 @@ export type StepperType = {
 interface IStepperContext {
   nextStep: () => void;
   previousStep: () => void;
-  stepIndex?: number;
 }
 
 export const StepperContext = createContext<IStepperContext>(
   {} as IStepperContext
 );
 
+
 const Stepper = ({ steps }: StepperType) => {
   const [stepIndex, setStepIndex] = useState(0);
 
-  const nextStep = () => setStepIndex((prev) => prev + 1);
-  const previousStep = () => setStepIndex((prev) => prev - 1);
+  const nextStep = useCallback(() => setStepIndex((prev) => prev + 1), []);
+  const previousStep = useCallback(() => setStepIndex((prev) => prev - 1), []);
 
   return (
     <StepperContext.Provider value={{ nextStep, previousStep }}>
@@ -43,13 +45,16 @@ const Stepper = ({ steps }: StepperType) => {
             </li>
           ))}
         </ul>
-        {steps[stepIndex].content}
+        <div>
+          {steps[stepIndex].content}
+        </div>
       </div>
     </StepperContext.Provider>
   );
 };
 
 
+<<<<<<< HEAD
 export function NextStepperButton({preventDefault = false, disabled = false }: {preventDefault?: boolean, disabled?: boolean}) {
   const { nextStep } = useContext(StepperContext);
   return (
@@ -58,14 +63,23 @@ export function NextStepperButton({preventDefault = false, disabled = false }: {
       type="submit"
       onClick={!preventDefault ? nextStep : undefined}
       className="transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
+=======
+export function NextStepperButton({disabled = false, isValid }: {disabled?: boolean, isValid: boolean}) {
+  return (
+    <button
+      disabled={disabled || !isValid}
+      type="submit"
+      onClick={() => {}}
+      className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
+>>>>>>> main
     >
-      Próxima
+      {disabled ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Próximo"}
     </button>
   );
 }
 
 export function PrevStepperButton() {
-  const { previousStep } = useContext(StepperContext);
+  const { previousStep } = useStepper();
   return (
     <button type="button" onClick={previousStep} className="transition-all duration-200 bg-secondary-black text-white p-3 rounded-md font-bold hover:bg-white/10">
       Anterior
