@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import InforForm from "./_components/forms/InfoForm/InfoForm";
+import ServicesForm from "./_components/forms/ServicesForm/ServicesForm";
 import Stepper, { StepperType } from "./_components/Stepper/Stepper";
 
 const LocalizationForm = dynamic(
@@ -12,7 +13,7 @@ const SignUp = () => {
     steps: [
       { label: "Informações", content: <InforForm /> },
       { label: "Localização da Barbearia", content: <LocalizationForm /> },
-      { label: "Serviços", content: "Pags" }
+      { label: "Serviços", content: <ServicesForm /> }
     ]
   }
 
