@@ -54,16 +54,6 @@ const Stepper = ({ steps }: StepperType) => {
 };
 
 
-<<<<<<< HEAD
-export function NextStepperButton({preventDefault = false, disabled = false }: {preventDefault?: boolean, disabled?: boolean}) {
-  const { nextStep } = useContext(StepperContext);
-  return (
-    <button
-      disabled={disabled}
-      type="submit"
-      onClick={!preventDefault ? nextStep : undefined}
-      className="transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
-=======
 export function NextStepperButton({disabled = false, isValid }: {disabled?: boolean, isValid: boolean}) {
   return (
     <button
@@ -71,7 +61,6 @@ export function NextStepperButton({disabled = false, isValid }: {disabled?: bool
       type="submit"
       onClick={() => {}}
       className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
->>>>>>> main
     >
       {disabled ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Próximo"}
     </button>
