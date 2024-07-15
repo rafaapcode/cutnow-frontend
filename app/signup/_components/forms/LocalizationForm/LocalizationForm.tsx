@@ -29,10 +29,10 @@ const LocalizationForm = () => {
   } = useForm<IFormData>({
     defaultValues: {
       CEP: locData?.CEP ?? "",
-      bairro: "",
-      cidade: "",
-      estado: "",
-      numero: "",
+      bairro: locData?.bairro ?? "",
+      cidade: locData?.cidade ?? "",
+      estado: locData?.estado ?? "",
+      numero: locData?.numero ?? "",
       rua: locData?.rua ?? "",
     },
     mode: "onBlur",
