@@ -7,6 +7,7 @@ const CEPInput = ({errors, register, isSubmitting = false}: FieldInputType) => {
       CEP
     </label>
     <input
+      data-test="cep-field"
       disabled={isSubmitting}
       {...register("CEP")}
       id="cep"
@@ -15,7 +16,7 @@ const CEPInput = ({errors, register, isSubmitting = false}: FieldInputType) => {
       className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10 disabled:bg-secondary-black/30"
     />
     {errors.CEP?.message ? (
-      <small className="text-paragraph-2 md:text-paragraph-1 text-red-300">
+      <small data-test="cep-field-error" className="text-paragraph-2 md:text-paragraph-1 text-red-300">
         {errors.CEP?.message}
       </small>
     ): (

@@ -7,6 +7,7 @@ const BairroInput = ({errors, register}: FieldInputType) => {
           Bairro
         </label>
         <input
+          data-test="bairro-field"
           disabled
           {...register("bairro")}
           id="bairro"

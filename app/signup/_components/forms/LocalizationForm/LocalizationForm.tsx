@@ -39,7 +39,7 @@ const LocalizationForm = () => {
     resolver: zodResolver(LocalizationFormSchema),
   });
   const onSubmit = handleSubmit(async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     console.log(data);
     sessionStorage.setItem("localization-data", JSON.stringify(data));
     nextStep();
@@ -58,11 +58,11 @@ const LocalizationForm = () => {
             setValue("estado", data.uf);
             setValue("rua", data.logradouro);
           } else {
-            setError('CEP', {type :'cutom', message: "CEP inválido"});
+            setError('CEP', {type :'custom', message: "CEP inválido"});
           }
         }
       } catch  {
-        setError('CEP', {type :'cutom', message: "CEP inválido"})
+        setError('CEP', {type :'custom', message: "CEP inválido"})
       }
     });
 
@@ -71,6 +71,7 @@ const LocalizationForm = () => {
 
   return (
     <form
+      data-test="localization-step-form"
       className="w-full h-full grid grid-cols-3 gap-3 overflow-y-auto mt-16"
       onSubmit={onSubmit}
     >

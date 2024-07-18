@@ -26,7 +26,7 @@ const ServicesForm = () => {
   });
 
   const onSubmit = async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     console.log(data);
   };
 

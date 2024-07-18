@@ -7,6 +7,7 @@ const EstadoInput = ({ errors, register }: FieldInputType) => {
           Estado
         </label>
         <input
+          data-test="estado-field"
           disabled
           {...register("estado")}
           id="estado"

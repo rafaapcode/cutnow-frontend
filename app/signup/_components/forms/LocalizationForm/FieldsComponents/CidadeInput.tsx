@@ -7,6 +7,7 @@ const CidadeInput = ({ errors, register }: FieldInputType) => {
         Cidade
       </label>
       <input
+        data-test="cidade-field"
         disabled
         {...register("cidade")}
         id="cidade"

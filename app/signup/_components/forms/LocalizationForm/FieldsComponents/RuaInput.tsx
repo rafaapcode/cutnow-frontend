@@ -7,6 +7,7 @@ const RuaInput = ({errors, register}: FieldInputType) => {
       RUA
     </label>
     <input
+      data-test="rua-field"
       disabled
       {...register("rua")}
       id="rua"
