@@ -4,6 +4,7 @@ import { ServiceFormSchema } from "@/app/schema/ServiceSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, PlusCircleIcon } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
+import Balancer from "react-wrap-balancer";
 import { PrevStepperButton } from "../../Stepper/Stepper";
 import ServiceField from "./FieldsComponents/ServiceField";
 import { IFormData } from "./Form.type";
@@ -31,14 +32,14 @@ const ServicesForm = () => {
   };
 
   return (
-    <div className="pt-14 h-full px-5">
+    <div className="pt-14 h-full px-1 md:px-5">
       <div>
-        <h1 className="font-semibold tracking-tight text-white text-2xl">
-          Serviços :
+        <h1 className="font-semibold tracking-tight text-white text-lg md:text-2xl">
+          <Balancer>Serviços :</Balancer>
         </h1>
-        <p className="text-xl text-secondary">
-          Registre aqui os serviços que sua barbearia fornece , com preço e
-          tempo médio da duração do serviço.
+        <p className="text-base md:text-xl text-secondary">
+          <Balancer>Registre aqui os serviços que sua barbearia fornece , com preço e
+          tempo médio da duração do serviço.</Balancer>
         </p>
       </div>
       <button

@@ -34,8 +34,6 @@ const InfoForm = () => {
 
   const onSubmit = handleSubmit(async (data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
-
     nextStep();
   });
 

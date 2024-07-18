@@ -40,7 +40,6 @@ const LocalizationForm = () => {
   });
   const onSubmit = handleSubmit(async (data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
     sessionStorage.setItem("localization-data", JSON.stringify(data));
     nextStep();
   });

@@ -16,7 +16,7 @@ const ServiceField = ({register, index, remove}: FieldInputType) => {
       </div>
       <div className="flex w-full justify-between items-end gap-5">
         <div className="w-full">
-          <label htmlFor="preco-servico">Preco (R$)</label>
+          <label htmlFor="preco-servico" className="text-sm md:text-base">Preço <span className="text-xs hidden md:inline text-neutral-500">(R$)</span></label>
           <input
             {...register(`services.${index}.preco`)}
             id="preco-servico"
@@ -26,7 +26,7 @@ const ServiceField = ({register, index, remove}: FieldInputType) => {
           />
         </div>
         <div className="w-full">
-          <label htmlFor="tempo-servico">Tempo (em minutos)</label>
+          <label htmlFor="tempo-servico" className="text-sm md:text-base">Tempo <span className="text-xs hidden md:inline text-neutral-500">min</span></label>
           <input
             {...register(`services.${index}.tempo`)}
             id="tempo-servico"
@@ -40,7 +40,7 @@ const ServiceField = ({register, index, remove}: FieldInputType) => {
           type="button"
           className="bg-red-500 p-2 rounded-lg hover:bg-red-400 transition-all"
         >
-          <TrashIcon className="size-7" />
+          <TrashIcon className="size-5 md:size-7" />
         </button>
       </div>
     </div>
