@@ -3,7 +3,7 @@ import { FieldInputType } from "../Form.type";
 
 const ServiceField = ({register, index, remove}: FieldInputType) => {
   return (
-    <div key={index} className="flex justify-between gap-5">
+    <div data-test="service-field" key={index} className="flex justify-between gap-5">
       <div className="w-full">
         <label htmlFor="nome-servico">Nome</label>
         <input
@@ -36,6 +36,7 @@ const ServiceField = ({register, index, remove}: FieldInputType) => {
           />
         </div>
         <button
+          data-test="removeservice-btn"
           onClick={() => remove(index)}
           type="button"
           className="bg-red-500 p-2 rounded-lg hover:bg-red-400 transition-all"

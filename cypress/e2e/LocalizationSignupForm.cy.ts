@@ -35,15 +35,6 @@ describe("Localization signUp Form", () => {
   });
   it("Should CEP Informations fields fill when the user digit a correct CEP", () => {
     cy.get('[data-test="cep-field"]').type("59074471");
-    cy.intercept("GET", "https://viacep.com.br/ws/59074471/json/", {
-      statusCode: 200,
-      body: {
-        logradouro: "Vila Felipe Dias",
-        bairro: "Felipe Camarão",
-        uf: "RN",
-        localidade: "Natal"
-      }
-    })
     cy.get('[data-test="number-field"]').type("00");
     cy.get('[data-test="next-button-step"]').should("not.have.attr", "disabled");
     cy.get('[data-test="rua-field"]').should("have.value", "Vila Felipe Dias")

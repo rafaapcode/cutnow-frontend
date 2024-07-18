@@ -42,6 +42,7 @@ const ServicesForm = () => {
         </p>
       </div>
       <button
+        data-test="addservice-btn"
         type="button"
         onClick={() => {
           services.append({ nome: "", preco: "", tempo: "" });
@@ -51,6 +52,7 @@ const ServicesForm = () => {
         <PlusCircleIcon className="size-7" />
       </button>
       <form
+        data-test="service-step-form"
         className="max-h-full overflow-y-auto flex flex-col gap-5"
         onSubmit={handleSubmit(onSubmit)}
       >
