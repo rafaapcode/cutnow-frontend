@@ -58,6 +58,7 @@ const Stepper = ({ steps }: StepperType) => {
 export function NextStepperButton({disabled = false, isValid }: {disabled?: boolean, isValid: boolean}) {
   return (
     <button
+      data-test="next-button-step"
       disabled={disabled || !isValid}
       type="submit"
       onClick={() => {}}

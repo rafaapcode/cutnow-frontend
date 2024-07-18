@@ -7,6 +7,7 @@ const EmailInput = ({ register, errors, isSubmitting = false}: FieldInputType) =
         Email
       </label>
       <input
+        data-test="email-field"
         autoComplete="off"
         disabled={isSubmitting}
         {...register("email")}
@@ -16,7 +17,7 @@ const EmailInput = ({ register, errors, isSubmitting = false}: FieldInputType) =
         className="w-full p-2 md:p-3 rounded-lg border-none outline-none focus:outline-none text-white bg-white/10 disabled:bg-secondary-black/40"
       />
       {errors.email?.message && (
-        <small className="text-paragraph-2 md:text-paragraph-1 text-red-300">
+        <small data-test="email-field-error" className="text-paragraph-2 md:text-paragraph-1 text-red-300">
           {errors.email?.message}
         </small>
       )}

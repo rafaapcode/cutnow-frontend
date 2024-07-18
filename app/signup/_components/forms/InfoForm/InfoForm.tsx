@@ -41,6 +41,7 @@ const InfoForm = () => {
 
   return (
     <form
+      data-test="info-step-form"
       className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
       onSubmit={onSubmit}
     >
