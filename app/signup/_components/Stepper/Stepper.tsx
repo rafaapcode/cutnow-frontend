@@ -35,6 +35,7 @@ const Stepper = ({ steps }: StepperType) => {
         <ul className="flex w-[90%] mx-auto justify-evenly">
           {steps.map((step, index) => (
             <li
+              data-test="title-step"
               key={index}
               className={cn(
                 "font-semibold tracking-wide px-2 py-1 rounded-md shadow-md transition-all cursor-pointer",
