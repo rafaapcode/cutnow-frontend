@@ -2,7 +2,7 @@ import { FieldInputType } from "../Form.type"
 
 const CEPInput = ({errors, register, isSubmitting = false}: FieldInputType) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
     <label htmlFor="cep" className="text-paragraph-1 md:text-subtitle-3">
       CEP
     </label>
