@@ -39,7 +39,7 @@ const InfoForm = () => {
 
   return (
     <form
-      className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto"
+      className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto text-white"
       onSubmit={onSubmit}
     >
       <NameInput

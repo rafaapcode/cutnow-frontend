@@ -33,7 +33,7 @@ const Stepper = ({ steps }: StepperType) => {
   return (
     <StepperContext.Provider value={{ nextStep, previousStep }}>
       <div className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto transition-all duration-100">
-        <ul className="flex w-full md:w-[90%] mx-auto justify-evenly">
+        <ul className="flex w-full md:w-[90%] mx-auto justify-evenly text-white">
           {steps.map((step, index) => (
             <li
               key={index}

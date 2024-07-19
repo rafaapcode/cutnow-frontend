@@ -70,7 +70,7 @@ const LocalizationForm = () => {
 
   return (
     <form
-      className="w-full h-full grid grid-cols-2 md:grid-cols-3 gap-3 overflow-y-auto mt-16"
+      className="w-full h-full grid grid-cols-2 md:grid-cols-3 gap-3 overflow-y-auto mt-16 text-white"
       onSubmit={onSubmit}
     >
       <CEPInput

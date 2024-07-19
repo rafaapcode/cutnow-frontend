@@ -32,7 +32,7 @@ const ServicesForm = () => {
   };
 
   return (
-    <div className="pt-14 h-full px-1 md:px-5">
+    <div className="pt-14 h-full px-1 md:px-5 ">
       <div>
         <h1 className="font-semibold tracking-tight text-white text-lg md:text-2xl">
           <Balancer>Serviços :</Balancer>
@@ -52,7 +52,7 @@ const ServicesForm = () => {
         <PlusCircleIcon className="size-7" />
       </button>
       <form
-        className="max-h-full overflow-y-auto flex flex-col gap-5"
+        className="max-h-full overflow-y-auto flex flex-col gap-5 text-white"
         onSubmit={handleSubmit(onSubmit)}
       >
         {services.fields.map((field, index) => (
