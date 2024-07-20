@@ -11,10 +11,6 @@ const Barbers = () => {
       <div className="mt-5 pb-10 w-full h-[670px] bg-transparent grid grid-cols-1 place-items-center xl:place-items-start xl:grid-cols-3 gap-x-12 md:gap-y-28 xl:gap-y-16 overflow-y-auto snap-y scroll-smooth">
         <CardBarber />
         <CardBarber />
-        <CardBarber />
-        <CardBarber />
-        <CardBarber />
-        <CardBarber />
       </div>
     </section>
   );

@@ -12,8 +12,6 @@ import StatusComponent from "./StatusComponent";
 const NavBar = () => {
   const [status, setStatus] = useState("fechado");
   const pathName = usePathname();
-  console.log(pathName == "/barbers")
-  console.log(pathName);
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
       <div className="flex items-center gap-5 px-2 md:px-0 md:gap-10">
