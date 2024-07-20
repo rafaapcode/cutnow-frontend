@@ -30,7 +30,7 @@ const AddBarberForm = () => {
 
   return (
     <form
-      className="mx-auto w-[80%] grid grid-cols-2 gap-x-10 gap-y-5 mt-5"
+      className="mx-auto w-full md:w-[90%] xl:w-[80%] grid grid-cols-2 gap-x-10 gap-y-5 mt-5"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2">
@@ -42,7 +42,7 @@ const AddBarberForm = () => {
           type="text"
           placeholder="Nome do barbeiro."
         />
-        {errors.nome?.message && <small className="text-red-300">{errors.nome?.message}</small>}
+        {errors.nome?.message && <small className="text-red-300 text-xs md:text-sm">{errors.nome?.message}</small>}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="email">Email</label>
@@ -53,7 +53,7 @@ const AddBarberForm = () => {
           type="email"
           placeholder="email@example.com"
         />
-        {errors.email?.message && <small className="text-red-300">{errors.email?.message}</small>}
+        {errors.email?.message && <small className="text-red-300 text-xs md:text-sm">{errors.email?.message}</small>}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="cpf">CPF</label>
@@ -65,7 +65,7 @@ const AddBarberForm = () => {
           placeholder="12345678901"
         />
         {errors.cpf?.message ? (
-          <small className="text-red-300">{errors.cpf?.message}</small>
+          <small className="text-red-300 text-xs md:text-sm">{errors.cpf?.message}</small>
         ) : (
           <small className="text-neutral-700">
             Somente números, sem traços ou pontos.
@@ -81,7 +81,7 @@ const AddBarberForm = () => {
           type="password"
           placeholder="**********"
         />
-        {errors.senha?.message && <small className="text-red-300">{errors.senha?.message}</small>}
+        {errors.senha?.message && <small className="text-red-300 text-xs md:text-sm">{errors.senha?.message}</small>}
       </div>
       <DrawerFooter className="col-span-2">
         <div className="flex justify-between">
