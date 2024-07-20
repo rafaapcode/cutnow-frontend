@@ -1,6 +1,6 @@
 "use client";
-import { cn } from "@/app/lib/utils";
-import { ServiceFormSchema } from "@/app/schema/ServiceSchema";
+import { cn } from "@/lib/utils";
+import { ServiceFormSchema } from "@/schema/ServiceSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, PlusCircleIcon } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -68,7 +68,7 @@ const ServicesForm = () => {
         {errors.services && <small className={cn("text-xs text-red-300 tracking-tight", !errors.services[0]?.tempo && "hidden")}>{errors.services[0]?.tempo?.message}</small>} 
         <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
           <PrevStepperButton />
-          <button disabled={!isValid || isSubmitting} className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20">
+          <button disabled={!isValid || isSubmitting || services.fields.length == 0} className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20">
            {isSubmitting ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Finalizar"}
           </button>
         </div>

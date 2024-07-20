@@ -1,4 +1,4 @@
-import { LocalizationFormSchema } from "@/app/schema/LocalizationFormSchema";
+import { LocalizationFormSchema } from "@/schema/LocalizationFormSchema";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import * as z from "zod";
 

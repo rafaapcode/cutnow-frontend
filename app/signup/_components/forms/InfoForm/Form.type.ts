@@ -1,4 +1,4 @@
-import { SignUpSchema } from "@/app/schema/SignUpFormSchema";
+import { SignUpSchema } from "@/schema/SignUpFormSchema";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import * as z from "zod";
 

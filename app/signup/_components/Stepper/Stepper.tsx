@@ -1,6 +1,6 @@
 "use client";
 import { useStepper } from "@/app/hooks/useStepper";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
 import React, { createContext, useCallback, useState } from "react";
 import Balancer from "react-wrap-balancer";

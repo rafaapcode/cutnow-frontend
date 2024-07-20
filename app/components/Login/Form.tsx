@@ -1,5 +1,5 @@
 "use client";
-import { LoginFormSchema } from "@/app/schema/LoginFormSchema";
+import { LoginFormSchema } from "@/schema/LoginFormSchema";
 import { LoaderCircle, LogIn } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";

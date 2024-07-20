@@ -16,7 +16,7 @@ const CnpjInput = ({ register, errors ,isSubmitting = false}: FieldInputType) =>
       />
       {errors.cnpj?.message ? (
         <small className="text-paragraph-2 md:text-paragraph-1 text-red-300">
-          {errors.cnpj?.message}
+          {errors.cnpj.message}
         </small>
       ) : (
         <small className="text-paragraph-2 md:text-paragraph-1 text-terciary">

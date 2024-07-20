@@ -1,6 +1,6 @@
 "use client";
 import { useStepper } from "@/app/hooks/useStepper";
-import { SignUpSchema } from "@/app/schema/SignUpFormSchema";
+import { SignUpSchema } from "@/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NextStepperButton } from "../../Stepper/Stepper";

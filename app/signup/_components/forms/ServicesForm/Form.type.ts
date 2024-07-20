@@ -1,4 +1,4 @@
-import { ServiceFormSchema } from "@/app/schema/ServiceSchema";
+import { ServiceFormSchema } from "@/schema/ServiceSchema";
 import { UseFieldArrayRemove } from "react-hook-form";
 import * as z from "zod";
 
