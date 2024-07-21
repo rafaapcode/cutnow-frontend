@@ -1,13 +1,14 @@
 import { Toaster } from "react-hot-toast";
 import BreadCrumb from "./_components/BreadCrumb";
-import BarberStructImages from "./_components/UploadsComponents/BarberStructImages";
+import BarberLogoImages from "./_components/UploadsComponents/BarberLogoImages";
 
 const Images = () => {
   return (
     <>
       <Toaster />
       <BreadCrumb />
-      <BarberStructImages />
+      {/* <BarberStructImages /> */}
+      <BarberLogoImages />
     </>
   );
 };
