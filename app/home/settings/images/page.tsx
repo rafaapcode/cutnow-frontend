@@ -1,8 +1,15 @@
+import { Toaster } from "react-hot-toast";
+import BreadCrumb from "./_components/BreadCrumb";
+import BarberStructImages from "./_components/UploadsComponents/BarberStructImages";
 
 const Images = () => {
   return (
-    <div>Images</div>
-  )
-}
+    <>
+      <Toaster />
+      <BreadCrumb />
+      <BarberStructImages />
+    </>
+  );
+};
 
-export default Images
+export default Images;
