@@ -1,10 +1,35 @@
-const Settings = () => {
-  return (
-    <section className="w-full h-full">
-      <h2 className="mt-11 ml-5 md:ml-0 xl:ml-5 text-title-3 md:text-title-2">Configurações</h2>
+"use client";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 
-    </section>
-  );
+type MenusShape = {
+  title: string;
+  description: string;
+  link: string;
+}[];
+
+const menus: MenusShape = [
+  {
+    title: "Informações",
+    description:
+      "Aqui você poderá atualizar as informações da sua barbearia cadastrada.",
+    link: "/home/settings/info",
+  },
+  {
+    title: "Imagens",
+    description:
+      "Aqui você poderá realizar os uploads das imagens, que serão mostradas aos usuários que entrarem na plataforma.",
+    link: "/home/settings/images",
+  },
+  {
+    title: "Serviço",
+    description:
+      "Aqui você poderá atualizar, remover ou adicionar mais serviços que a sua barbearia fornece.",
+    link: "/home/settings/services",
+  },
+];
+
+const Settings = () => {
+  return <HoverEffect items={menus} />;
 };
 
 export default Settings;
