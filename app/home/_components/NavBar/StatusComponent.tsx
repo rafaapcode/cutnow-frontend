@@ -1,15 +1,48 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const StatusComponent = ({setStatus}: {setStatus: (e: any) => void}) => {
+const StatusComponent = ({
+  setStatus,
+  isAdm,
+}: {
+  setStatus: (e: any) => void;
+  isAdm: boolean;
+}) => {
   return (
     <Select onValueChange={setStatus}>
-      <SelectTrigger className="w-full" >
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Status" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="aberto"><span className="text-secondary-green">Aberto</span></SelectItem>
-          <SelectItem value="fechado"><span className="text-red-400">Fechado</span></SelectItem>
+          {isAdm ? ( 
+            <>
+              <SelectItem value="aberto">
+                <span className="text-secondary-green">Aberto</span>
+              </SelectItem>
+              <SelectItem value="fechado">
+                <span className="text-red-400">Fechado</span>
+              </SelectItem>
+            </>
+          ) : (
+            <>
+              <SelectItem value="atendendo">
+                <span className="text-secondary-green">Atendendo</span>
+              </SelectItem>
+              <SelectItem value="disponível">
+                <span className="text-blue-500">Disponível</span>
+              </SelectItem>
+              <SelectItem value="indiponível">
+                <span className="text-neutral-500">Indiponível</span>
+              </SelectItem>
+            </>
+          )}
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { ScissorsIcon, Settings } from "lucide-react";
+import { Newspaper, ScissorsIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,8 @@ import AvatarMobile from "./AvatarMobile";
 import StatusComponent from "./StatusComponent";
 
 const NavBar = () => {
-  const [status, setStatus] = useState("fechado");
+  const [status, setStatus] = useState("");
+  const isAdm = false;
   const pathName = usePathname();
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
@@ -27,22 +28,44 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="w-fit">
-          <StatusComponent setStatus={setStatus} />
+          <StatusComponent isAdm={isAdm} setStatus={setStatus} />
         </div>
       </div>
       <div className="hidden md:flex items-center gap-10">
-        <Link
-          href="/home/barbers"
-          className={cn("text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1", pathName == "/home/barbers" && "border-b border-[#AAD704]")}
-        >
-          <ScissorsIcon />
-        </Link>
-        <Link
-          href="/home/settings"
-          className={cn("text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1", pathName == "/home/settings" && "border-b border-[#AAD704]")}
-        >
-          <Settings />
-        </Link>
+        {isAdm ? (
+          <>
+            <Link
+              href="/home/barbers"
+              className={cn(
+                "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
+                pathName == "/home/barbers" && "border-b border-[#AAD704]"
+              )}
+            >
+              <ScissorsIcon />
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
+              href="/home/requests"
+              className={cn(
+                "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
+                pathName == "/home/barbers" && "border-b border-[#AAD704]"
+              )}
+            >
+              <Newspaper />
+            </Link>
+          </>
+        )}
+         <Link
+              href="/home/settings"
+              className={cn(
+                "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
+                pathName == "/home/settings" && "border-b border-[#AAD704]"
+              )}
+            >
+              <Settings />
+            </Link>
         <div className="w-[65px] h-[65px]">
           <Avatar className="size-full">
             <AvatarImage
@@ -53,7 +76,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="px-2 md:hidden md:px-0">
-        <AvatarMobile avatarUrl="https://github.com/shadcn.png"/>
+        <AvatarMobile isAdm={isAdm} avatarUrl="https://github.com/shadcn.png" />
       </div>
     </header>
   );
