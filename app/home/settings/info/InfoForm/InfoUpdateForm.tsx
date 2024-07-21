@@ -29,7 +29,8 @@ const InfoUpdateForm = () => {
     setError,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
-    defaultValues: {
+    // TODO: Fazer o fetch ao banco de dados , para pegar os dados e atribuir como valor padrão
+    defaultValues: async () => new Promise((resolve) => resolve({
       cnpj: "",
       email: "",
       nome: "",
@@ -40,7 +41,7 @@ const InfoUpdateForm = () => {
       estado: "",
       numero: "",
       rua: "",
-    },
+    })),
     resolver: zodResolver(UpdateInfoSchema, undefined, { mode: "async" }),
     mode: "onBlur",
   });

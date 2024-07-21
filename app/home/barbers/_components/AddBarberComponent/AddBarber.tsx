@@ -1,6 +1,7 @@
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import dynamic from "next/dynamic";
 import React from "react";
-import AddBarberForm from "./AddBarberForm";
+const AddBarberForm = dynamic(() => import("./AddBarberForm"));
 
 type AddBarberProps = {
   children: React.ReactNode;
