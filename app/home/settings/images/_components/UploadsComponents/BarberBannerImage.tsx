@@ -12,13 +12,13 @@ const BarberBannerImage = () => {
   };
 
   const onClick = () => {
-    console.log("Estado", file);
+    console.log("Bannerrrr", file);
   };
 
   return (
     <section className="mt-10 w-[90%] mx-auto flex flex-col items-center gap-5">
       <div className="flex flex-col gap-2">
-        <label htmlFor="barber-logo">Logo da sua barbearia</label>
+        <label htmlFor="barber-logo">Banner da sua barbearia</label>
         <Input
           accept="image/png, image/jpeg"
           onChange={onchange}

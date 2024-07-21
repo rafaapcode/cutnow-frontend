@@ -12,7 +12,7 @@ const BarberLogoImage = () => {
   };
 
   const onClick = () => {
-    console.log("Estado", file);
+    console.log("Logo", file);
   };
 
   return (
