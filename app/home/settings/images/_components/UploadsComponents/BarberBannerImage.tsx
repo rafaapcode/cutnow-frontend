@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useState } from "react";
 
-const BarberLogoImages = () => {
+const BarberBannerImage = () => {
   const [file, setFile] = useState<File>();
 
   const onchange = (e: any) => {
@@ -27,16 +27,16 @@ const BarberLogoImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      <div className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto">
+      <div className="flex w-full flex-col items-center gap-1 md:gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>
-            <div className="w-[300px] h-[300px] bg-neutral-900 flex flex-col justify-center items-center p-2 rounded-lg">
+            <div className="w-[300px] h-[200px] md:w-[500px] md:h-[300px] xl:w-[800px] xl:h-[400px] bg-neutral-900 flex flex-col justify-center items-center p-2 rounded-lg">
               <div className="w-full h-full relative">
                 <Image
                   fill
                   alt="image to upload"
                   src={URL.createObjectURL(file)}
-                  className="rounded-md"
+                  className="rounded-md object-contain"
                 />
               </div>
             </div>
@@ -58,4 +58,4 @@ const BarberLogoImages = () => {
   );
 };
 
-export default BarberLogoImages;
+export default BarberBannerImage;
