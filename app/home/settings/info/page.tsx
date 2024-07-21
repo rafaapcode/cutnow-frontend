@@ -1,7 +1,12 @@
+import BreadCrumb from "./_components/BreadCrumb"
+import InfoUpdateForm from "./InfoForm/InfoUpdateForm"
 
 const Info = () => {
   return (
-    <div>Info</div>
+    <>
+      <BreadCrumb />
+      <InfoUpdateForm />
+    </>
   )
 }
 
