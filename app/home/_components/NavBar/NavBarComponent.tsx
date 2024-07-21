@@ -11,7 +11,7 @@ import StatusComponent from "./StatusComponent";
 
 const NavBar = () => {
   const [status, setStatus] = useState("");
-  const isAdm = false;
+  const isAdm = true;
   const pathName = usePathname();
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">

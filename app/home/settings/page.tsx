@@ -1,5 +1,6 @@
 "use client";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import BarberSettings from "./BarberSettings/BarberSettings";
 
 type MenusShape = {
   title: string;
@@ -29,7 +30,12 @@ const menus: MenusShape = [
 ];
 
 const Settings = () => {
-  return <HoverEffect items={menus} />;
+  const isAdm = false;
+  return (
+    <>
+    {isAdm ? (<HoverEffect items={menus} />) : <BarberSettings /> }
+    </>
+  );
 };
 
 export default Settings;
