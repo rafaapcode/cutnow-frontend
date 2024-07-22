@@ -4,10 +4,10 @@ import { Scissors, User } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import FormLogin from "./Form";
+import FormLogin, { UserType } from "./Form";
 
 const Login = () => {
-  const [user, setUser] = useState("adm");
+  const [user, setUser] = useState<UserType>(UserType.Adm);
 
   return (
     <>
@@ -18,15 +18,15 @@ const Login = () => {
         </div>
         <h1 className="hidden md:block md:text-title-2 lg:text-title-1 xl:text-tile self-center text-white">Bem vindo a sua <span className="text-secondary-green uppercase">barbearia</span> Online</h1>
         <article className="w-full md:w-1/2 mx-auto mt-5 md:mt-28 flex justify-between transition-all duration-100">
-          <button onClick={() => setUser("adm")} className={cn("w-16 h-16 md:w-20 md:h-20 bg-white/10 rounded-2xl text-terciary-green", user === 'adm' && "bg-terciary-green shadow-md shadow-[#AAD704] text-black")}>
+          <button onClick={() => setUser(UserType.Adm)} className={cn("w-16 h-16 md:w-20 md:h-20 bg-white/10 rounded-2xl text-terciary-green", user === 'adm' && "bg-terciary-green shadow-md shadow-[#AAD704] text-black")}>
             <User className="w-8 h-8 md:w-12 md:h-12 mx-auto"/>
           </button>
-          <button onClick={() => setUser("barber")} className={cn("w-16 h-16 md:w-20 md:h-20 bg-white/10 rounded-2xl text-terciary-green", user === 'barber' && "bg-terciary-green shadow-md shadow-[#AAD704] text-black")}>
+          <button onClick={() => setUser(UserType.Barber)} className={cn("w-16 h-16 md:w-20 md:h-20 bg-white/10 rounded-2xl text-terciary-green", user === 'barber' && "bg-terciary-green shadow-md shadow-[#AAD704] text-black")}>
             <Scissors className="w-8 h-8 md:w-12 md:h-12 mx-auto"/>
           </button>
         </article>
         <article className="w-full h-full mt-16">
-          <FormLogin />
+          <FormLogin userType={user}/>
         </article>
       </section>
       <aside className="hidden lg:flex h-full w-[35%] bg-white/10 rounded-3xl flex-col justify-center items-center gap-20">

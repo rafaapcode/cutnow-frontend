@@ -5,7 +5,18 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-const FormLogin = () => {
+export enum UserType {
+  Barber = "barber",
+  Adm = "adm"
+}
+
+type IUserType = {
+  userType: UserType.Adm | UserType.Barber
+}
+
+
+
+const FormLogin = ({userType}: IUserType) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
