@@ -1,5 +1,6 @@
+import dynamic from "next/dynamic";
 import BreadCrumb from "./_components/BreadCrumb";
-import ServicesUpdateForm from "./ServicesForm/ServicesUpdateForm";
+const ServicesUpdateForm = dynamic(() => import("./ServicesForm/ServicesUpdateForm"));
 
 const Services = () => {
   return (

@@ -1,6 +1,7 @@
 import { PlusCircleIcon } from "lucide-react";
+import dynamic from "next/dynamic";
 import AddBarber from "./_components/AddBarberComponent/AddBarber";
-import CardBarber from "./_components/CardBarber";
+const CardBarber = dynamic(() => import("./_components/CardBarber"));
 
 const Barbers = () => {
   return (

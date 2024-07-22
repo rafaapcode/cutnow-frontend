@@ -1,5 +1,6 @@
-import BreadCrumb from "./_components/BreadCrumb"
-import InfoUpdateForm from "./InfoForm/InfoUpdateForm"
+import dynamic from "next/dynamic";
+import BreadCrumb from "./_components/BreadCrumb";
+const InfoUpdateForm = dynamic(() => import("./InfoForm/InfoUpdateForm"));
 
 const Info = () => {
   return (

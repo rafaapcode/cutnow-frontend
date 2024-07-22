@@ -1,9 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import dynamic from "next/dynamic";
 import { Toaster } from "react-hot-toast";
 import BreadCrumb from "./_components/BreadCrumb";
-import BarberBannerImage from "./_components/UploadsComponents/BarberBannerImage";
-import BarberLogoImage from "./_components/UploadsComponents/BarberLogoImage";
-import BarberStructImages from "./_components/UploadsComponents/BarberStructImages";
+const BarberStructImages = dynamic(() => import("./_components/UploadsComponents/BarberStructImages"));
+const BarberBannerImage = dynamic(() => import("./_components/UploadsComponents/BarberBannerImage"));
+const BarberLogoImage = dynamic(() => import("./_components/UploadsComponents/BarberLogoImage"));
 
 const Images = () => {
   return (

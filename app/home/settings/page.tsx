@@ -1,6 +1,7 @@
 "use client";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-import BarberSettings from "./BarberSettings/BarberSettings";
+import dynamic from "next/dynamic";
+const BarberSettings = dynamic(() => import("./BarberSettings/BarberSettings"));
 
 type MenusShape = {
   title: string;
