@@ -1,24 +1,27 @@
 "use client";
 
+import { DrawerClose } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const BarberBannerImage = () => {
   const [file, setFile] = useState<File>();
-
+  const closeRef = useRef<HTMLButtonElement>(null);
+  
   const onchange = (e: any) => {
     setFile(e.target.files[0]);
   };
 
   const onClick = () => {
+    closeRef.current?.click();
     console.log("Bannerrrr", file);
   };
 
   return (
     <section className="mt-10 w-[90%] mx-auto flex flex-col items-center gap-5">
       <div className="flex flex-col gap-2">
-        <label htmlFor="barber-logo">Banner da sua barbearia</label>
+        <label htmlFor="barber-logo">Banner para o seu perfil</label>
         <Input
           accept="image/png, image/jpeg"
           onChange={onchange}
@@ -30,7 +33,7 @@ const BarberBannerImage = () => {
       <div className="flex w-full flex-col items-center gap-1 md:gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>
-            <div className="w-[300px] h-[200px] md:w-[500px] md:h-[300px] xl:w-[800px] xl:h-[400px] bg-neutral-900 flex flex-col justify-center items-center p-2 rounded-lg">
+            <div className="w-[300px] h-[200px] md:w-[400px] md:h-[200px]  bg-neutral-800 flex flex-col justify-center items-center p-2 rounded-lg">
               <div className="w-full h-full relative">
                 <Image
                   fill
@@ -40,11 +43,6 @@ const BarberBannerImage = () => {
                 />
               </div>
             </div>
-            <p className="mb-5 uppercase text-neutral-500 font-semibold tracking-widest">
-              {file.name.length > 20
-                ? `${file.name.slice(0, 20)}...`
-                : file.name}
-            </p>
           </>
         )}
       </div>
@@ -54,6 +52,7 @@ const BarberBannerImage = () => {
       >
         Upload
       </button>
+      <DrawerClose ref={closeRef} className="hidden"/>
     </section>
   );
 };

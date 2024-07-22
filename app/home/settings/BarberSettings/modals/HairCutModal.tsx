@@ -6,8 +6,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import dynamic from "next/dynamic";
 import React from "react";
-import BarberHairCutImages from "../UploadsComponents/BarberHaircutImages";
+const BarberHairCutImages = dynamic(() => import("../UploadsComponents/BarberHaircutImages"));
 
 const HairCutModal = ({ children }: { children: React.ReactNode }) => {
   return (

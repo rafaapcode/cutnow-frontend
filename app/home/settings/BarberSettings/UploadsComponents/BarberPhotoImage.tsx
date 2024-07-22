@@ -1,28 +1,31 @@
 "use client";
 
+import { DrawerClose } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const BarberPhotoImage = () => {
   const [file, setFile] = useState<File>();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const onchange = (e: any) => {
     setFile(e.target.files[0]);
   };
 
   const onClick = () => {
+    closeRef.current?.click();
     console.log("Logo", file);
   };
 
   return (
     <section className="mt-10 w-[90%] mx-auto flex flex-col items-center gap-5">
       <div className="flex flex-col gap-2">
-        <label htmlFor="barber-logo">Logo da sua barbearia</label>
+        <label htmlFor="barber-photo">Uma foto sua</label>
         <Input
           accept="image/png, image/jpeg"
           onChange={onchange}
-          id="barber-logo"
+          id="barber-photo"
           type="file"
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
@@ -30,7 +33,7 @@ const BarberPhotoImage = () => {
       <div className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>
-            <div className="w-[300px] h-[300px] bg-neutral-900 flex flex-col justify-center items-center p-2 rounded-lg">
+            <div className="w-[400px] h-[350px] bg-neutral-800 flex flex-col justify-center items-center p-2 rounded-lg">
               <div className="w-full h-full relative">
                 <Image
                   fill
@@ -40,11 +43,6 @@ const BarberPhotoImage = () => {
                 />
               </div>
             </div>
-            <p className="mb-5 uppercase text-neutral-500 font-semibold tracking-widest">
-              {file.name.length > 20
-                ? `${file.name.slice(0, 20)}...`
-                : file.name}
-            </p>
           </>
         )}
       </div>
@@ -54,6 +52,7 @@ const BarberPhotoImage = () => {
       >
         Upload
       </button>
+      <DrawerClose ref={closeRef} className="hidden"/>
     </section>
   );
 };

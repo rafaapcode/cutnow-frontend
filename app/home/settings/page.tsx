@@ -30,7 +30,7 @@ const menus: MenusShape = [
 ];
 
 const Settings = () => {
-  const isAdm = false;
+  const isAdm = true;
   return (
     <>
     {isAdm ? (<HoverEffect items={menus} />) : <BarberSettings /> }
