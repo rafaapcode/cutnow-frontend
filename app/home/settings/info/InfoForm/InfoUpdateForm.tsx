@@ -4,17 +4,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import BairroInput from "./FieldsComponents/BairroInput";
 import BarbershopNameInput from "./FieldsComponents/BarbershopNameInput";
 import CEPInput from "./FieldsComponents/CEPInput";
 import CidadeInput from "./FieldsComponents/CidadeInput";
+import CloseHourInput from "./FieldsComponents/CloseHour";
 import CnpjInput from "./FieldsComponents/CnpjInput";
 import EmailInput from "./FieldsComponents/EmailInput";
 import EstadoInput from "./FieldsComponents/EstadoInput";
 import NameInput from "./FieldsComponents/NameInput";
 import NumeroInput from "./FieldsComponents/NumeroInput";
+import OpenHourInput from "./FieldsComponents/OpenHour";
 import RuaInput from "./FieldsComponents/RuaInput";
 import { IFormData } from "./Form.type";
 
@@ -27,6 +29,7 @@ const InfoUpdateForm = () => {
     watch,
     setValue,
     setError,
+    control,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     // TODO: Fazer o fetch ao banco de dados , para pegar os dados e atribuir como valor padrão
@@ -41,6 +44,8 @@ const InfoUpdateForm = () => {
       estado: "",
       numero: "",
       rua: "",
+      horarioAbertura: "",
+      horarioFechamento: ""
     })),
     resolver: zodResolver(UpdateInfoSchema, undefined, { mode: "async" }),
     mode: "onBlur",
@@ -49,7 +54,7 @@ const InfoUpdateForm = () => {
   const onSubmit = handleSubmit(async (data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
-    router.push("/home/settings");
+    // router.push("/home/settings");
     toast.success("Informações atualizadas com sucesso !");
   });
 
@@ -116,6 +121,24 @@ const InfoUpdateForm = () => {
           register={register}
           errors={errors}
           isSubmitting={isSubmitting}
+        />
+        <Controller 
+         control={control}
+         name="horarioAbertura"
+         render={
+          ({ field: { onChange } }) => (
+            <OpenHourInput onChange={onChange}/>
+          )
+         }
+        />
+        <Controller 
+          control={control}
+          name="horarioFechamento"
+          render={
+            ({ field: { onChange } }) => (
+              <CloseHourInput onChange={onChange}/>
+            )
+          }
         />
         <div className="w-full md:col-span-2 mt-5 md:mt-0 flex justify-end items-center">
           <button
