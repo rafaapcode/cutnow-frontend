@@ -1,5 +1,5 @@
 "use client";
-import { loginAdm } from "@/app/actions/login";
+import { loginAdm, loginBarber } from "@/app/actions/login";
 import { LoginFormSchema } from "@/schema/LoginFormSchema";
 import { LoaderCircle, LogIn } from "lucide-react";
 import Link from "next/link";
@@ -46,7 +46,19 @@ const FormLogin = ({userType}: IUserType) => {
             setLoading(false);
           });
       } else {
-        toast.success("Autenticado !")
+        setLoading(true)
+        loginBarber(result.data)
+          .then(res => {
+            if(res.status) {
+              toast.success(res.message);
+            } else {
+              toast.error(res.message);
+            }
+          })
+          .catch(err => toast.error(err.message))
+          .finally(() => {
+            setLoading(false);
+          });
       }
     }
   };

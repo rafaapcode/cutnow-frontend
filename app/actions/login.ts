@@ -16,37 +16,54 @@ export const loginAdm = async (
 ): Promise<ResponseLogin> => {
   try {
     const controller = new AbortController();
-    const response = await apiClient.post("/auth/login/admin", loginPayload, {signal: controller.signal});
- 
-     return {
+    const response = await apiClient.post("/auth/login/admin", loginPayload, {
+      signal: controller.signal,
+    });
+
+    return {
       status: true,
       message: response.data.message,
       signedIn: response.data.signedIn,
     };
   } catch (error: any) {
-    if(error.response.status !== 400) {
+    console.log(error.response.status);
+    if (error.response.status === 400 || error.response.status === 401) {
       return {
         status: false,
-        message: error.message,
+        message: error.response.data.message,
         signedIn: null,
       };
     }
     return {
       status: false,
-      message: error.response.data.message,
+      message: error.message,
       signedIn: null,
     };
   }
 };
 
-export const loginBarber = async (oginPayload: LoginPayload): Promise<ResponseLogin> => {
+export const loginBarber = async (
+  loginPayload: LoginPayload
+): Promise<ResponseLogin> => {
   try {
+    const controller = new AbortController();
+    const response = await apiClient.post("/auth/login/barber", loginPayload, {
+      signal: controller.signal,
+    });
+
     return {
-      status: false,
-      message: "",
-      signedIn: null,
+      status: true,
+      message: response.data.message,
+      signedIn: response.data.signedIn,
     };
   } catch (error: any) {
+    if (error.response.status === 400 || error.response.status === 401) {
+      return {
+        status: false,
+        message: error.response.data.message,
+        signedIn: null,
+      };
+    }
     return {
       status: false,
       message: error.message,
