@@ -1,4 +1,5 @@
 "use client";
+import { loginAdm } from "@/app/actions/login";
 import { LoginFormSchema } from "@/schema/LoginFormSchema";
 import { LoaderCircle, LogIn } from "lucide-react";
 import Link from "next/link";
@@ -20,11 +21,9 @@ const FormLogin = ({userType}: IUserType) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = LoginFormSchema.safeParse({email: emailRef.current?.value, password: passwordRef.current?.value});
-    //TODO: Tratamento de erro deve ser feito no ACTION e não aqui. Os toasts devem ser tratados np THEN e CATCH aqui.
     if(!result.success) {
       if(result.error.issues.length == 2) {
         toast(`${result.error.issues[0].message}\n\n${result.error.issues[1].message}`, {duration: 3000});
@@ -32,9 +31,24 @@ const FormLogin = ({userType}: IUserType) => {
         toast(`${result.error.issues[0].message}`, {duration: 3000});
       }
     } else {
-      toast.success("Autenticado !")
+      if(userType === UserType.Adm) {
+        setLoading(true)
+        loginAdm(result.data)
+          .then(res => {
+            if(res.status) {
+              toast.success(res.message);
+            } else {
+              toast.error(res.message);
+            }
+          })
+          .catch(err => toast.error(err.message))
+          .finally(() => {
+            setLoading(false);
+          });
+      } else {
+        toast.success("Autenticado !")
+      }
     }
-    setLoading(false);
   };
 
   return (
@@ -49,7 +63,7 @@ const FormLogin = ({userType}: IUserType) => {
       </div>
       <Link href="/signup" className="w-fit transition-all duration-100 text-paragraph-1 text-secondary-green hover:text-terciary-green mt-5">Não tem uma conta , clique aqui !</Link>
       <div className="mt-5 md:mt-16 mx-auto">
-        <button onClick={() => setLoading(true)} className="transition-all duration-200 w-[200px] flex justify-evenly items-center bg-white/10 hover:bg-secondary-black rounded-md p-4 text-subtitle-2 text-white">
+        <button disabled={loading} className="transition-all duration-200 w-[200px] flex justify-evenly items-center bg-white/10 hover:bg-secondary-black disabled:bg-neutral-900 disabled:text-neutral-700 rounded-md p-4 text-subtitle-2 text-white">
           {loading ? <LoaderCircle className="w-7 h-7 animate-spin"/> : <>Login <LogIn className="w-7 h-7"/></>}
         </button>
       </div>
