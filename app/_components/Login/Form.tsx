@@ -18,6 +18,7 @@ type IUserType = {
 
 
 const FormLogin = ({userType}: IUserType) => {
+  // const { setUser } = useAuthStore();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,8 @@ const FormLogin = ({userType}: IUserType) => {
           .then(res => {
             if(res.status) {
               toast.success(res.message);
+              console.log(res.data);
+              // setUser(res.data);
             } else {
               toast.error(res.message);
             }
@@ -51,6 +54,7 @@ const FormLogin = ({userType}: IUserType) => {
           .then(res => {
             if(res.status) {
               toast.success(res.message);
+              console.log(res);
             } else {
               toast.error(res.message);
             }

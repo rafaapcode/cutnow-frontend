@@ -3,7 +3,6 @@ import { useStepper } from "@/app/hooks/useStepper";
 import { cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
 import React, { createContext, useCallback, useState } from "react";
-import Balancer from "react-wrap-balancer";
 
 type StepsType = {
   label: string;
@@ -33,7 +32,7 @@ const Stepper = ({ steps }: StepperType) => {
   return (
     <StepperContext.Provider value={{ nextStep, previousStep }}>
       <div className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto transition-all duration-100">
-        <ul className="flex w-full md:w-[90%] mx-auto justify-evenly text-white">
+        <ul className="flex w-full md:w-[90%] lg:w-full mx-auto justify-evenly text-white">
           {steps.map((step, index) => (
             <li
               key={index}
@@ -42,7 +41,7 @@ const Stepper = ({ steps }: StepperType) => {
                 index == stepIndex && "bg-secondary-black"
               )}
             >
-              <Balancer>{String(index + 1).padStart(2, "0")}. {step.label}</Balancer>
+              {String(index + 1).padStart(2, "0")}. {step.label}
             </li>
           ))}
         </ul>

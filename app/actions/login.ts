@@ -1,12 +1,13 @@
 "use server";
 import { apiClient } from "@/lib/axios";
 import { LoginFormSchema } from "@/schema/LoginFormSchema";
+import { cookies } from "next/headers";
 import { z } from "zod";
 
 type ResponseLogin = {
   status: boolean;
   message: string;
-  signedIn: boolean | null;
+  data?: any
 };
 
 type LoginPayload = z.infer<typeof LoginFormSchema>;
@@ -20,10 +21,11 @@ export const loginAdm = async (
       signal: controller.signal,
     });
 
+    cookies().set('signedin', response.data.signedIn)
     return {
       status: true,
       message: response.data.message,
-      signedIn: response.data.signedIn,
+      data: response.data.data
     };
   } catch (error: any) {
     console.log(error.response.status);
@@ -31,13 +33,11 @@ export const loginAdm = async (
       return {
         status: false,
         message: error.response.data.message,
-        signedIn: null,
       };
     }
     return {
       status: false,
-      message: error.message,
-      signedIn: null,
+      message: error.message
     };
   }
 };
@@ -51,23 +51,23 @@ export const loginBarber = async (
       signal: controller.signal,
     });
 
+
+    cookies().set('signedin', response.data.signedIn)
     return {
       status: true,
       message: response.data.message,
-      signedIn: response.data.signedIn,
+      data: response.data.data
     };
   } catch (error: any) {
     if (error.response.status === 400 || error.response.status === 401) {
       return {
         status: false,
         message: error.response.data.message,
-        signedIn: null,
       };
     }
     return {
       status: false,
-      message: error.message,
-      signedIn: null,
+      message: error.message
     };
   }
 };
