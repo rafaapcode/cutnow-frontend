@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { Newspaper, ScissorsIcon, Settings } from "lucide-react";
+import { LogOutIcon, Newspaper, ScissorsIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -57,15 +57,20 @@ const NavBar = () => {
             </Link>
           </>
         )}
-         <Link
-              href="/home/settings"
-              className={cn(
-                "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
-                pathName == "/home/settings" && "border-b border-[#AAD704]"
-              )}
-            >
-              <Settings />
-            </Link>
+        <Link
+          href="/home/settings"
+          className={cn(
+            "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
+            pathName == "/home/settings" && "border-b border-[#AAD704]"
+          )}
+        >
+          <Settings />
+        </Link>
+        <span
+          className="text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1 cursor-pointer"
+        >
+          <LogOutIcon />
+        </span>
         <div className="w-[65px] h-[65px]">
           <Avatar className="size-full">
             <AvatarImage

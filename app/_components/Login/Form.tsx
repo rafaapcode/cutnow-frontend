@@ -1,8 +1,10 @@
 "use client";
 import { loginAdm, loginBarber } from "@/app/actions/login";
+import { useAuthStore } from "@/context/authContext";
 import { LoginFormSchema } from "@/schema/LoginFormSchema";
 import { LoaderCircle, LogIn } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -15,10 +17,9 @@ type IUserType = {
   userType: UserType.Adm | UserType.Barber
 }
 
-
-
 const FormLogin = ({userType}: IUserType) => {
-  // const { setUser } = useAuthStore();
+  const { setUser } = useAuthStore();
+  const router = useRouter();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
@@ -38,8 +39,8 @@ const FormLogin = ({userType}: IUserType) => {
           .then(res => {
             if(res.status) {
               toast.success(res.message);
-              console.log(res.data);
-              // setUser(res.data);
+              setUser({...res.data, isAdm: true});
+              router.push('/home');
             } else {
               toast.error(res.message);
             }
@@ -54,7 +55,8 @@ const FormLogin = ({userType}: IUserType) => {
           .then(res => {
             if(res.status) {
               toast.success(res.message);
-              console.log(res);
+              setUser({...res.data, isAdm: false});
+              router.push('/home');
             } else {
               toast.error(res.message);
             }
