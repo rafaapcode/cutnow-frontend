@@ -7,7 +7,7 @@ import { z } from "zod";
 type ResponseLogin = {
   status: boolean;
   message: string;
-  data?: any
+  data?: any;
 };
 
 type LoginPayload = z.infer<typeof LoginFormSchema>;
@@ -21,23 +21,22 @@ export const loginAdm = async (
       signal: controller.signal,
     });
 
-    cookies().set('signedin', response.data.signedIn)
+    cookies().set("signedin", response.data.signedIn);
     return {
       status: true,
       message: response.data.message,
-      data: response.data.data
+      data: response.data.data,
     };
   } catch (error: any) {
-    console.log(error.response.status);
-    if (error.response.status === 400 || error.response.status === 401) {
+    if (error.status === 400) {
       return {
         status: false,
-        message: error.response.data.message,
+        message: error.data.message,
       };
     }
     return {
       status: false,
-      message: error.message
+      message: error.message,
     };
   }
 };
@@ -51,23 +50,34 @@ export const loginBarber = async (
       signal: controller.signal,
     });
 
-
-    cookies().set('signedin', response.data.signedIn)
+    cookies().set("signedin", response.data.signedIn);
     return {
       status: true,
       message: response.data.message,
-      data: response.data.data
+      data: response.data.data,
     };
   } catch (error: any) {
-    if (error.response.status === 400 || error.response.status === 401) {
+    if (error.status === 400) {
       return {
         status: false,
-        message: error.response.data.message,
+        message: error.data.message,
       };
     }
     return {
       status: false,
-      message: error.message
+      message: error.message,
+    };
+  }
+};
+
+export const refresh = async () => {
+  try {
+    const response = await apiClient.get("/auth/refresh");
+    return response;
+  } catch (error: any) {
+    return {
+      status: false,
+      message: error.message,
     };
   }
 };
