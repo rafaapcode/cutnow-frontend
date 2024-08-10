@@ -1,17 +1,20 @@
 "use client";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useAuthStore } from "@/context/authContext";
 import { cn } from "@/lib/utils";
-import { LogOutIcon, Newspaper, ScissorsIcon, Settings } from "lucide-react";
+import { Newspaper, ScissorsIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import LogOutButton from "../LogOutButton";
 import AvatarMobile from "./AvatarMobile";
 import StatusComponent from "./StatusComponent";
 
 const NavBar = () => {
+  const { user } = useAuthStore();
   const [status, setStatus] = useState("");
-  const isAdm = true;
+  const isAdm = user.isAdm;
   const pathName = usePathname();
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
@@ -66,11 +69,7 @@ const NavBar = () => {
         >
           <Settings />
         </Link>
-        <span
-          className="text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1 cursor-pointer"
-        >
-          <LogOutIcon />
-        </span>
+        <LogOutButton />
         <div className="w-[65px] h-[65px]">
           <Avatar className="size-full">
             <AvatarImage

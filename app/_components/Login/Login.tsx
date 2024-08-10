@@ -1,13 +1,21 @@
 "use client";
+import { useAuthStore } from "@/context/authContext";
 import { cn } from "@/lib/utils";
 import { Scissors, User } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import FormLogin, { UserType } from "./Form";
 
 const Login = () => {
   const [user, setUser] = useState<UserType>(UserType.Adm);
+  const { user: userAuth, setUser: setUserAuth } = useAuthStore();
+
+  useEffect(() => {
+    if(userAuth) {  
+      setUserAuth(null);
+    }
+  }, []);
 
   return (
     <>

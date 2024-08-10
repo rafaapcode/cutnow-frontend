@@ -7,10 +7,14 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
     return NextResponse.redirect(new URL("/", request.url));
+  } else {
+    if(request.nextUrl.pathname === "/") {
+      return NextResponse.redirect(new URL("/home", request.url));
+    }
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/home/:path*', '/home']
+  matcher: ['/home/:path*', '/home', '/']
 };

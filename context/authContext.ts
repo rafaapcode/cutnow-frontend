@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type AuthState = {
-  user: null;
+  user: any;
   setUser: (newUser: any) => void;
 }
 
