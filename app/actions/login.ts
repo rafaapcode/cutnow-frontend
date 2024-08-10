@@ -73,7 +73,7 @@ export const loginBarber = async (
 export const refresh = async () => {
   try {
     const response = await apiClient.get("/auth/refresh");
-    return response;
+    return {status: true, data:response};
   } catch (error: any) {
     return {
       status: false,

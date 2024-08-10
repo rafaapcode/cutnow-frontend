@@ -1,4 +1,5 @@
 import { refresh } from "@/app/actions/login";
+import { logout } from "@/app/actions/logout";
 import axios from "axios";
 
 export const apiClient = axios.create({
@@ -13,8 +14,11 @@ apiClient.interceptors.response.use(
       return Promise.reject(error.response);
     }
     const originalRequest = error.config;
-    await refresh();
-
+    const res = await refresh();
+    if(!res.status){
+      await logout();
+      return Promise.reject(error.response);
+    }
     return apiClient(originalRequest);
   }
 );
