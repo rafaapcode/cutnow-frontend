@@ -17,6 +17,7 @@ const NavBar = () => {
   const [status, setStatus] = useState("");
   const isAdm = user.isAdm ? user.isAdm : false;
   const pathName = usePathname();
+
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
       <Toaster position="top-center"/>
@@ -33,7 +34,7 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="w-fit">
-          <StatusComponent isAdm={isAdm} setStatus={setStatus} />
+          <StatusComponent status='Indisponível' isAdm={isAdm} setStatus={setStatus} />
         </div>
       </div>
       <div className="hidden md:flex items-center gap-10">

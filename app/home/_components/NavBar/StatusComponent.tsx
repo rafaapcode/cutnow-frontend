@@ -10,14 +10,16 @@ import {
 const StatusComponent = ({
   setStatus,
   isAdm,
+  status
 }: {
   setStatus: (e: any) => void;
   isAdm: boolean;
+  status: string
 }) => {
   return (
     <Select onValueChange={setStatus}>
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="Status" />
+        <SelectValue placeholder={status} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

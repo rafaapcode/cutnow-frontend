@@ -6,7 +6,6 @@ import { ServiceFormSchema } from "@/schema/ServiceSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Balancer from "react-wrap-balancer";
@@ -17,9 +16,8 @@ import { IFormData } from "./Form.type";
 const ServicesForm = () => {
   const {barbershopInfo} = useBarbershopInfoState();
   const {barbershopLocalization} = useBarbershopLocalizationState();
-  const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const { control, register, handleSubmit, formState: {errors, isValid}  } = useForm<IFormData>({
+  const { control, register, handleSubmit, formState: {errors, isValid, isSubmitting}  } = useForm<IFormData>({
     defaultValues: {
       services: [
         { nome: "Cabelo", preco: "35", tempo: "60" },
@@ -42,19 +40,15 @@ const ServicesForm = () => {
       ...barbershopLocalization,
       servicos
     };
-    startTransition(() => {
-      SignUpAdmin(barbershopSignUpData)
-      .then(res => {
-        if(res.status) {
-          toast.success(res.message);
-          router.push("/");
-        } else {
-          toast.error(res.message);
-        }
-      })
-      .catch(err => toast.error(err.message))
-    });
-    sessionStorageDeleteItem("localization-data");
+    const res = await SignUpAdmin(barbershopSignUpData);
+
+    if(res.status) {
+      toast.success(res.message);
+      sessionStorageDeleteItem("localization-data");
+      router.push("/");
+    } else {
+      toast.error(res.message);
+    }
   };
 
   return (
@@ -94,8 +88,8 @@ const ServicesForm = () => {
         {errors.services && <small className={cn("text-xs text-red-300 tracking-tight", !errors.services[0]?.tempo && "hidden")}>{errors.services[0]?.tempo?.message}</small>} 
         <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
           <PrevStepperButton />
-          <button disabled={!isValid || isPending || services.fields.length == 0} className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20">
-           {isPending ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Finalizar"}
+          <button disabled={!isValid || isSubmitting || services.fields.length == 0} className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20">
+           {isSubmitting ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Finalizar"}
           </button>
         </div>
       </form>
