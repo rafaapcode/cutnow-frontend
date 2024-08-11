@@ -1,5 +1,6 @@
 "use client";
 import { useStepper } from "@/app/hooks/useStepper";
+import { useBarbershopLocalizationState } from "@/context/barberShopInfo";
 import { sessionStorageGetItem } from "@/lib/utils";
 import { LocalizationFormSchema } from "@/schema/LocalizationFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +17,7 @@ import RuaInput from "./FieldsComponents/RuaInput";
 
 const LocalizationForm = () => {
   const { nextStep } = useStepper();
-
+  const { setBarbershopLocalization } = useBarbershopLocalizationState();
   const locData = sessionStorageGetItem<IFormData>("localization-data");
 
   const {
@@ -38,9 +39,18 @@ const LocalizationForm = () => {
     mode: "onBlur",
     resolver: zodResolver(LocalizationFormSchema),
   });
-  const onSubmit = handleSubmit(async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  const onSubmit = handleSubmit((data: IFormData) => {
     sessionStorage.setItem("localization-data", JSON.stringify(data));
+    console.log(data);
+    const { CEP, ...info } = data;
+    setBarbershopLocalization({
+      informacoes: {
+        ...info,
+        cep: CEP,
+        horarioAbertura: "00:00h",
+        horarioFechamento: "00:00h",
+      },
+    });
     nextStep();
   });
 

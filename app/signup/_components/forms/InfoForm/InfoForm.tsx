@@ -1,5 +1,6 @@
 "use client";
 import { useStepper } from "@/app/hooks/useStepper";
+import { useBarbershopInfoState } from "@/context/barberShopInfo";
 import { SignUpSchema } from "@/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,6 +15,7 @@ import { IFormData } from "./Form.type";
 
 const InfoForm = () => {
   const { nextStep } = useStepper();
+  const { setBarbershopInfo } = useBarbershopInfoState()
 
   const {
     handleSubmit,
@@ -32,8 +34,12 @@ const InfoForm = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = handleSubmit(async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  const onSubmit = handleSubmit((data: IFormData) => {
+    const { confirmeSenha, nomeBarbearia, ...info } = data;
+    setBarbershopInfo({
+      ...info,
+      nomeDaBarbearia: nomeBarbearia
+    });
     nextStep();
   });
 

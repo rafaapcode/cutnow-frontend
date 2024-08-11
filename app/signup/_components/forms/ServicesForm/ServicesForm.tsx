@@ -1,4 +1,5 @@
 "use client";
+import { useBarbershopInfoState, useBarbershopLocalizationState } from "@/context/barberShopInfo";
 import { cn } from "@/lib/utils";
 import { ServiceFormSchema } from "@/schema/ServiceSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +11,8 @@ import ServiceField from "./FieldsComponents/ServiceField";
 import { IFormData } from "./Form.type";
 
 const ServicesForm = () => {
+  const {barbershopInfo} = useBarbershopInfoState();
+  const {barbershopLocalization} = useBarbershopLocalizationState();
   const { control, register, handleSubmit, formState: {errors, isValid, isSubmitting}  } = useForm<IFormData>({
     defaultValues: {
       services: [
@@ -26,9 +29,11 @@ const ServicesForm = () => {
     name: "services",
   });
 
-  const onSubmit = async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+  const onSubmit = async (data: IFormData) => {
+    const servicos = data.services.map(({nome, preco, tempo}) => ({nomeService: nome, preco: parseFloat(preco), tempoMedio: parseFloat(tempo)}));
+    console.log(barbershopInfo, servicos, barbershopLocalization);
+
+    // sessionStorageDeleteItem("localization-data");
   };
 
   return (

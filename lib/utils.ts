@@ -43,3 +43,12 @@ export function sessionStorageGetItem<T>(key: string): T | null {
     return null;
   }
 }
+
+export function sessionStorageDeleteItem(key: string): boolean | null {
+  try {
+    sessionStorage.removeItem(key);
+    return true;
+  } catch  {
+    return null;
+  }
+}
