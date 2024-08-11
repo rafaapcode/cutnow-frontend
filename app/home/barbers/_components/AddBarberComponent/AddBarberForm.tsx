@@ -1,5 +1,6 @@
 "use client";
 
+import { logout } from "@/app/actions/logout";
 import { SignUpBarber } from "@/app/actions/signUpBarber";
 import { DrawerClose, DrawerFooter } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
@@ -7,15 +8,17 @@ import { useAuthStore } from "@/context/authContext";
 import { AddBarberSchema } from "@/schema/AddBaberFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import * as z from "zod";
 type IFormData = z.infer<typeof AddBarberSchema>;
 
 const AddBarberForm = () => {
   const refExitButton = useRef<HTMLButtonElement>(null);
   const { user } = useAuthStore();
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -39,11 +42,21 @@ const AddBarberForm = () => {
       barbearia_id: user.id
     };
     const response = await SignUpBarber(barberData);
-
     if(response.status) {
       toast.success(response.message);
       refExitButton.current?.click();
     } else {
+      if(response.statusCode === 401) {
+        const logoutResponse = await logout();
+        if(logoutResponse.status) {
+          router.push('/');
+          return;
+        } else {
+          console.log(logoutResponse.message);
+          router.push('/');
+          return;
+        }
+      }
       toast.error(response.message);
       reset();
     }
@@ -57,7 +70,6 @@ const AddBarberForm = () => {
       className="mx-auto w-full md:w-[90%] xl:w-[80%] grid grid-cols-2 gap-x-10 gap-y-5 mt-5"
       onSubmit={handleSubmit(onSubmit)}
     >
-       <Toaster position="bottom-center"/>
       <div className="flex flex-col gap-2">
         <label htmlFor="nome">Nome</label>
         <Input

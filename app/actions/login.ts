@@ -19,8 +19,18 @@ export const loginAdm = async (
     const controller = new AbortController();
     const response = await apiClient.post("/auth/login/admin", loginPayload, {
       signal: controller.signal,
+      withCredentials: true,
     });
+    const header_cookie_access = response.headers["set-cookie"] && response.headers["set-cookie"][0].split(';');
+    let accessToken = header_cookie_access && header_cookie_access[0];
+    accessToken = accessToken?.replace('access_token=', '');
 
+    const header_cookie_refresh = response.headers["set-cookie"] && response.headers["set-cookie"][1].split(';');
+    let refreshToken = header_cookie_refresh && header_cookie_refresh[0];
+    refreshToken = refreshToken?.replace('refresh_token=', '');
+
+    cookies().set('access_token', accessToken!);
+    cookies().set('refresh_token', refreshToken!);
     cookies().set("signedin", response.data.signedIn);
     return {
       status: true,
@@ -50,6 +60,18 @@ export const loginBarber = async (
       signal: controller.signal,
     });
 
+    const header_cookie_access = response.headers["set-cookie"] && response.headers["set-cookie"][0].split(';');
+    let accessToken = header_cookie_access && header_cookie_access[0];
+    accessToken = accessToken?.replace('access_token=', '');
+
+    const header_cookie_refresh = response.headers["set-cookie"] && response.headers["set-cookie"][1].split(';');
+    let refreshToken = header_cookie_refresh && header_cookie_refresh[0];
+    refreshToken = refreshToken?.replace('refresh_token=', '');
+
+    cookies().set('access_token', accessToken!);
+    cookies().set('refresh_token', refreshToken!);
+    cookies().set("signedin", response.data.signedIn);
+
     cookies().set("signedin", response.data.signedIn);
     return {
       status: true,
@@ -72,8 +94,25 @@ export const loginBarber = async (
 
 export const refresh = async () => {
   try {
-    const response = await apiClient.get("/auth/refresh");
-    return {status: true, data:response};
+    const refresh_token = cookies().get('refresh_token');
+    const response = await apiClient.get("/auth/refresh", {
+      headers: {
+        Authorization: refresh_token?.value
+      }
+    });
+
+    const header_cookie_access = response.headers["set-cookie"] && response.headers["set-cookie"][0].split(';');
+    let accessToken = header_cookie_access && header_cookie_access[0];
+    accessToken = accessToken?.replace('access_token=', '');
+
+    const header_cookie_refresh = response.headers["set-cookie"] && response.headers["set-cookie"][1].split(';');
+    let refreshToken = header_cookie_refresh && header_cookie_refresh[0];
+    refreshToken = refreshToken?.replace('refresh_token=', '');
+
+    cookies().set('access_token', accessToken!);
+    cookies().set('refresh_token', refreshToken!);
+
+    return {status: true, data:response.data};
   } catch (error: any) {
     return {
       status: false,

@@ -6,6 +6,8 @@ export const logout = async () => {
   try {
     const res = await apiClient.get("/auth/signOut");
     cookies().delete("signedin");
+    cookies().delete("access_token");
+    cookies().delete("refresh_token");
 
     return {
       status: true,

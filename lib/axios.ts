@@ -1,10 +1,10 @@
 import { refresh } from "@/app/actions/login";
-import { logout } from "@/app/actions/logout";
 import axios from "axios";
+
 
 export const apiClient = axios.create({
   baseURL: process.env.BASE_URL,
-  withCredentials: true
+  withCredentials: true,
 });
 
 apiClient.interceptors.response.use(
@@ -16,7 +16,6 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config;
     const res = await refresh();
     if(!res.status){
-      await logout();
       return Promise.reject(error.response);
     }
     return apiClient(originalRequest);
