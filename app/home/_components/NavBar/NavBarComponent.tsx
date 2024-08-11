@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import LogOutButton from "../LogOutButton";
 import AvatarMobile from "./AvatarMobile";
 import StatusComponent from "./StatusComponent";
@@ -18,6 +19,7 @@ const NavBar = () => {
   const pathName = usePathname();
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
+      <Toaster position="top-center"/>
       <div className="flex items-center gap-5 px-2 md:px-0 md:gap-10">
         <div className="w-[101px] h-[83px] relative">
           <Link href="/home">

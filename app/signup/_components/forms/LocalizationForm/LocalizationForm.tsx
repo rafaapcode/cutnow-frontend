@@ -41,11 +41,11 @@ const LocalizationForm = () => {
   });
   const onSubmit = handleSubmit((data: IFormData) => {
     sessionStorage.setItem("localization-data", JSON.stringify(data));
-    console.log(data);
-    const { CEP, ...info } = data;
+    const { CEP, numero, ...info } = data;
     setBarbershopLocalization({
       informacoes: {
         ...info,
+        numero: parseInt(numero),
         cep: CEP,
         horarioAbertura: "00:00h",
         horarioFechamento: "00:00h",

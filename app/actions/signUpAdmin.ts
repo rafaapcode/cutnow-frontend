@@ -1,16 +1,20 @@
 "use server";
-import { apiClient } from "@/lib/axios";
-import { cookies } from "next/headers";
 
-export const logout = async () => {
+import { apiClient } from "@/lib/axios";
+
+type ResponseSignUp = {
+  status: boolean;
+  message: string;
+};
+
+export const SignUpAdmin = async (barbershopInfos: any): Promise<ResponseSignUp> => {
   try {
-    const res = await apiClient.get("/auth/signOut");
-    cookies().delete("signedin");
+    const response = await apiClient.post("/auth/signup/admin", barbershopInfos);
 
     return {
       status: true,
-      message: res.data.message,
-    };
+      message: response.data.message
+    }
   } catch (error: any) {
     if (error.status === 400) {
       return {

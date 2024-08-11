@@ -2,13 +2,21 @@
 import { logout } from "@/app/actions/logout";
 import { LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const LogOutButton = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    logout();
-    router.push('/');
+    logout()
+      .then(res => {
+        if(res.status) {
+          router.push('/');
+        } else {
+          toast.error(res.message);
+        }
+      })
+      .catch(err => toast.error(err.message));
   }
 
   return (

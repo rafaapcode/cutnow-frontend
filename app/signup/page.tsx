@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Toaster } from "react-hot-toast";
 import InforForm from "./_components/forms/InfoForm/InfoForm";
 import ServicesForm from "./_components/forms/ServicesForm/ServicesForm";
 import Stepper, { StepperType } from "./_components/Stepper/Stepper";
@@ -20,6 +21,7 @@ const SignUp = () => {
 
   return (
     <main className="bg-main-black flex flex-col gap-8 lg:gap-0 lg:flex-row justify-between items-center h-screen p-3 md:p-5">
+      <Toaster position="top-center"/>
       <aside className="hidden h-full w-[30%] bg-white/10 lg:flex justify-center items-center rounded-3xl">
         <div className="w-[248px] h-[203px] relative">
           <Link href="/">
