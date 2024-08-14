@@ -6,7 +6,7 @@ type AuthState = {
   setUser: (newUser: any) => void;
 }
 
-export const useAuthStore = create<AuthState>()(
+export const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
   persist(
     (set) => ({
       user: null,

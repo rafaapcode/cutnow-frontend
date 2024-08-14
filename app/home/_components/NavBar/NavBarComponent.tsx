@@ -15,9 +15,9 @@ import StatusComponent from "./StatusComponent";
 const NavBar = () => {
   const { user } = useAuthStore();
   const [status, setStatus] = useState("");
-  const isAdm = user.isAdm ? user.isAdm : false;
+  const isAdm = user.isAdm ?? false;
   const pathName = usePathname();
-
+  console.log(user);
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
       <Toaster position="top-center"/>

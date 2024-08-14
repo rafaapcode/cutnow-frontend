@@ -8,6 +8,7 @@ import {
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Newspaper, Scissors, Settings } from "lucide-react";
 import Link from "next/link";
+import LogOutButton from "../LogOutButton";
 
 type AvatarMobileProps = {
   avatarUrl: string;
@@ -44,6 +45,9 @@ const AvatarMobile = ({ avatarUrl, isAdm }: AvatarMobileProps) => {
           <DropdownMenuItem>
             <Settings className="mr-2 size-4" />
             <Link href="/home/settings">Settings</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <LogOutButton classname="text-white size-4"/>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
