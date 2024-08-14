@@ -13,7 +13,7 @@ import AvatarMobile from "./AvatarMobile";
 import StatusComponent from "./StatusComponent";
 
 const NavBar = () => {
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const [status, setStatus] = useState("");
   const isAdm = user.isAdm ?? false;
   const pathName = usePathname();
