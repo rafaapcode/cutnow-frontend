@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const BarberLogoImage = () => {
   const [file, setFile] = useState<File>();
@@ -14,6 +14,15 @@ const BarberLogoImage = () => {
   const onClick = () => {
     console.log("Logo", file);
   };
+
+  const previewUrlImage = useMemo(() => {
+    if(!file) {
+      return null;
+    }
+
+    return URL.createObjectURL(file);
+
+  }, [file]);
 
   return (
     <section className="mt-10 w-[90%] mx-auto flex flex-col items-center gap-5">
@@ -35,7 +44,7 @@ const BarberLogoImage = () => {
                 <Image
                   fill
                   alt="image to upload"
-                  src={URL.createObjectURL(file)}
+                  src={previewUrlImage ? previewUrlImage : ''}
                   className="rounded-md object-contain"
                 />
               </div>

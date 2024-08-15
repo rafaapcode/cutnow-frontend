@@ -3,7 +3,7 @@
 import { DrawerClose } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const BarberPhotoImage = () => {
   const [file, setFile] = useState<File>();
@@ -17,6 +17,15 @@ const BarberPhotoImage = () => {
     closeRef.current?.click();
     console.log("Logo", file);
   };
+
+  const previewUrlImage = useMemo(() => {
+    if(!file) {
+      return null;
+    }
+
+    return URL.createObjectURL(file);
+
+  }, [file]);
 
   return (
     <section className="mt-10 w-[90%] mx-auto flex flex-col items-center gap-5">
@@ -38,7 +47,7 @@ const BarberPhotoImage = () => {
                 <Image
                   fill
                   alt="image to upload"
-                  src={URL.createObjectURL(file)}
+                  src={previewUrlImage ? previewUrlImage : ''}
                   className="rounded-md object-contain"
                 />
               </div>
