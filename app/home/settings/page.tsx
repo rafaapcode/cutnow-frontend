@@ -33,7 +33,7 @@ const menus: MenusShape = [
 
 const Settings = () => {
   const user = useAuthStore((state) => state.user);
-  const isAdm = user.isAdm;
+  const isAdm = user ? user.isAdm : false;
   return (
     <>
     {isAdm ? (<HoverEffect items={menus} />) : <BarberSettings /> }

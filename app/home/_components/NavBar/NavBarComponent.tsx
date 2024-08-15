@@ -15,7 +15,7 @@ import StatusComponent from "./StatusComponent";
 const NavBar = () => {
   const user = useAuthStore((state) => state.user);
   const [status, setStatus] = useState("");
-  const isAdm = user.isAdm ?? false;
+  const isAdm = user ? user.isAdm : false;
   const pathName = usePathname();
   console.log(user);
   return (

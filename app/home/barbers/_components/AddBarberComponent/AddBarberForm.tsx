@@ -39,7 +39,7 @@ const AddBarberForm = () => {
    try {
     const barberData = {
       ...data,
-      barbearia_id: user.id
+      barbearia_id: user && user.id
     };
     const response = await SignUpBarber(barberData);
     if(response.status) {

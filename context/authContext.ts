@@ -16,7 +16,7 @@ type BarbershopType = {
     logo: string;
     status: string;
   } | null;
-  servicos: {nomeService: string; tempoMedio: number; preco: number;}[];
+  servicos: { nomeService: string; tempoMedio: number; preco: number }[];
   id: string;
   email: string;
   nome: string;
@@ -27,16 +27,27 @@ type BarbershopType = {
   isAdm: boolean;
 };
 
+type BarberType = {
+  informacoes: null;
+  id: string;
+  email: string;
+  nome: string;
+  cpf: string;
+  status: string;
+  barbearia_id: string;
+  isAdm: boolean;
+};
+
 type AuthState = {
-  user: any;
-  setUser: (newUser: any) => void;
+  user: BarberType | BarberType | undefined;
+  setUser: (newUser: BarberType | BarberType) => void;
 };
 
 export const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
   persist(
     (set) => ({
-      user: null,
-      setUser: (newUser: any) => set({ user: newUser }),
+      user: undefined,
+      setUser: (newUser: BarberType | BarberType) => set({ user: newUser }),
     }),
     {
       name: "user-data",
