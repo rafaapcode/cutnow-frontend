@@ -3,6 +3,7 @@ import { useStepper } from "@/app/hooks/useStepper";
 import { useBarbershopInfoState } from "@/context/barberShopInfo";
 import { SignUpSchema } from "@/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NextStepperButton } from "../../Stepper/Stepper";
 import BarbershopNameInput from "./FieldsComponents/BarbershopNameInput";
@@ -20,6 +21,8 @@ const InfoForm = () => {
   const {
     handleSubmit,
     register,
+    watch,
+    setError,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     defaultValues: {
@@ -42,6 +45,48 @@ const InfoForm = () => {
     });
     nextStep();
   });
+
+  useEffect(() => {
+    const {unsubscribe} = watch(async ({email, nomeBarbearia, cnpj}, {name}) => {
+      try {
+        if (name === "email" && email) {
+          const req = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/findBarbershopByEmail/${email}`);
+          const data = await req.json();
+          if(data.status) {
+            setError("email", { type: "validate", message: "Email já cadastrado" });
+          }
+        }
+      } catch {
+        setError("email", { type: "validate", message: "Email já cadastrado" });
+      }
+
+      try {
+        if (name === "nomeBarbearia" && nomeBarbearia) {
+          const req = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/findBarbershopByName/${nomeBarbearia}`);
+          const data = await req.json();
+          if(data.status) {
+            setError("nomeBarbearia", { type: "validate", message: "Barbearia já cadastrada" });
+          }
+        }
+      } catch {
+        setError("nomeBarbearia", { type: "validate", message: "Barbearia já cadastrada" });
+      }
+
+      try {
+        if (name === "cnpj" && cnpj) {
+          const req = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/findBarbershopByCnpj/${cnpj}`);
+          const data = await req.json();
+          if(data.status) {
+            setError("cnpj", { type: "validate", message: "CNPJ já cadastrado" });
+          }
+        }
+      } catch {
+        setError("cnpj", { type: "validate", message: "CNPJ já cadastrado" });
+      }
+    });
+
+    return () => unsubscribe();
+  }, [watch, setError]);
 
   return (
     <form
