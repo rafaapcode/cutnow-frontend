@@ -3,8 +3,8 @@ import { useStepper } from "@/app/hooks/useStepper";
 import { useBarbershopInfoState } from "@/context/barberShopInfo";
 import { SignUpSchema } from "@/schema/SignUpFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { NextStepperButton } from "../../Stepper/Stepper";
 import BarbershopNameInput from "./FieldsComponents/BarbershopNameInput";
 import CnpjInput from "./FieldsComponents/CnpjInput";
@@ -21,8 +21,7 @@ const InfoForm = () => {
   const {
     handleSubmit,
     register,
-    watch,
-    setError,
+    setFocus,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     defaultValues: {
@@ -37,8 +36,20 @@ const InfoForm = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = handleSubmit((data: IFormData) => {
+  const onSubmit = handleSubmit(async (data: IFormData) => {
     const { confirmeSenha, nomeBarbearia, ...info } = data;
+
+    console.log(info.email)
+    const barbershopExist = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/verfifyBarbershop?email=${info.email}&nome=${nomeBarbearia}&cnpj=${info.cnpj}`);
+    const result = await barbershopExist.json();
+    console.log(result);
+
+    if(result.status) {
+      toast.error('Barbearia já cadastrada com o nomeDabarbearia , Email ou CNPJ fornecidos.');
+      setFocus('nomeBarbearia');
+      return;
+    }
+
     setBarbershopInfo({
       ...info,
       nomeDaBarbearia: nomeBarbearia
@@ -46,53 +57,12 @@ const InfoForm = () => {
     nextStep();
   });
 
-  useEffect(() => {
-    const {unsubscribe} = watch(async ({email, nomeBarbearia, cnpj}, {name}) => {
-      try {
-        if (name === "email" && email) {
-          const req = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/findBarbershopByEmail/${email}`);
-          const data = await req.json();
-          if(data.status) {
-            setError("email", { type: "validate", message: "Email já cadastrado" });
-          }
-        }
-      } catch {
-        setError("email", { type: "validate", message: "Email já cadastrado" });
-      }
-
-      try {
-        if (name === "nomeBarbearia" && nomeBarbearia) {
-          const req = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/findBarbershopByName/${nomeBarbearia}`);
-          const data = await req.json();
-          if(data.status) {
-            setError("nomeBarbearia", { type: "validate", message: "Barbearia já cadastrada" });
-          }
-        }
-      } catch {
-        setError("nomeBarbearia", { type: "validate", message: "Barbearia já cadastrada" });
-      }
-
-      try {
-        if (name === "cnpj" && cnpj) {
-          const req = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/findBarbershopByCnpj/${cnpj}`);
-          const data = await req.json();
-          if(data.status) {
-            setError("cnpj", { type: "validate", message: "CNPJ já cadastrado" });
-          }
-        }
-      } catch {
-        setError("cnpj", { type: "validate", message: "CNPJ já cadastrado" });
-      }
-    });
-
-    return () => unsubscribe();
-  }, [watch, setError]);
-
   return (
     <form
       className="w-full h-full flex flex-col gap-3 md:gap-10 lg:gap-5 overflow-y-auto text-white"
       onSubmit={onSubmit}
     >
+      <Toaster />
       <NameInput
         register={register}
         errors={errors}
