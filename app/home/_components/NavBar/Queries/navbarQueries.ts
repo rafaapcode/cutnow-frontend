@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-const getBarbershopStatus = gql`
-  query Query($barbershopInfoId: String!) {
-    barbershopInfo(id: $barbershopInfoId) {
+export const getBarbershopStatus = gql`
+  query Query($id: String!) {
+    barbershopInfo(id: $id) {
       informacoes {
         status
       }
@@ -10,13 +10,21 @@ const getBarbershopStatus = gql`
   } 
 `;
 
-const updateStatusOfBarbershop = gql`
+export const getBarberStatus = gql`
+  query Barber($id: String!) {
+  barber(id: $id) {
+    status
+  }
+}
+`;
+
+export const updateStatusOfBarbershop = gql`
   mutation Mutation($statusData: StatusInput!) {
     updateStatusBarbershop(statusData: $statusData)
   }
 `;
 
-const updateStatusOfBarber = gql`
+export const updateStatusOfBarber = gql`
   mutation Mutation($statusData: StatusInput!) {
     updateStatusBarber(statusData: $statusData)
   }
