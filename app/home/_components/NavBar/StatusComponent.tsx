@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   getBarbershopStatus,
   getBarberStatus,
@@ -17,22 +17,26 @@ import {
 
 const StatusComponent = ({ isAdm, id }: { isAdm: boolean; id: string }) => {
   const [status, setStatus] = useState<string | null>(null);
+  const query = useMemo(() => (isAdm ? getBarbershopStatus : getBarberStatus), [isAdm]);
+
+  const { data, loading, error } = useQuery(query, {
+    variables: { id },
+  });
+
+
   const queryMutationBarbershop = updateStatusOfBarbershop;
   const queryMutationBarber = updateStatusOfBarber;
-  const query = isAdm ? getBarbershopStatus : getBarberStatus;
-  const { data, loading, error } = useQuery(query, {
-    variables: { id: id },
-  });
+
   const [mutationBarbershop] = useMutation(queryMutationBarbershop);
   const [mutationBarber] = useMutation(queryMutationBarber);
 
-  const updateStatusBarbershop  = (status: string) => {
+  const updateStatusBarbershop  = async (status: string) => {
     try {
-      mutationBarbershop({
+      await mutationBarbershop({
         variables: {
           statusData: {
             id,
-            status: status
+            status
           }
         }
       });
@@ -40,15 +44,15 @@ const StatusComponent = ({ isAdm, id }: { isAdm: boolean; id: string }) => {
     } catch (error) {
       setStatus("Fechado");
     }
-  }
+  };
 
-  const updateStatusBarber  = (status: string) => {
+  const updateStatusBarber  = async (status: string) => {
     try {
-      mutationBarber({
+      await mutationBarber({
         variables: {
           statusData: {
             id,
-            status: status
+            status
           }
         }
       });
@@ -56,7 +60,7 @@ const StatusComponent = ({ isAdm, id }: { isAdm: boolean; id: string }) => {
     } catch (error) {
       setStatus("Indisponível");
     }
-  }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
