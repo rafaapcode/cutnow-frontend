@@ -6,7 +6,6 @@ import { Newspaper, ScissorsIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import LogOutButton from "../LogOutButton";
 import AvatarMobile from "./AvatarMobile";
@@ -14,10 +13,9 @@ import StatusComponent from "./StatusComponent";
 
 const NavBar = () => {
   const user = useAuthStore((state) => state.user);
-  const [status, setStatus] = useState("");
   const isAdm = user ? user.isAdm : false;
   const pathName = usePathname();
-  console.log(user);
+
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
       <Toaster position="top-center"/>
@@ -34,7 +32,7 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="w-fit">
-          <StatusComponent status='Indisponível' isAdm={isAdm} setStatus={setStatus} />
+          <StatusComponent isAdm={isAdm} id={user?.id}/>
         </div>
       </div>
       <div className="hidden md:flex items-center gap-10">

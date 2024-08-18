@@ -1,53 +1,42 @@
+"use client";
+import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from "@radix-ui/react-dropdown-menu";
+import { useState } from "react";
+
 
 const StatusComponent = ({
-  setStatus,
   isAdm,
-  status
+  id,
 }: {
-  setStatus: (e: any) => void;
   isAdm: boolean;
-  status: string
+  id?: string;
 }) => {
+  const [status, setStatus] = useState("Aberto");
+  // const query = isAdm ? updateStatusOfBarbershop : updateStatusOfBarber;
+
   return (
-    <Select onValueChange={setStatus}>
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder={status} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {isAdm ? ( 
-            <>
-              <SelectItem value="aberto">
-                <span className="text-secondary-green">Aberto</span>
-              </SelectItem>
-              <SelectItem value="fechado">
-                <span className="text-red-400">Fechado</span>
-              </SelectItem>
-            </>
-          ) : (
-            <>
-              <SelectItem value="atendendo">
-                <span className="text-secondary-green">Atendendo</span>
-              </SelectItem>
-              <SelectItem value="disponível">
-                <span className="text-blue-500">Disponível</span>
-              </SelectItem>
-              <SelectItem value="indiponível">
-                <span className="text-neutral-500">Indiponível</span>
-              </SelectItem>
-            </>
-          )}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="border border-neutral-800">{status}</Button>
+      </DropdownMenuTrigger>
+      {isAdm ? (
+        <DropdownMenuContent className="w-32 p-2 rounded-sm bg-neutral-900 border border-neutral-800 text-center">
+          <DropdownMenuCheckboxItem className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm" checked={true}>Aberto</DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem className="cursor-pointer hover:bg-neutral-700 p-1 rounded-sm">Fechado</DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      ) : (
+        <DropdownMenuContent className="w-32 p-2 rounded-sm bg-neutral-900 border border-neutral-800 text-center">
+          <DropdownMenuCheckboxItem  className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm">Atendendo</DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem  className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm">Disponível</DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem className="cursor-pointer hover:bg-neutral-700 p-1 rounded-sm">Indisponível</DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      )}
+    </DropdownMenu>
   );
 };
 
