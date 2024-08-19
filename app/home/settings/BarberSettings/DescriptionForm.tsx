@@ -21,7 +21,6 @@ const DescriptionForm = () => {
     resolver: zodResolver(DescriptionSchema),
   });
   const onSubmit = (data: any) => console.log(data);
-  console.log(isValid);
   return (
     <form
       className="w-full mt-5 flex flex-col justify-center gap-10"

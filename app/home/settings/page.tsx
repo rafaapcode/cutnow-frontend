@@ -1,6 +1,7 @@
 "use client";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { useAuthStore } from "@/context/authContext";
+import { Loader2Icon } from "lucide-react";
 import dynamic from "next/dynamic";
 const BarberSettings = dynamic(() => import("./BarberSettings/BarberSettings"));
 
@@ -31,12 +32,18 @@ const menus: MenusShape = [
   },
 ];
 
+const BarberSettingPage = ({isAdm}: {isAdm: boolean |  undefined}) => {
+  return (
+    isAdm === undefined ? <><div className="flex justify-center items-center mt-20"><Loader2Icon className="size-10 animate-spin"/></div></>  : <BarberSettings />
+  )
+}
+
 const Settings = () => {
   const user = useAuthStore((state) => state.user);
-  const isAdm = user ? user.isAdm : false;
+  const isAdm = user?.isAdm;
   return (
     <>
-    {isAdm ? (<HoverEffect items={menus} />) : <BarberSettings /> }
+    {isAdm ? (<HoverEffect items={menus} />) :  <BarberSettingPage isAdm={isAdm}/>}
     </>
   );
 };
