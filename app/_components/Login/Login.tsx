@@ -13,7 +13,7 @@ const Login = () => {
 
   useEffect(() => {
     if(userAuth) {  
-      setUserAuth(null);
+      setUserAuth(undefined);
     }
   }, []);
 

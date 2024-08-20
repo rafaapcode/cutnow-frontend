@@ -1,4 +1,5 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
 const BreadCrumb = () => {
   return (
@@ -6,7 +7,7 @@ const BreadCrumb = () => {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/home/settings">Settings</BreadcrumbLink>
+            <Link href="/home/settings" className="hover:text-white transition-all">Settings</Link>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

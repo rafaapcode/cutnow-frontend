@@ -39,15 +39,15 @@ type BarberType = {
 };
 
 type AuthState = {
-  user: BarberType | BarberType | undefined;
-  setUser: (newUser: BarberType | BarberType) => void;
+  user: BarbershopType | BarberType | undefined;
+  setUser: (newUser: BarberType | BarberType | undefined) => void;
 };
 
 export const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
   persist(
     (set) => ({
       user: undefined,
-      setUser: (newUser: BarberType | BarberType) => set({ user: newUser }),
+      setUser: (newUser: BarbershopType | BarberType | undefined) => set({ user: newUser }),
     }),
     {
       name: "user-data",
