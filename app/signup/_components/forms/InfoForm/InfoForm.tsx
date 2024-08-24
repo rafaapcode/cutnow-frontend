@@ -16,7 +16,7 @@ import { IFormData } from "./Form.type";
 
 const InfoForm = () => {
   const { nextStep } = useStepper();
-  const { setBarbershopInfo } = useBarbershopInfoState()
+  const { setBarbershopInfo } = useBarbershopInfoState();
 
   const {
     handleSubmit,
@@ -38,17 +38,21 @@ const InfoForm = () => {
 
   const onSubmit = handleSubmit(async (data: IFormData) => {
     const { confirmeSenha, nomeBarbearia, ...info } = data;
-
-    const barbershopExist = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/verfifyBarbershop?email=${info.email}&nome=${nomeBarbearia}&cnpj=${info.cnpj}`);
+    const barbershopExist = await fetch(
+      `https://cutnowauth.rafaapcode.com.br/auth/verfifyBarbershop?email=${info.email}&nome=${nomeBarbearia}&cnpj=${info.cnpj}`
+    );
     const result = await barbershopExist.json();
-
-    if(result.status) {
-      toast.error('Barbearia já cadastrada.');
+    console.log(result);
+    if (result.status) {
+      toast.error(
+        `Alguma barbearia já possui o campo: ${result.message} cadastrado. Coloque outro por favor.`,
+        { className: "w-full" }
+      );
       return;
     }
     setBarbershopInfo({
       ...info,
-      nomeDaBarbearia: nomeBarbearia
+      nomeDaBarbearia: nomeBarbearia,
     });
     nextStep();
   });
