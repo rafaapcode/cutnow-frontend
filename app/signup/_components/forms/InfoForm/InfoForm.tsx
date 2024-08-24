@@ -39,17 +39,13 @@ const InfoForm = () => {
   const onSubmit = handleSubmit(async (data: IFormData) => {
     const { confirmeSenha, nomeBarbearia, ...info } = data;
 
-    console.log(info.email)
     const barbershopExist = await fetch(`https://cutnowauth.rafaapcode.com.br/auth/verfifyBarbershop?email=${info.email}&nome=${nomeBarbearia}&cnpj=${info.cnpj}`);
     const result = await barbershopExist.json();
-    console.log(result);
 
     if(result.status) {
-      toast.error('Barbearia já cadastrada com o nomeDabarbearia , Email ou CNPJ fornecidos.');
-      setFocus('nomeBarbearia');
+      toast.error('Barbearia já cadastrada.');
       return;
     }
-
     setBarbershopInfo({
       ...info,
       nomeDaBarbearia: nomeBarbearia
