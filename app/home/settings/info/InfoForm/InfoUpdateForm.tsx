@@ -33,20 +33,13 @@ const InfoUpdateForm = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
     // TODO: Fazer o fetch ao banco de dados , para pegar os dados e atribuir como valor padrão
-    defaultValues: async () => new Promise((resolve) => resolve({
-      cnpj: "",
-      email: "",
-      nome: "",
-      nomeBarbearia: "",
-      CEP: "",
-      bairro: "",
-      cidade: "",
-      estado: "",
-      numero: "",
-      rua: "",
-      horarioAbertura: "",
-      horarioFechamento: ""
-    })),
+    defaultValues: async () => {
+      const id = JSON.parse(localStorage.getItem("user-data") as string).state
+      ?.user?.id;
+      const result = await fetch(`http://localhost:3001/barbershops/${id}`);
+      const {data} = await result.json();
+      return {...data, nomeBarbearia: data.nomeDaBarbearia, CEP: data.cep};
+    },
     resolver: zodResolver(UpdateInfoSchema, undefined, { mode: "async" }),
     mode: "onBlur",
   });
@@ -122,23 +115,19 @@ const InfoUpdateForm = () => {
           errors={errors}
           isSubmitting={isSubmitting}
         />
-        <Controller 
-         control={control}
-         name="horarioAbertura"
-         render={
-          ({ field: { onChange } }) => (
-            <OpenHourInput onChange={onChange}/>
-          )
-         }
+        <Controller
+          control={control}
+          name="horarioAbertura"
+          render={({ field: { onChange } }) => (
+            <OpenHourInput onChange={onChange} />
+          )}
         />
-        <Controller 
+        <Controller
           control={control}
           name="horarioFechamento"
-          render={
-            ({ field: { onChange } }) => (
-              <CloseHourInput onChange={onChange}/>
-            )
-          }
+          render={({ field: { onChange } }) => (
+            <CloseHourInput onChange={onChange} />
+          )}
         />
         <div className="w-full md:col-span-2 mt-5 md:mt-0 flex justify-end items-center">
           <button
