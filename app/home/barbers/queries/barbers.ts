@@ -11,3 +11,9 @@ export const allBarbersQuery = gql`
     }
   }
 `;
+
+export const deleteBarbers = gql`
+  mutation Mutation($deleteBarberId: String!) {
+    deleteBarber(id: $deleteBarberId)
+  }
+`;

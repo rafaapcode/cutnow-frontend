@@ -3,9 +3,10 @@ import { useAuthStore } from "@/context/authContext";
 import { useQuery } from "@apollo/client";
 import { PlusCircleIcon } from "lucide-react";
 import dynamic from "next/dynamic";
+import { Toaster } from "react-hot-toast";
 import AddBarber from "./_components/AddBarberComponent/AddBarber";
-import { allBarbersQuery } from "./queries/getAllBarbers";
 import CardBarberSkeleton from "./_components/CardBarberSkeleton";
+import { allBarbersQuery } from "./queries/barbers";
 const CardBarber = dynamic(() => import("./_components/CardBarber"));
 
 const Barbers = () => {
@@ -15,9 +16,12 @@ const Barbers = () => {
     variables: {
       barbershopId: user?.id,
     },
+    pollInterval: 1000
   });
+
   return (
     <section className="mt-12">
+      <Toaster />
       <header className="flex justify-between w-full">
         <h2 className="ml-5 md:ml-0 text-title-3 md:text-title-2">Barbeiros</h2>
         <AddBarber>
