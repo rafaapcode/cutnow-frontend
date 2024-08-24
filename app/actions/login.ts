@@ -55,10 +55,7 @@ export const loginBarber = async (
   loginPayload: LoginPayload
 ): Promise<ResponseLogin> => {
   try {
-    const controller = new AbortController();
-    const response = await apiClient.post("/auth/login/barber", loginPayload, {
-      signal: controller.signal,
-    });
+    const response = await apiClient.post("/auth/login/barber", loginPayload);
 
     const header_cookie_access = response.headers["set-cookie"] && response.headers["set-cookie"][0].split(';');
     let accessToken = header_cookie_access && header_cookie_access[0];

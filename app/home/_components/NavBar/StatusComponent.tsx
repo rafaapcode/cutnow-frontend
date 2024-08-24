@@ -15,6 +15,60 @@ import {
   updateStatusOfBarbershop,
 } from "./Queries/navbarQueries";
 
+type statusComponentProps = {
+  isAdm: boolean;
+  updateStatusBarbershop: (status: string) => Promise<void>;
+  updateStatusBarber: (status: string) => Promise<void>;
+};
+
+const StatusContent = ({
+  isAdm,
+  updateStatusBarbershop,
+  updateStatusBarber,
+}: statusComponentProps) => {
+  return (
+    <>
+      {isAdm ? (
+        <DropdownMenuContent className="w-32 p-2 rounded-sm bg-neutral-900 border border-neutral-800 text-center">
+          <DropdownMenuCheckboxItem
+            className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
+            onCheckedChange={() => updateStatusBarbershop("Aberto")}
+          >
+            Aberto
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            className="cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
+            onCheckedChange={() => updateStatusBarbershop("Fechado")}
+          >
+            Fechado
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      ) : (
+        <DropdownMenuContent className="w-32 p-2 rounded-sm bg-neutral-900 border border-neutral-800 text-center">
+          <DropdownMenuCheckboxItem
+            className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
+            onCheckedChange={() => updateStatusBarber("Atendendo")}
+          >
+            Atendendo
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
+            onCheckedChange={() => updateStatusBarber("Disponível")}
+          >
+            Disponível
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            className="cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
+            onCheckedChange={() => updateStatusBarber("Indisponível")}
+          >
+            Indisponível
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      )}
+    </>
+  );
+};
+
 const StatusComponent = ({
   isAdm,
   id,
@@ -96,43 +150,11 @@ const StatusComponent = ({
         )}
       </DropdownMenuTrigger>
       {!error ? (
-        isAdm ? (
-          <DropdownMenuContent className="w-32 p-2 rounded-sm bg-neutral-900 border border-neutral-800 text-center">
-            <DropdownMenuCheckboxItem
-              className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
-              onCheckedChange={() => updateStatusBarbershop("Aberto")}
-            >
-              Aberto
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
-              onCheckedChange={() => updateStatusBarbershop("Fechado")}
-            >
-              Fechado
-            </DropdownMenuCheckboxItem>
-          </DropdownMenuContent>
-        ) : (
-          <DropdownMenuContent className="w-32 p-2 rounded-sm bg-neutral-900 border border-neutral-800 text-center">
-            <DropdownMenuCheckboxItem
-              className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
-              onCheckedChange={() => updateStatusBarber("Atendendo")}
-            >
-              Atendendo
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="mb-2 cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
-              onCheckedChange={() => updateStatusBarber("Disponível")}
-            >
-              Disponível
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="cursor-pointer hover:bg-neutral-700 p-1 rounded-sm"
-              onCheckedChange={() => updateStatusBarber("Indisponível")}
-            >
-              Indisponível
-            </DropdownMenuCheckboxItem>
-          </DropdownMenuContent>
-        )
+        <StatusContent
+          isAdm={isAdm}
+          updateStatusBarber={updateStatusBarber}
+          updateStatusBarbershop={updateStatusBarbershop}
+        />
       ) : (
         <></>
       )}
