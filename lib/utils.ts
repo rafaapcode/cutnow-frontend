@@ -76,9 +76,9 @@ export function validateServiceUpdateData(data: any): {
 
   const mappedServices = services.map(
     (service: { nome: string; preco: string; tempo: string }) => ({
-      nome: service.nome,
+      nomeService: service.nome,
       preco: parseFloat(service.preco),
-      tempo: parseFloat(service.tempo),
+      tempoMedio: parseFloat(service.tempo),
     })
   );
 

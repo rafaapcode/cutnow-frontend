@@ -1,5 +1,7 @@
 "use client";
+import { useAuthStore } from "@/context/authContext";
 import { validateServiceUpdateData } from "@/lib/utils";
+import { useMutation } from "@apollo/client";
 import { LoaderCircle, PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -8,9 +10,12 @@ import Balancer from "react-wrap-balancer";
 import ServiceField from "./FieldsComponents/ServiceField";
 import ServiceFieldSkeleton from "./FieldsComponents/ServiceFieldSkeleton";
 import { IFormData } from "./Form.type";
+import { serviceUpdateQuery } from "./queries/serviceQuery";
 
 const ServicesUpdateForm = () => {
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const [serviceUpdateMutation] = useMutation(serviceUpdateQuery);
   const {
     control,
     register,
@@ -35,10 +40,27 @@ const ServicesUpdateForm = () => {
   const onSubmit = async (data: any) => {
     const {error, services} = validateServiceUpdateData(data);
     if(error) {
-      toast.error('O nome deve ter pelo menos 3 Caracteres');
+      toast(
+        "O nome deve ter pelo menos 3 caracteres.\n\nO preço e o tempo de serviço são obrigatórios.",
+        {
+          duration: 6000,
+        }
+      );
     }
-    // router.push("/home/settings");
-    toast.success("Serviços atualizados com sucesso !");
+    const res = await serviceUpdateMutation({
+      variables: {
+        serviceData: {
+          id: user?.id,
+          servicos: services
+        }
+      }
+    });
+    if(res.data.updateServices) {
+      toast.success("Serviços atualizados com sucesso !");
+      router.push("/home/settings");
+      return;
+    }
+    toast.error("Ocorreu um erro , tente mais tarde.");
   };
 
   return (
