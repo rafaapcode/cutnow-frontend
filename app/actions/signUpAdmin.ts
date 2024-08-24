@@ -1,6 +1,6 @@
 "use server";
 
-import { apiClient } from "@/lib/axios";
+import { authClient } from "@/lib/axios";
 
 type ResponseSignUp = {
   status: boolean;
@@ -9,7 +9,7 @@ type ResponseSignUp = {
 
 export const SignUpAdmin = async (barbershopInfos: any): Promise<ResponseSignUp> => {
   try {
-    const response = await apiClient.post("/auth/signup/admin", barbershopInfos);
+    const response = await authClient.post("/auth/signup/admin", barbershopInfos);
 
     return {
       status: true,

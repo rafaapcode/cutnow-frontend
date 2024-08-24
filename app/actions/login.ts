@@ -1,5 +1,5 @@
 "use server";
-import { apiClient } from "@/lib/axios";
+import { authClient } from "@/lib/axios";
 import { LoginFormSchema } from "@/schema/LoginFormSchema";
 import { cookies } from "next/headers";
 import { z } from "zod";
@@ -17,7 +17,7 @@ export const loginAdm = async (
 ): Promise<ResponseLogin> => {
   try {
     const controller = new AbortController();
-    const response = await apiClient.post("/auth/login/admin", loginPayload, {
+    const response = await authClient.post("/auth/login/admin", loginPayload, {
       signal: controller.signal,
       withCredentials: true,
     });
@@ -55,7 +55,7 @@ export const loginBarber = async (
   loginPayload: LoginPayload
 ): Promise<ResponseLogin> => {
   try {
-    const response = await apiClient.post("/auth/login/barber", loginPayload);
+    const response = await authClient.post("/auth/login/barber", loginPayload);
 
     const header_cookie_access = response.headers["set-cookie"] && response.headers["set-cookie"][0].split(';');
     let accessToken = header_cookie_access && header_cookie_access[0];
@@ -92,7 +92,7 @@ export const loginBarber = async (
 export const refresh = async () => {
   try {
     const refresh_token = cookies().get('refresh_token');
-    const response = await apiClient.get("/auth/refresh", {
+    const response = await authClient.get("/auth/refresh", {
       headers: {
         Authorization: refresh_token?.value
       }

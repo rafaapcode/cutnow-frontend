@@ -1,37 +1,43 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { ServiceFormSchema } from "@/schema/ServiceSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { validateServiceUpdateData } from "@/lib/utils";
 import { LoaderCircle, PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Balancer from "react-wrap-balancer";
 import ServiceField from "./FieldsComponents/ServiceField";
+import ServiceFieldSkeleton from "./FieldsComponents/ServiceFieldSkeleton";
 import { IFormData } from "./Form.type";
 
 const ServicesUpdateForm = () => {
   const router = useRouter();
-  const { control, register, handleSubmit, formState: {errors, isValid, isSubmitting, isDirty}  } = useForm<IFormData>({
-    defaultValues: {
-      services: [
-        { nome: "Cabelo", preco: "35", tempo: "60" },
-        { nome: "Barba", preco: "20", tempo: "30" },
-      ],
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { isSubmitting, isDirty, isLoading },
+  } = useForm<IFormData>({
+    defaultValues: async () => {
+      const id = JSON.parse(localStorage.getItem("user-data") as string).state
+        ?.user?.id;
+      const res = await fetch(`http://localhost:3001/services/${id}`);
+      const result = await res.json();
+      return {
+        services: result.data,
+      };
     },
-    resolver: zodResolver(ServiceFormSchema),
-    mode: "onBlur",
   });
 
   const services = useFieldArray({
     control: control,
     name: "services",
   });
-
   const onSubmit = async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
-    router.push("/home/settings");
+    const {error, services} = validateServiceUpdateData(data);
+    if(error) {
+      toast.error('O nome deve ter pelo menos 3 Caracteres');
+    }
+    // router.push("/home/settings");
     toast.success("Serviços atualizados com sucesso !");
   };
 
@@ -42,8 +48,10 @@ const ServicesUpdateForm = () => {
           <Balancer>Serviços :</Balancer>
         </h1>
         <p className="text-base md:text-xl text-secondary">
-          <Balancer>Atualize os serviços que sua barbearia fornece , com preço e
-          tempo médio da duração do serviço.</Balancer>
+          <Balancer>
+            Atualize os serviços que sua barbearia fornece , com preço e tempo
+            médio da duração do serviço.
+          </Balancer>
         </p>
       </div>
       <button
@@ -59,20 +67,32 @@ const ServicesUpdateForm = () => {
         className="max-h-full overflow-y-auto flex flex-col gap-5 text-white pb-2 md:pb-0"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {services.fields.map((field, index) => (
-          <ServiceField
-            key={field.id}
-            index={index}
-            register={register}
-            remove={services.remove}
-          />
-        ))}
-        {errors.services && <small className={cn("text-xs text-red-300 tracking-tight", !errors.services[0]?.nome && "hidden")}>{errors.services[0]?.nome?.message}</small>}
-        {errors.services && <small className={cn("text-xs text-red-300 tracking-tight", !errors.services[0]?.preco && "hidden")}>{errors.services[0]?.preco?.message}</small>}
-        {errors.services && <small className={cn("text-xs text-red-300 tracking-tight", !errors.services[0]?.tempo && "hidden")}>{errors.services[0]?.tempo?.message}</small>} 
+        {isLoading ? (
+          <ServiceFieldSkeleton />
+        ) : (
+          services.fields.map((field, index) => (
+            <ServiceField
+              key={field.id}
+              index={index}
+              register={register}
+              remove={services.remove}
+            />
+          ))
+        )}
         <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
-          <button disabled={!isValid || isSubmitting || services.fields.length == 0 || !isDirty} className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20">
-           {isSubmitting ? <LoaderCircle className="mx-auto w-7 h-7 animate-spin"/> : "Atualizar"}
+          <button
+            disabled={
+              isSubmitting ||
+              services.fields.length == 0 ||
+              !isDirty
+            }
+            className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
+          >
+            {isSubmitting ? (
+              <LoaderCircle className="mx-auto w-7 h-7 animate-spin" />
+            ) : (
+              "Atualizar"
+            )}
           </button>
         </div>
       </form>

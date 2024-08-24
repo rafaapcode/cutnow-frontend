@@ -2,12 +2,12 @@ import { refresh } from "@/app/actions/login";
 import axios from "axios";
 
 
-export const apiClient = axios.create({
-  baseURL: process.env.BASE_URL,
+export const authClient = axios.create({
+  baseURL: process.env.BASE_URL_AUTH,
   withCredentials: true,
 });
 
-apiClient.interceptors.response.use(
+authClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     if(error.response && error.response.status !== 401) {
@@ -18,6 +18,6 @@ apiClient.interceptors.response.use(
     if(!res.status){
       return Promise.reject(error.response);
     }
-    return apiClient(originalRequest);
+    return authClient(originalRequest);
   }
 );
