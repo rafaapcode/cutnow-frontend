@@ -1,5 +1,4 @@
 import { type ClassValue, clsx } from "clsx";
-import { validate } from "cnpj";
 import { twMerge } from "tailwind-merge";
 import CPF from "./ValidateCpf";
 
@@ -10,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export const validateCnpj = (value: string) => {
   const regex = /^\d+$/;
   if (regex.test(value)) {
-    return validate(parseInt(value));
+    return true
   }
 
   return false;

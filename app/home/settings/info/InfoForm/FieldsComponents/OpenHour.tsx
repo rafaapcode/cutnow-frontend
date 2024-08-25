@@ -1,4 +1,5 @@
 "use client";
+import { getBarbershopInfo } from "@/app/actions/updateInfo";
 import { useEffect, useState } from "react";
 import OpeHourSelect from "../_components/OpenHourSelect";
 
@@ -8,12 +9,18 @@ const OpenHourInput = ({ onChange }: { onChange: any }) => {
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("user-data") as string).state
       ?.user?.id;
-    fetch(`http://localhost:3001/barbershops/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setHorario(data.data.horarioAbertura);
-      })
-      .catch((err) => console.log(err.message));
+      getBarbershopInfo(id)
+        .then((data) => {
+          if(!data.status) {
+            setHorario("Um erro aconteceu!");
+            return;
+          };
+          return data.data.data
+        })
+        .then((res) => {
+          setHorario(res.horarioAbertura);
+        })
+        .catch((err: any) => console.log(err.message));
   }, []);
   return (
     <div className="flex flex-col gap-2 col-span-2 md:col-span-1 snap-start">

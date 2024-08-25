@@ -1,5 +1,5 @@
 "use client";
-import { UpdateInfo } from "@/app/actions/updateInfo";
+import { getBarbershopInfo, UpdateInfo } from "@/app/actions/updateInfo";
 import { useAuthStore } from "@/context/authContext";
 import { UpdateInfoSchema } from "@/schema/UpdateInfoFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,8 +37,11 @@ const InfoUpdateForm = () => {
     defaultValues: async () => {
       const id = JSON.parse(localStorage.getItem("user-data") as string).state
         ?.user?.id;
-      const result = await fetch(`http://localhost:3001/barbershops/${id}`);
-      const { data } = await result.json();
+      const resultadoLegal = await getBarbershopInfo(id);
+      if (!resultadoLegal.status) {
+        return {};
+      }
+      const {data} = resultadoLegal.data;
       return { ...data, nomeBarbearia: data.nomeDaBarbearia, CEP: data.cep };
     },
     resolver: zodResolver(UpdateInfoSchema, undefined, { mode: "async" }),

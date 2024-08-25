@@ -1,6 +1,7 @@
 "use server";
 
 import { authClient } from "@/lib/axios";
+import axios from "axios";
 import { cookies } from "next/headers";
 
 type ResponseSignUp = {
@@ -59,3 +60,23 @@ export const UpdateInfo = async (
     };
   }
 };
+
+export const getBarbershopInfo = async (id: string) => {
+  try {
+    const access_token = cookies().get('access_token');
+    const result = await axios.get(`http://localhost:3001/barbershops/${id}`, {
+      headers: {
+        "Authorization": access_token?.value
+      }
+    });
+    return {
+      status: true,
+      data: result.data
+    };
+  } catch (error: any) {
+    return {
+      status: false,
+      message: error.message
+    }
+  }
+}
