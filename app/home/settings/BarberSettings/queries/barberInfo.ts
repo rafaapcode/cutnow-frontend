@@ -9,3 +9,9 @@ export const getDescricao = gql`
     }
   }
 `;
+
+export const createDescricao = gql`
+  mutation UpdateInfoBarber($informations: BarberInfoUpdate!) {
+    updateInfoBarber(informations: $informations)
+  }
+`;
