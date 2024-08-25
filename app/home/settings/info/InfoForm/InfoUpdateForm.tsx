@@ -46,21 +46,7 @@ const InfoUpdateForm = () => {
   });
 
   const onSubmit = handleSubmit(async (data: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const { email, nome, nomeBarbearia, cnpj, ...informacoes } = data;
-    const newData = {
-      email,
-      nome,
-      cnpj,
-      nomeDaBarbearia: nomeBarbearia,
-      informacoes: {
-        ...informacoes,
-        numero: parseFloat(informacoes.numero),
-        cep: informacoes.CEP
-      },
-    };
-    console.log(newData);
-    const { status } = await UpdateInfo(newData, user?.id);
+    const { status } = await UpdateInfo(data, user?.id);
     if (!status) {
       toast.error("Não foi possível atualizar o dados.");
       return;

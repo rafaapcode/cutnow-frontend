@@ -1,4 +1,5 @@
 "use client";
+import { getServices } from "@/app/actions/serviceUpdateForm";
 import { useAuthStore } from "@/context/authContext";
 import { validateServiceUpdateData } from "@/lib/utils";
 import { useMutation } from "@apollo/client";
@@ -25,10 +26,14 @@ const ServicesUpdateForm = () => {
     defaultValues: async () => {
       const id = JSON.parse(localStorage.getItem("user-data") as string).state
         ?.user?.id;
-      const res = await fetch(`http://localhost:3001/services/${id}`);
-      const result = await res.json();
+      const services = await getServices(id);
+      if (!services.status) {
+        return {
+          services: [],
+        };
+      }
       return {
-        services: result.data,
+        services: services.data,
       };
     },
   });
@@ -38,8 +43,8 @@ const ServicesUpdateForm = () => {
     name: "services",
   });
   const onSubmit = async (data: any) => {
-    const {error, services} = validateServiceUpdateData(data);
-    if(error) {
+    const { error, services } = validateServiceUpdateData(data);
+    if (error) {
       toast(
         "O nome deve ter pelo menos 3 caracteres.\n\nO preço e o tempo de serviço são obrigatórios.",
         {
@@ -51,11 +56,11 @@ const ServicesUpdateForm = () => {
       variables: {
         serviceData: {
           id: user?.id,
-          servicos: services
-        }
-      }
+          servicos: services,
+        },
+      },
     });
-    if(res.data.updateServices) {
+    if (res.data.updateServices) {
       toast.success("Serviços atualizados com sucesso !");
       router.push("/home/settings");
       return;
@@ -103,11 +108,7 @@ const ServicesUpdateForm = () => {
         )}
         <div className="w-full col-span-3 mt-5 md:mt-0 flex justify-between items-center">
           <button
-            disabled={
-              isSubmitting ||
-              services.fields.length == 0 ||
-              !isDirty
-            }
+            disabled={isSubmitting || services.fields.length == 0 || !isDirty}
             className="w-fit transition-all duration-200 bg-terciary-green text-black p-3 rounded-md font-bold hover:bg-secondary-green disabled:bg-terciary-green/20"
           >
             {isSubmitting ? (

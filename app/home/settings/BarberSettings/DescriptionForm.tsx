@@ -2,21 +2,36 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import { DescriptionSchema } from "@/schema/DescriptionFormSchema";
+import { useLazyQuery } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { getDescricao } from "./queries/barberInfo";
 
 type IFormData = z.infer<typeof DescriptionSchema>;
 
 const DescriptionForm = () => {
+  const [descricaoQuery] = useLazyQuery(getDescricao);
   const {
     handleSubmit,
     register,
     formState: { isSubmitting, isValid },
   } = useForm<IFormData>({
-    defaultValues: {
-      description: "",
+    defaultValues: async () => {
+      const id = JSON.parse(localStorage.getItem("user-data") as string).state
+        ?.user?.id;
+      if (!id) return { description: "" };
+      const res = await descricaoQuery({ variables: { barberId: id } });
+      if(!res.data.barbers.informacoes) {
+        return {
+          description: ""
+        }
+      }
+      console.log(res.data.barbers.informacoes);
+      return {
+        description: "",
+      };
     },
     resolver: zodResolver(DescriptionSchema),
   });

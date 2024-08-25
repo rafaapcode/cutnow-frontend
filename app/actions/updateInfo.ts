@@ -9,37 +9,53 @@ type ResponseSignUp = {
   statusCode?: string | number;
 };
 
-export const UpdateInfo = async (barbershopsInfos: any, id: string | undefined): Promise<ResponseSignUp> => {
-  if(!id) {
+export const UpdateInfo = async (
+  barbershopsInfos: any,
+  id: string | undefined
+): Promise<ResponseSignUp> => {
+  if (!id) {
     return {
       status: false,
-      message: "Id é obrigatório"
-    }
+      message: "Id é obrigatório",
+    };
   }
   try {
-    const access_token = cookies().get('access_token');
-    const response = await authClient.put(`/barbershop/${id}`, barbershopsInfos, {
+    const access_token = cookies().get("access_token");
+    const { email, nome, nomeBarbearia, cnpj, ...informacoes } =
+      barbershopsInfos;
+    const newData = {
+      email,
+      nome,
+      cnpj,
+      nomeDaBarbearia: nomeBarbearia,
+      informacoes: {
+        ...informacoes,
+        numero: parseFloat(informacoes.numero),
+        cep: informacoes.CEP,
+      },
+    };
+    const response = await authClient.put(`/barbershop/${id}`, newData, {
       headers: {
-        Authorization: access_token?.value
-      }
+        Authorization: access_token?.value,
+      },
     });
 
     return {
       status: true,
-      message: response.data.message
-    }
+      message: response.data.message,
+    };
   } catch (error: any) {
     if (error.status === 400) {
       return {
         status: false,
         message: error.data.message,
-        statusCode: error.status
+        statusCode: error.status,
       };
     }
     return {
       status: false,
       message: error.message,
-      statusCode: error.status
+      statusCode: error.status,
     };
   }
 };
