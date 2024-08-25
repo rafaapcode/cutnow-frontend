@@ -1,8 +1,7 @@
 "use client";
-import { getServices } from "@/app/actions/serviceUpdateForm";
 import { useAuthStore } from "@/context/authContext";
 import { validateServiceUpdateData } from "@/lib/utils";
-import { useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { LoaderCircle, PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -11,12 +10,13 @@ import Balancer from "react-wrap-balancer";
 import ServiceField from "./FieldsComponents/ServiceField";
 import ServiceFieldSkeleton from "./FieldsComponents/ServiceFieldSkeleton";
 import { IFormData } from "./Form.type";
-import { serviceUpdateQuery } from "./queries/serviceQuery";
+import { getAllServices, serviceUpdateQuery } from "./queries/serviceQuery";
 
 const ServicesUpdateForm = () => {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const [serviceUpdateMutation] = useMutation(serviceUpdateQuery);
+  const [serviceQuery] = useLazyQuery(getAllServices);
   const {
     control,
     register,
@@ -26,14 +26,22 @@ const ServicesUpdateForm = () => {
     defaultValues: async () => {
       const id = JSON.parse(localStorage.getItem("user-data") as string).state
         ?.user?.id;
-      const services = await getServices(id);
-      if (!services.status) {
+      const res = await serviceQuery({
+        variables: { barbershopServicesId: id },
+        pollInterval: 500,
+      });
+      if (!res.data || !res.data?.barbershopServices) {
         return {
           services: [],
         };
       }
+      const services = res.data?.barbershopServices.map((service: any) => ({
+        nome: service.nome,
+        preco: service.preco,
+        tempo: service.tempo,
+      }));
       return {
-        services: services.data,
+        services,
       };
     },
   });

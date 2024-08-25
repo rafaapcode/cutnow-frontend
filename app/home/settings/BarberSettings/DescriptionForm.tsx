@@ -2,17 +2,19 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import { DescriptionSchema } from "@/schema/DescriptionFormSchema";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import * as z from "zod";
-import { getDescricao } from "./queries/barberInfo";
+import { createDescricao, getDescricao } from "./queries/barberInfo";
 
 type IFormData = z.infer<typeof DescriptionSchema>;
 
 const DescriptionForm = () => {
   const [descricaoQuery] = useLazyQuery(getDescricao);
+  const [descricaoMutation] = useMutation(createDescricao);
   const {
     handleSubmit,
     register,
@@ -22,20 +24,42 @@ const DescriptionForm = () => {
       const id = JSON.parse(localStorage.getItem("user-data") as string).state
         ?.user?.id;
       if (!id) return { description: "" };
-      const res = await descricaoQuery({ variables: { barberId: id } });
-      if(!res.data.barbers.informacoes) {
+      const res = await descricaoQuery({ variables: { barberId: id }, pollInterval: 500 });
+      if (
+        !res.data?.barber?.informacoes ||
+        !res.data?.barber?.informacoes?.descricao
+      ) {
         return {
-          description: ""
-        }
+          description: "",
+        };
       }
-      console.log(res.data.barbers.informacoes);
       return {
-        description: "",
+        description: res.data?.barber?.informacoes?.descricao,
       };
     },
     resolver: zodResolver(DescriptionSchema),
   });
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: IFormData) => {
+    const id = JSON.parse(localStorage.getItem("user-data") as string).state
+      ?.user?.id;
+    const res = await descricaoMutation({
+      variables: {
+        informations: {
+          id,
+          informations: {
+            descricao: data.description,
+          },
+        },
+      },
+    });
+
+    if (!res.data.updateInfoBarber) {
+      toast.error("Ocorreu um erro , tente mais tarde.");
+      return;
+    }
+
+    toast.success("Descrição atualizada com sucesso !");
+  };
   return (
     <form
       className="w-full mt-5 flex flex-col justify-center gap-10"
