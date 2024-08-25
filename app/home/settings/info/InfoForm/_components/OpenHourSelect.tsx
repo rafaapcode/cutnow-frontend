@@ -2,9 +2,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 
 const OpenHourSelect = ({onChange, horario}: {onChange: any, horario: string}) => {
   return (
-    <Select onValueChange={onChange} value={horario}>
+    <Select onValueChange={onChange}>
       <SelectTrigger className="bg-neutral-900 p-5">
-        <SelectValue placeholder="Selecione um horário de abertura"/>
+        <SelectValue placeholder={horario ? horario : "Selecione um horário de abertura"}/>
       </SelectTrigger>
       <SelectContent className="text-center bg-neutral-950">
         <SelectGroup>

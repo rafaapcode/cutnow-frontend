@@ -2,14 +2,14 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 
 const CloseHourSelect = ({onChange, horario}: {onChange: any, horario: string}) => {
   return (
-    <Select onValueChange={onChange} value={horario}>
+    <Select onValueChange={onChange}>
       <SelectTrigger className="bg-neutral-900 p-5">
-        <SelectValue placeholder="Selecione um horário de fechamento"/>
+        <SelectValue placeholder={horario ? horario : "Selecione um horário de fechamento"}/>
       </SelectTrigger>
       <SelectContent className="text-center bg-neutral-950">
         <SelectGroup>
           <SelectLabel>Horários de Fechamento</SelectLabel>
-          <SelectItem value="16:00h" >16h</SelectItem>
+          <SelectItem value="16:00h">16h</SelectItem>
           <SelectItem value="17:00h">17h</SelectItem>
           <SelectItem value="18:00h">18h</SelectItem>
           <SelectItem value="19:00h">19h</SelectItem>

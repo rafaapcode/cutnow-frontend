@@ -1,4 +1,6 @@
 "use client";
+import { UpdateInfo } from "@/app/actions/updateInfo";
+import { useAuthStore } from "@/context/authContext";
 import { UpdateInfoSchema } from "@/schema/UpdateInfoFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
@@ -22,7 +24,7 @@ import { IFormData } from "./Form.type";
 
 const InfoUpdateForm = () => {
   const router = useRouter();
-
+  const user = useAuthStore((state) => state.user);
   const {
     handleSubmit,
     register,
@@ -32,13 +34,12 @@ const InfoUpdateForm = () => {
     control,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormData>({
-    // TODO: Fazer o fetch ao banco de dados , para pegar os dados e atribuir como valor padrão
     defaultValues: async () => {
       const id = JSON.parse(localStorage.getItem("user-data") as string).state
-      ?.user?.id;
+        ?.user?.id;
       const result = await fetch(`http://localhost:3001/barbershops/${id}`);
-      const {data} = await result.json();
-      return {...data, nomeBarbearia: data.nomeDaBarbearia, CEP: data.cep};
+      const { data } = await result.json();
+      return { ...data, nomeBarbearia: data.nomeDaBarbearia, CEP: data.cep };
     },
     resolver: zodResolver(UpdateInfoSchema, undefined, { mode: "async" }),
     mode: "onBlur",
@@ -46,9 +47,26 @@ const InfoUpdateForm = () => {
 
   const onSubmit = handleSubmit(async (data: any) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
-    // router.push("/home/settings");
+    const { email, nome, nomeBarbearia, cnpj, ...informacoes } = data;
+    const newData = {
+      email,
+      nome,
+      cnpj,
+      nomeDaBarbearia: nomeBarbearia,
+      informacoes: {
+        ...informacoes,
+        numero: parseFloat(informacoes.numero),
+        cep: informacoes.CEP
+      },
+    };
+    console.log(newData);
+    const { status } = await UpdateInfo(newData, user?.id);
+    if (!status) {
+      toast.error("Não foi possível atualizar o dados.");
+      return;
+    }
     toast.success("Informações atualizadas com sucesso !");
+    router.push("/home/settings");
   });
 
   useEffect(() => {
