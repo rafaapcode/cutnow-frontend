@@ -12,11 +12,10 @@ const CardBarber = dynamic(() => import("./_components/CardBarber"));
 const Barbers = () => {
   const user = useAuthStore((state) => state.user);
 
-  const { data, loading, error } = useQuery(allBarbersQuery, {
+  const { data, loading, error, refetch } = useQuery(allBarbersQuery, {
     variables: {
       barbershopId: user?.id,
     },
-    pollInterval: 1000
   });
 
   return (
@@ -24,7 +23,7 @@ const Barbers = () => {
       <Toaster />
       <header className="flex justify-between w-full">
         <h2 className="ml-5 md:ml-0 text-title-3 md:text-title-2">Barbeiros</h2>
-        <AddBarber>
+        <AddBarber refetch={refetch}>
           <button className="transition-colors duration-100 text-secondary hover:text-[#AAD704]">
             <PlusCircleIcon className="size-6 md:size-8" />
           </button>
@@ -42,6 +41,7 @@ const Barbers = () => {
                   id={barberInfo.id}
                   nome={barberInfo.nome}
                   foto={barberInfo.informacoes?.foto}
+                  refetch={refetch}
                 />
               ))}
         </div>

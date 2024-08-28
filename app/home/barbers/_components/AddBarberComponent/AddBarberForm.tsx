@@ -6,6 +6,7 @@ import { DrawerClose, DrawerFooter } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/context/authContext";
 import { AddBarberSchema } from "@/schema/AddBaberFormSchema";
+import { ApolloQueryResult } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,7 @@ import toast from "react-hot-toast";
 import * as z from "zod";
 type IFormData = z.infer<typeof AddBarberSchema>;
 
-const AddBarberForm = () => {
+const AddBarberForm = ({refetch}: {refetch: () => Promise<ApolloQueryResult<any>>;}) => {
   const refExitButton = useRef<HTMLButtonElement>(null);
   const { user } = useAuthStore();
   const router = useRouter();
@@ -44,6 +45,7 @@ const AddBarberForm = () => {
     const response = await SignUpBarber(barberData);
     if(response.status) {
       toast.success(response.message);
+      refetch();
       refExitButton.current?.click();
     } else {
       if(response.statusCode === 401) {

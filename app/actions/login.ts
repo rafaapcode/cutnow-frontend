@@ -8,6 +8,7 @@ type ResponseLogin = {
   status: boolean;
   message: string;
   data?: any;
+  accessToken?: string;
 };
 
 type LoginPayload = z.infer<typeof LoginFormSchema>;
@@ -36,6 +37,7 @@ export const loginAdm = async (
       status: true,
       message: response.data.message,
       data: response.data.data,
+      accessToken
     };
   } catch (error: any) {
     if (error.status === 400) {

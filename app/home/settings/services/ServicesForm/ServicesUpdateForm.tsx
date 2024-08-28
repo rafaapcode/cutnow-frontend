@@ -16,7 +16,7 @@ const ServicesUpdateForm = () => {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const [serviceUpdateMutation] = useMutation(serviceUpdateQuery);
-  const [serviceQuery] = useLazyQuery(getAllServices);
+  const [serviceQuery, {refetch}] = useLazyQuery(getAllServices);
   const {
     control,
     register,
@@ -28,7 +28,6 @@ const ServicesUpdateForm = () => {
         ?.user?.id;
       const res = await serviceQuery({
         variables: { barbershopServicesId: id },
-        pollInterval: 500,
       });
       if (!res.data || !res.data?.barbershopServices) {
         return {
@@ -70,6 +69,7 @@ const ServicesUpdateForm = () => {
     });
     if (res.data.updateServices) {
       toast.success("Serviços atualizados com sucesso !");
+      refetch();
       router.push("/home/settings");
       return;
     }

@@ -1,13 +1,15 @@
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { ApolloQueryResult } from "@apollo/client";
 import dynamic from "next/dynamic";
 import React from "react";
 const AddBarberForm = dynamic(() => import("./AddBarberForm"));
 
 type AddBarberProps = {
   children: React.ReactNode;
+  refetch: () => Promise<ApolloQueryResult<any>>;
 };
 
-const AddBarber = ({ children }: AddBarberProps) => {
+const AddBarber = ({ children, refetch }: AddBarberProps) => {
   return (
     <Drawer>
       <DrawerTrigger asChild className="mr-5 md:mr-0">{children}</DrawerTrigger>
@@ -17,7 +19,7 @@ const AddBarber = ({ children }: AddBarberProps) => {
             <DrawerTitle className="text-title-3">Adicione um novo barbeiro</DrawerTitle>
             <DrawerDescription>Preencha as informações corretamente.</DrawerDescription>
           </DrawerHeader>
-          <AddBarberForm />
+          <AddBarberForm refetch={refetch} />
         </div>
       </DrawerContent>
     </Drawer>

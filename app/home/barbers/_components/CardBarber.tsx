@@ -1,6 +1,6 @@
 "use client";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
-import { useMutation } from "@apollo/client";
+import { ApolloQueryResult, useMutation } from "@apollo/client";
 import { Trash2Icon } from "lucide-react";
 import toast from "react-hot-toast";
 import { deleteBarbers } from "../queries/barbers";
@@ -9,9 +9,10 @@ type CardBarberProps = {
   nome: string;
   id: string;
   foto: string | null;
+  refetch: () => Promise<ApolloQueryResult<any>>;
 };
 
-const CardBarber = ({ nome, id, foto }: CardBarberProps) => {
+const CardBarber = ({ nome, id, foto, refetch }: CardBarberProps) => {
   const fotoUrl = !foto ? "/default-photo.jpg" : foto;
   const [deleteBarberMutation] =
     useMutation(deleteBarbers);
@@ -29,6 +30,7 @@ const CardBarber = ({ nome, id, foto }: CardBarberProps) => {
     if(!res.data.deleteBarber) {
       toast.error('Barbeiro não existe.');
     }else {
+      refetch();
       toast.success('Barbeiro deletado com sucesso !');
     }
   };
