@@ -57,6 +57,7 @@ const FormLogin = ({userType}: IUserType) => {
             if(res.status) {
               toast.success(res.message);
               setUser({...res.data, isAdm: false});
+              localStorage.setItem("token", res.accessToken ?? "");
               router.push('/home');
             } else {
               toast.error(res.message);

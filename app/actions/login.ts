@@ -76,6 +76,7 @@ export const loginBarber = async (
       status: true,
       message: response.data.message,
       data: response.data.data,
+      accessToken
     };
   } catch (error: any) {
     if (error.status === 400) {
