@@ -1,13 +1,17 @@
 "use client";
 
+import UploadMultipleFiles from "@/app/actions/uploadMultipleFiles";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/context/authContext";
+import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 const BarberStructImages = () => {
+  const user = useAuthStore((state) => state.user);
   const [files, setFiles] = useState<File[]>([]);
-
+  const [isPending, startTransitions] = useTransition();
   const onchange = (e: any) => {
     if (files.length == 6) {
       toast.error("Você pode adicionar no máximo 6 imagens");
@@ -17,7 +21,30 @@ const BarberStructImages = () => {
   };
 
   const onClick = () => {
-    console.log("Estado", files);
+    try {
+      const formdata = new FormData();
+      files.forEach((file, index) => {
+        formdata.append(`file-${index}`, file);
+      });
+      
+      startTransitions(() => {
+        UploadMultipleFiles(formdata, user?.id!)
+        .then((res) => {
+          if(res.status) {
+            toast.success(res.message);
+            setFiles([]);
+          } else {
+            toast.error("Algo deu errado , tente mais tarde !")
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+      });
+    } catch (error: any) {
+      console.log(error.message);
+      toast.error("Algo deu errado ao enviar as imagens !")
+    }
   };
 
   return (
@@ -55,8 +82,14 @@ const BarberStructImages = () => {
             </div>
           ))}
       </div>
-      <button onClick={onClick} className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]">
-        Upload
+      <button
+        onClick={onClick}
+        disabled={isPending}
+        className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
+      >
+        {
+          !isPending ? "Upload" : <LoaderCircle className="animate-spin"/>  
+        }
       </button>
     </section>
   );
