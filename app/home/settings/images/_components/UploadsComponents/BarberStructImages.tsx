@@ -1,6 +1,6 @@
 "use client";
 
-import UploadMultipleFiles from "@/app/actions/uploadMultipleFiles";
+import { UploadMultipleFilesBarbershop } from "@/app/actions/uploadMultipleFiles";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/context/authContext";
 import { LoaderCircle } from "lucide-react";
@@ -38,7 +38,7 @@ const BarberStructImages = () => {
      
       
       startTransitions(() => {
-        UploadMultipleFiles(formdata, user?.id!)
+        UploadMultipleFilesBarbershop(formdata, user?.id!)
         .then((res) => {
           if(res.status) {
             toast.success(res.message);

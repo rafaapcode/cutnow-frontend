@@ -1,6 +1,6 @@
 "use client";
 
-import { UploadBannerImage } from "@/app/actions/UploadSingleFile";
+import { UploadBannerImageBarbershop } from "@/app/actions/UploadSingleFile";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/context/authContext";
 import { LoaderCircle } from "lucide-react";
@@ -25,7 +25,7 @@ const BarberBannerImage = () => {
     }
 
     startTransition(() => {
-      UploadBannerImage(formData, user?.id!)
+      UploadBannerImageBarbershop(formData, user?.id!)
         .then(res => {
           if(res.status) {
             toast.success(res.message);
