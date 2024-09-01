@@ -12,7 +12,7 @@ type ResponseSignUp = {
 export const SignUpBarber = async (barberInfos: any): Promise<ResponseSignUp> => {
   try {
     const access_token = cookies().get('access_token');
-    const response = await authClient.post("/auth/signup/barber", barberInfos, {
+    const response = await authClient.post("/auth/signup/barber",barberInfos , {
       headers: {
         Authorization: access_token?.value
       }

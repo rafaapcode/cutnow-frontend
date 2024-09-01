@@ -7,15 +7,15 @@ export const getBarbershopStatus = gql`
         status
       }
     }
-  } 
+  }
 `;
 
 export const getBarberStatus = gql`
   query Barber($id: String!) {
-  barber(id: $id) {
-    status
+    barber(id: $id) {
+      status
+    }
   }
-}
 `;
 
 export const updateStatusOfBarbershop = gql`
@@ -27,5 +27,25 @@ export const updateStatusOfBarbershop = gql`
 export const updateStatusOfBarber = gql`
   mutation Mutation($statusData: StatusInput!) {
     updateStatusBarber(statusData: $statusData)
+  }
+`;
+
+export const getBarbershopLogo = gql`
+  query Query($id: String!) {
+    barbershopInfo(id: $id) {
+      informacoes {
+        logo
+      }
+    }
+  }
+`;
+
+export const getBarberFoto = gql`
+  query Barber($id: String!) {
+    barber(id: $id) {
+      informacoes {
+        foto
+      }
+    }
   }
 `;
