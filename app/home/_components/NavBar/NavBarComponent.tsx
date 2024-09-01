@@ -23,6 +23,10 @@ const NavBar = () => {
       id: user?.id!,
     },
   });
+  console.log(data);
+  const logoUrl = error
+    ? "./default-photo.jpg"
+    : ( isAdm ? data?.barbershopInfo?.informacoes?.logo : data?.barber?.informacoes.foto )
 
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
@@ -80,16 +84,23 @@ const NavBar = () => {
         </Link>
         <LogOutButton />
         <div className="w-[65px] h-[65px]">
-          <Avatar className="size-full">
-            <AvatarImage
-              src={error ? "./default-photo.jpg": data?.barbershopInfo?.informacoes?.logo}
-              alt="logo adm barbershop"
-            />
-          </Avatar>
+          {loading ? (
+            <div className="size-full rounded-full bg-neutral-800 animate-pulse" />
+          ) : (
+            <Avatar className="size-full">
+              <AvatarImage src={logoUrl} alt="logo adm barbershop" />
+            </Avatar>
+          )}
         </div>
       </div>
       <div className="px-2 md:hidden md:px-0">
-        <AvatarMobile isAdm={isAdm} avatarUrl={error ? "./default-photo.jpg": data?.barbershopInfo?.informacoes?.logo} />
+        <AvatarMobile
+          isAdm={isAdm}
+          loading={loading}
+          avatarUrl={
+            logoUrl
+          }
+        />
       </div>
     </header>
   );

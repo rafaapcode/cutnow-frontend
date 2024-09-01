@@ -13,20 +13,25 @@ import LogOutButton from "../LogOutButton";
 type AvatarMobileProps = {
   avatarUrl: string;
   isAdm: boolean;
+  loading: boolean;
 };
 
-const AvatarMobile = ({ avatarUrl, isAdm }: AvatarMobileProps) => {
+const AvatarMobile = ({ avatarUrl, isAdm, loading }: AvatarMobileProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="w-full">
         <div className="w-[50px] h-[50px]">
-          <Avatar className="size-full">
-            <AvatarImage
-              src={avatarUrl}
-              alt="logo adm barbershop"
-              fetchPriority="high"
-            />
-          </Avatar>
+          {loading ? (
+            <div className="size-full rounded-full bg-neutral-800 animate-pulse" />
+          ) : (
+            <Avatar className="size-full">
+              <AvatarImage
+                src={avatarUrl}
+                alt="logo adm barbershop"
+                fetchPriority="high"
+              />
+            </Avatar>
+          )}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-fit mr-2">
@@ -47,7 +52,7 @@ const AvatarMobile = ({ avatarUrl, isAdm }: AvatarMobileProps) => {
             <Link href="/home/settings">Settings</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <LogOutButton classname="text-white size-4"/>
+            <LogOutButton classname="text-white size-4" />
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
