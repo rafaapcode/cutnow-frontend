@@ -1,27 +1,52 @@
 "use client";
 
+import { UploadBannerImage } from "@/app/actions/UploadSingleFile";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/context/authContext";
+import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
+import toast from "react-hot-toast";
 
 const BarberBannerImage = () => {
   const [file, setFile] = useState<File>();
-
+  const user = useAuthStore((state) => state.user);
+  const [isPending, startTransition] = useTransition();
   const onchange = (e: any) => {
     setFile(e.target.files[0]);
   };
 
   const onClick = () => {
-    console.log("Bannerrrr", file);
+    const formData = new FormData();
+    if (file) {
+      formData.append("file", file);
+    } else {
+      toast("Nenhum arquivo selecionado !", { duration: 3000 });
+    }
+
+    startTransition(() => {
+      UploadBannerImage(formData, user?.id!)
+        .then(res => {
+          if(res.status) {
+            toast.success(res.message);
+            setFile(undefined);
+          } else {
+            toast.error("Algo deu errado , tente mais tarde !")
+          }
+        })
+        .catch(err => {
+          console.log(err.message);
+          toast.error(err.message);
+        })
+    });
   };
 
   const previewUrlImage = useMemo(() => {
-    if(!file) {
+    if (!file) {
       return null;
     }
 
     return URL.createObjectURL(file);
-
   }, [file]);
 
   return (
@@ -44,7 +69,7 @@ const BarberBannerImage = () => {
                 <Image
                   fill
                   alt="image to upload"
-                  src={previewUrlImage ? previewUrlImage : ''}
+                  src={previewUrlImage ? previewUrlImage : ""}
                   className="rounded-md object-contain"
                 />
               </div>
@@ -59,9 +84,10 @@ const BarberBannerImage = () => {
       </div>
       <button
         onClick={onClick}
+        disabled={isPending || !file}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
-        Upload
+        {!isPending ? "Upload" : <LoaderCircle className="animate-spin" />}
       </button>
     </section>
   );

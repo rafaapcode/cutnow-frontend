@@ -23,9 +23,19 @@ const BarberStructImages = () => {
   const onClick = () => {
     try {
       const formdata = new FormData();
-      files.forEach((file, index) => {
-        formdata.append(`file-${index}`, file);
-      });
+      if(files.length >= 0 && files.length <= 6) {
+        files.forEach((file, index) => {
+          formdata.append(`file-${index}`, file);
+        });
+      }else if (files.length === 0) {
+        toast("Selecione pelo menos 1 imagem", { duration: 3000 });
+        return;
+      } else {
+        toast("Você pode adicionar no máximo 6 imagens", { duration: 3000 });
+        setFiles([]);
+        return;
+      }
+     
       
       startTransitions(() => {
         UploadMultipleFiles(formdata, user?.id!)
@@ -84,7 +94,7 @@ const BarberStructImages = () => {
       </div>
       <button
         onClick={onClick}
-        disabled={isPending}
+        disabled={isPending || !files.length}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
         {

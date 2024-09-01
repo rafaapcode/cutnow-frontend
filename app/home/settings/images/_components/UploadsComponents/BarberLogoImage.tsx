@@ -1,18 +1,46 @@
 "use client";
 
+import { UploadLogoImage } from "@/app/actions/UploadSingleFile";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/context/authContext";
+import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
+import toast from "react-hot-toast";
 
 const BarberLogoImage = () => {
   const [file, setFile] = useState<File>();
+  const [isPending, startTransition] = useTransition();
+  const user = useAuthStore((state) => state.user);
 
   const onchange = (e: any) => {
     setFile(e.target.files[0]);
   };
 
   const onClick = () => {
-    console.log("Logo", file);
+    const formData = new FormData();
+    if(file) {
+      formData.append("file", file);
+    }else {
+      toast("Nenhum arquivo selecionado !", { duration: 3000 });
+      return;
+    }
+
+    startTransition(() => {
+      UploadLogoImage(formData, user?.id!)
+        .then((res) => {
+          if(res.status) {
+            toast.success(res.message);
+            setFile(undefined);
+          } else {
+            toast.error("Algo deu errado , tente mais tarde !")
+          }
+        })
+        .catch(err => {
+          console.log(err.message);
+          toast.error(err.messaged);
+        })
+    });
   };
 
   const previewUrlImage = useMemo(() => {
@@ -59,9 +87,12 @@ const BarberLogoImage = () => {
       </div>
       <button
         onClick={onClick}
+        disabled={isPending || !file}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
-        Upload
+        {
+          !isPending ? "Upload" : <LoaderCircle className="animate-spin"/>
+        }
       </button>
     </section>
   );
