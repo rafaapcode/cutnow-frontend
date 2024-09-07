@@ -7,6 +7,7 @@ import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import BannerImage from "../GetBannerImage";
 
 const BarberBannerImage = () => {
   const [file, setFile] = useState<File>();
@@ -61,6 +62,7 @@ const BarberBannerImage = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
+      <BannerImage id={user?.id!}/>
       <div className="flex w-full flex-col items-center gap-1 md:gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>
