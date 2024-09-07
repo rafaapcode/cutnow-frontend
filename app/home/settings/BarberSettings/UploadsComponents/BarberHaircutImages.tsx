@@ -19,6 +19,8 @@ const BarberHairCutImages = () => {
     variables: { id: user?.id },
   });
 
+  const portfolioImages = data?.barber?.informacoes?.portfolio;
+
   const onchange = (e: any) => {
     setFiles((prev) => [...prev, ...e.target.files]);
   };
@@ -56,7 +58,6 @@ const BarberHairCutImages = () => {
 
     closeBtn.current?.click();
   };
-
   return (
     <section className="mt-10 w-full mx-auto flex flex-col items-center gap-5 overflow-y-auto">
       <div className="flex flex-col gap-2">
@@ -70,9 +71,17 @@ const BarberHairCutImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      {files.length <= 0 && !error && !loading && data && data.length > 0 ? (
+      {files.length <= 0 && !error && !loading && portfolioImages && portfolioImages.length > 0 ? (
         <span className="text-neutral-500 font-semibold">
-          {files.length} Imagens selecionadas
+          {
+            portfolioImages.length === 1 ? (<span className="text-neutral-500 font-semibold">
+              {portfolioImages.length} Imagem selecionada
+            </span>) : (
+              <span className="text-neutral-500 font-semibold">
+              {portfolioImages.length} Imagens selecionadas
+            </span>
+            )
+          }
         </span>
       ) : (
         <></>

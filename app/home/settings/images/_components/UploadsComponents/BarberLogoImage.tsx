@@ -7,6 +7,7 @@ import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import LogoImages from "../GetLogoImage";
 
 const BarberLogoImage = () => {
   const [file, setFile] = useState<File>();
@@ -19,9 +20,9 @@ const BarberLogoImage = () => {
 
   const onClick = () => {
     const formData = new FormData();
-    if(file) {
+    if (file) {
       formData.append("file", file);
-    }else {
+    } else {
       toast("Nenhum arquivo selecionado !", { duration: 3000 });
       return;
     }
@@ -29,27 +30,26 @@ const BarberLogoImage = () => {
     startTransition(() => {
       UploadLogoImageBarbershop(formData, user?.id!)
         .then((res) => {
-          if(res.status) {
+          if (res.status) {
             toast.success(res.message);
             setFile(undefined);
           } else {
-            toast.error("Algo deu errado , tente mais tarde !")
+            toast.error("Algo deu errado , tente mais tarde !");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
           toast.error(err.messaged);
-        })
+        });
     });
   };
 
   const previewUrlImage = useMemo(() => {
-    if(!file) {
+    if (!file) {
       return null;
     }
 
     return URL.createObjectURL(file);
-
   }, [file]);
 
   return (
@@ -64,6 +64,7 @@ const BarberLogoImage = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
+      <LogoImages id={user?.id!} />
       <div className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>
@@ -72,7 +73,7 @@ const BarberLogoImage = () => {
                 <Image
                   fill
                   alt="image to upload"
-                  src={previewUrlImage ? previewUrlImage : ''}
+                  src={previewUrlImage ? previewUrlImage : ""}
                   className="rounded-md object-contain"
                 />
               </div>
@@ -90,9 +91,7 @@ const BarberLogoImage = () => {
         disabled={isPending || !file}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
-        {
-          !isPending ? "Upload" : <LoaderCircle className="animate-spin"/>
-        }
+        {!isPending ? "Upload" : <LoaderCircle className="animate-spin" />}
       </button>
     </section>
   );
