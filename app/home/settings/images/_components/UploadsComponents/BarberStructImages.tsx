@@ -71,7 +71,7 @@ const BarberStructImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      <StructureImages id={user?.id!} fileSelected={files.length === 0}/>
+      <StructureImages id={user?.id!} fileSelected={files.length != 0}/>
       <div className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto">
         {files &&
           files.map((file, index) => (

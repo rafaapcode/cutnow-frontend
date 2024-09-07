@@ -1,7 +1,10 @@
 "use client";
-import { useQuery } from "@apollo/client";
-import { TrashIcon } from "lucide-react";
+import { DeleteFileBarbershop } from "@/app/actions/DeleteFiles";
+import { ApolloQueryResult, OperationVariables, useQuery } from "@apollo/client";
+import { LoaderCircle, TrashIcon } from "lucide-react";
 import Image from "next/image";
+import { useTransition } from "react";
+import toast from "react-hot-toast";
 import { getStructureImages } from "../queries/queries";
 
 function SkeletonStructureImages() {
@@ -24,7 +27,28 @@ function Aviso({ msg }: { msg: string }) {
   );
 }
 
-function Images({ index, url }: { index: number; url: string }) {
+function Images({ index, url, id, refetch }: { index: number; url: string, id: string, refetch: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>> }) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = () => {
+    startTransition(() => {
+      DeleteFileBarbershop(index, id)
+        .then(res => {
+          if(res.status) {
+            refetch();
+            toast.success(res.message);
+          } else {
+            toast.error(res.message);
+            console.log(res);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          toast.error(err.message);
+        })
+    });
+  }
+
   return (
     <div
       key={index}
@@ -44,7 +68,11 @@ function Images({ index, url }: { index: number; url: string }) {
             estrutura-imagem-{index}
           </p>
         </div>
-        <button className="p-2 bg-red-500 rounded-lg"><TrashIcon className="size-7 "/></button>
+        <button disabled={isPending} onClick={handleClick}  className="p-2 bg-red-500 rounded-lg">
+          {
+            isPending ? <LoaderCircle className="size-7 animate-spin"/> : <TrashIcon className="size-7 "/>
+          }
+        </button>
       </div>
     </div>
   );
@@ -57,7 +85,7 @@ export default function StructureImages({
   id: string;
   fileSelected: boolean;
 }) {
-  const { data, loading, error } = useQuery(getStructureImages, {
+  const { data, loading, error, refetch } = useQuery(getStructureImages, {
     variables: { id },
   });
 
@@ -71,7 +99,7 @@ export default function StructureImages({
         <Aviso msg="Ocorreu um erro ao buscar as imagens" />
       ) : structureImgs.length > 0 ? (
         structureImgs.map((url: any, index: any) => (
-          <Images index={index} url={url} key={index} />
+          <Images index={index} url={url} key={index} id={id} refetch={refetch}/>
         ))
       ) : (
         !fileSelected && <Aviso msg="Nenhuma imagem encontrada" />
