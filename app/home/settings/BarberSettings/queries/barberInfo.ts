@@ -15,3 +15,13 @@ export const createDescricao = gql`
     updateInfoBarber(informations: $informations)
   }
 `;
+
+export const getPortfolioImages = gql`
+  query Barber($id: String!) {
+    barber(id: $id) {
+      informacoes {
+        portfolio
+      }
+    }
+  }
+`;

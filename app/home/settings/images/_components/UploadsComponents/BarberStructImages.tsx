@@ -7,6 +7,9 @@ import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import StructureImages from "../StructureImages";
+
+
 
 const BarberStructImages = () => {
   const user = useAuthStore((state) => state.user);
@@ -23,11 +26,11 @@ const BarberStructImages = () => {
   const onClick = () => {
     try {
       const formdata = new FormData();
-      if(files.length >= 0 && files.length <= 6) {
+      if (files.length >= 0 && files.length <= 6) {
         files.forEach((file, index) => {
           formdata.append(`file-${index}`, file);
         });
-      }else if (files.length === 0) {
+      } else if (files.length === 0) {
         toast("Selecione pelo menos 1 imagem", { duration: 3000 });
         return;
       } else {
@@ -35,28 +38,26 @@ const BarberStructImages = () => {
         setFiles([]);
         return;
       }
-     
-      
+
       startTransitions(() => {
         UploadMultipleFilesBarbershop(formdata, user?.id!)
-        .then((res) => {
-          if(res.status) {
-            toast.success(res.message);
-            setFiles([]);
-          } else {
-            toast.error("Algo deu errado , tente mais tarde !")
-          }
-        })
-        .catch((err) => {
-          toast.error(err.message);
-        });
+          .then((res) => {
+            if (res.status) {
+              toast.success(res.message);
+              setFiles([]);
+            } else {
+              toast.error("Algo deu errado , tente mais tarde !");
+            }
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
       });
     } catch (error: any) {
       console.log(error.message);
-      toast.error("Algo deu errado ao enviar as imagens !")
+      toast.error("Algo deu errado ao enviar as imagens !");
     }
   };
-
   return (
     <section className="mt-10 w-[90%] mx-auto flex flex-col items-center gap-5">
       <div className="flex flex-col gap-2">
@@ -69,6 +70,7 @@ const BarberStructImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
+      <StructureImages id={user?.id!}/>
       <div className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto">
         {files &&
           files.map((file, index) => (
@@ -97,9 +99,7 @@ const BarberStructImages = () => {
         disabled={isPending || !files.length}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
-        {
-          !isPending ? "Upload" : <LoaderCircle className="animate-spin"/>  
-        }
+        {!isPending ? "Upload" : <LoaderCircle className="animate-spin" />}
       </button>
     </section>
   );

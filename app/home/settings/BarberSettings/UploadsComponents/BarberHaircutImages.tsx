@@ -4,15 +4,20 @@ import { UploadMultipleFilesBarbers } from "@/app/actions/uploadMultipleFiles";
 import { DrawerClose } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/context/authContext";
+import { useQuery } from "@apollo/client";
 import { LoaderCircle } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import { getPortfolioImages } from "../queries/barberInfo";
 
 const BarberHairCutImages = () => {
   const [files, setFiles] = useState<File[]>([]);
   const user = useAuthStore((state) => state.user);
   const [isPending, startTransition] = useTransition();
   const closeBtn = useRef<HTMLButtonElement>(null);
+  const { data, loading, error } = useQuery(getPortfolioImages, {
+    variables: { id: user?.id },
+  });
 
   const onchange = (e: any) => {
     setFiles((prev) => [...prev, ...e.target.files]);
@@ -65,13 +70,20 @@ const BarberHairCutImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
+      {files.length <= 0 && !error && !loading && data && data.length > 0 ? (
+        <span className="text-neutral-500 font-semibold">
+          {files.length} Imagens selecionadas
+        </span>
+      ) : (
+        <></>
+      )}
       {files.length > 0 && (
         <span className="text-neutral-500 font-semibold">
           {files.length} Imagens selecionadas
         </span>
       )}
       <button
-        disabled={isPending || !files.length}
+        disabled={isPending || !files.length || data.length >= 15}
         onClick={onClick}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
