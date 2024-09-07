@@ -45,7 +45,7 @@ function Imagem({ url }: { url: string }) {
   );
 }
 
-export default function BannerImage({ id }: { id: string }) {
+export default function BannerImage({ id, fileSelected }: { id: string, fileSelected: boolean }) {
   const { data, loading, error } = useQuery(getBannerImages, {
     variables: { id },
   });
@@ -61,7 +61,7 @@ export default function BannerImage({ id }: { id: string }) {
       ) : bannerImgs ? (
         <Imagem url={bannerImgs} />
       ) : (
-        <Aviso msg="Nenhuma imagem encontrada" />
+        !fileSelected && <Aviso msg="Nenhuma imagem encontrada" />
       )}
     </>
   );

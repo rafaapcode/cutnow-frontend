@@ -43,7 +43,7 @@ function Imagem({ url }: { url: string }) {
   );
 }
 
-export default function LogoImages({ id }: { id: string }) {
+export default function LogoImages({ id, fileSelected }: { id: string, fileSelected: boolean }) {
   const { data, loading, error } = useQuery(getLogoImages, {
     variables: { id },
   });
@@ -58,7 +58,7 @@ export default function LogoImages({ id }: { id: string }) {
       ) : logoImgs ? (
         <Imagem url={logoImgs}/>
       ) : (
-        <Aviso msg="Nenhuma imagem encontrada" />
+        !fileSelected && <Aviso msg="Nenhuma imagem encontrada" />
       )}
     </>
   );

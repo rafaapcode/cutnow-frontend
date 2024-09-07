@@ -1,5 +1,6 @@
 "use client";
 import { useQuery } from "@apollo/client";
+import { TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { getStructureImages } from "../queries/queries";
 
@@ -29,19 +30,33 @@ function Images({ index, url }: { index: number; url: string }) {
       key={index}
       className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto"
     >
-      <div className="w-full md:w-[90%] xl:w-[70%] h-[90px] bg-neutral-900 flex items-center gap-10 px-5 rounded">
-        <div className="w-[125px] h-[80px] relative">
-          <Image fill alt="image to upload" src={url} className="rounded-md" />
+      <div className="w-full md:w-[90%] xl:w-[70%] h-[90px] bg-neutral-900 flex items-center justify-between gap-10 px-5 rounded">
+        <div className="flex items-center gap-5">
+          <div className="w-[125px] h-[80px] relative">
+            <Image
+              fill
+              alt="image to upload"
+              src={url}
+              className="rounded-md"
+            />
+          </div>
+          <p className="uppercase text-neutral-500 font-semibold tracking-widest">
+            estrutura-imagem-{index}
+          </p>
         </div>
-        <p className="uppercase text-neutral-500 font-semibold tracking-widest">
-          estrutura-imagem-{index}
-        </p>
+        <button className="p-2 bg-red-500 rounded-lg"><TrashIcon className="size-7 "/></button>
       </div>
     </div>
   );
 }
 
-export default function StructureImages({ id }: { id: string }) {
+export default function StructureImages({
+  id,
+  fileSelected,
+}: {
+  id: string;
+  fileSelected: boolean;
+}) {
   const { data, loading, error } = useQuery(getStructureImages, {
     variables: { id },
   });
@@ -59,7 +74,7 @@ export default function StructureImages({ id }: { id: string }) {
           <Images index={index} url={url} key={index} />
         ))
       ) : (
-        <Aviso msg="Nenhuma imagem encontrada" />
+        !fileSelected && <Aviso msg="Nenhuma imagem encontrada" />
       )}
     </>
   );
