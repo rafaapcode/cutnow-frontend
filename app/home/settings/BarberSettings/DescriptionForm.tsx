@@ -24,7 +24,10 @@ const DescriptionForm = () => {
       const id = JSON.parse(localStorage.getItem("user-data") as string).state
         ?.user?.id;
       if (!id) return { description: "" };
-      const res = await descricaoQuery({ variables: { barberId: id }, pollInterval: 500 });
+      const res = await descricaoQuery({
+        variables: { barberId: id },
+        pollInterval: 500,
+      });
       if (
         !res.data?.barber?.informacoes ||
         !res.data?.barber?.informacoes?.descricao
@@ -60,6 +63,7 @@ const DescriptionForm = () => {
 
     toast.success("Descrição atualizada com sucesso !");
   };
+
   return (
     <form
       className="w-full mt-5 flex flex-col justify-center gap-10"

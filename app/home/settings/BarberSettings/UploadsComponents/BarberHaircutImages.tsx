@@ -71,17 +71,21 @@ const BarberHairCutImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      {files.length <= 0 && !error && !loading && portfolioImages && portfolioImages.length > 0 ? (
+      {files.length <= 0 &&
+      !error &&
+      !loading &&
+      portfolioImages &&
+      portfolioImages.length > 0 ? (
         <span className="text-neutral-500 font-semibold">
-          {
-            portfolioImages.length === 1 ? (<span className="text-neutral-500 font-semibold">
+          {portfolioImages.length === 1 ? (
+            <span className="text-neutral-500 font-semibold">
               {portfolioImages.length} Imagem selecionada
-            </span>) : (
-              <span className="text-neutral-500 font-semibold">
+            </span>
+          ) : (
+            <span className="text-neutral-500 font-semibold">
               {portfolioImages.length} Imagens selecionadas
             </span>
-            )
-          }
+          )}
         </span>
       ) : (
         <></>
@@ -92,7 +96,7 @@ const BarberHairCutImages = () => {
         </span>
       )}
       <button
-        disabled={isPending || !files.length || data.length >= 15}
+        disabled={isPending || !files.length || files.length > 15}
         onClick={onClick}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
