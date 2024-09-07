@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAuthStore } from "@/context/authContext";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@apollo/client";
-import { Newspaper, ScissorsIcon, Settings } from "lucide-react";
+import { ImageIcon, Newspaper, ScissorsIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -66,10 +66,19 @@ const NavBar = () => {
               href="/home/requests"
               className={cn(
                 "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
-                pathName == "/home/barbers" && "border-b border-[#AAD704]"
+                pathName == "/home/requests" && "border-b border-[#AAD704]"
               )}
             >
               <Newspaper />
+            </Link>
+            <Link
+              href="/home/management-images"
+              className={cn(
+                "text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1",
+                pathName == "/home/management-images" && "border-b border-[#AAD704]"
+              )}
+            >
+              <ImageIcon />
             </Link>
           </>
         )}
