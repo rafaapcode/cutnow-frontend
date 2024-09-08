@@ -22,11 +22,11 @@ export async function DeleteFileBarbershop(index: number, id: string): Promise<R
         message: deleteFile.data.message
       }
     } catch (error: any) {
-      console.log(error.message)
+      console.log(error?.message)
       return {
         status: false,
-        message: error.response.message
-      }
+        message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
+      };
     }
 }
 
@@ -44,10 +44,10 @@ export async function DeleteFileBarber(index: number, id: string): Promise<Respo
       message: deleteFile.data.message
     }
   } catch (error: any) {
-    console.log(error.message)
+    console.log(error?.message)
     return {
       status: false,
-      message: error.response.message
-    }
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
+    };
   }
 }

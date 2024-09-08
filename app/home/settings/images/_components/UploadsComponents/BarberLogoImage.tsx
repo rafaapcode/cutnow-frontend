@@ -64,7 +64,9 @@ const BarberLogoImage = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      <LogoImages id={user?.id!} fileSelected={!!file}/>
+      {
+        !file && (<LogoImages id={user?.id!} fileSelected={!!file}/>)
+      }
       <div className="flex w-full flex-col items-center gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>

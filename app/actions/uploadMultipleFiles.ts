@@ -30,10 +30,10 @@ export async function UploadMultipleFilesBarbershop(
       message: "Imagens enviadas com sucesso !"
     }
   } catch (error: any) {
-    console.log(error.response.status);
+    console.log(error.response?.status);
     return {
       status: false,
-      message: error.response.message,
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
     };
   }
 }
@@ -61,10 +61,10 @@ export async function UploadMultipleFilesBarbers(
       message: "Imagens enviadas com sucesso !"
     }
   } catch (error: any) {
-    console.log(error.response.status);
+    console.log(error.response?.status);
     return {
       status: false,
-      message: error.response.message,
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
     };
   }
 }

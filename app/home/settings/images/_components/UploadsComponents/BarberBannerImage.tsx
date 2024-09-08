@@ -62,7 +62,9 @@ const BarberBannerImage = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      <BannerImage id={user?.id!} fileSelected={!!file}/>
+      {
+        !file && (<BannerImage id={user?.id!} fileSelected={!!file}/>)
+      }
       <div className="flex w-full flex-col items-center gap-1 md:gap-3 max-h-[470px] overflow-y-auto">
         {file && (
           <>

@@ -23,10 +23,10 @@ export async function UploadLogoImageBarbershop(formdata: FormData, id: string):
       message: "Logo enviada com sucesso !",
     };
   } catch (error: any) {
-    console.log(error.response.status);
+    console.log(error?.response);
     return {
       status: false,
-      message: error.response.message,
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
     };
   }
 }
@@ -48,10 +48,10 @@ export async function UploadBannerImageBarbershop(formdata: FormData, id: string
       message: "Banner enviado com sucesso !",
     };
   } catch (error: any) {
-    console.log(error.response.status);
+    console.log(error.response?.status);
     return {
       status: false,
-      message: error.response.message,
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
     };
   }
 }
@@ -73,10 +73,10 @@ export async function UploadFotoImageBarbers(formdata: FormData, id: string): Pr
       message: "Foto enviada com sucesso !",
     };
   } catch (error: any) {
-    console.log(error.response.status);
+    console.log(error.response?.status);
     return {
       status: false,
-      message: error.response.message,
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
     };
   }
 }
@@ -98,10 +98,10 @@ export async function UploadBannerImageBarbers(formdata: FormData, id: string): 
       message: "Banner enviado com sucesso !",
     };
   } catch (error: any) {
-    console.log(error.response.status);
+    console.log(error.response?.status);
     return {
       status: false,
-      message: error.response.message,
+      message: error.response?.message ? error.response?.message : "Erro interno , tente mais tarde",
     };
   }
 }
