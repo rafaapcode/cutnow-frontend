@@ -15,7 +15,7 @@ const BarberHairCutImages = () => {
   const user = useAuthStore((state) => state.user);
   const [isPending, startTransition] = useTransition();
   const closeBtn = useRef<HTMLButtonElement>(null);
-  const { data, loading, error } = useQuery(getPortfolioImages, {
+  const { data, loading, error, refetch } = useQuery(getPortfolioImages, {
     variables: { id: user?.id },
   });
 
@@ -46,6 +46,7 @@ const BarberHairCutImages = () => {
           if (res.status) {
             toast.success(res.message);
             setFiles([]);
+            refetch();
           } else {
             toast.error(res.message);
           }
@@ -92,11 +93,11 @@ const BarberHairCutImages = () => {
       )}
       {files.length > 0 && (
         <span className="text-neutral-500 font-semibold">
-          {files.length} Imagens selecionadas
+          {files.length + portfolioImages.length} Imagens selecionadas
         </span>
       )}
       <button
-        disabled={isPending || !files.length || files.length > 15}
+        disabled={isPending || !files.length || files.length > 15 || (files.length + portfolioImages.length) > 15}
         onClick={onClick}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
