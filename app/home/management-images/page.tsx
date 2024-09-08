@@ -4,7 +4,7 @@ import { useAuthStore } from "@/context/authContext";
 import { ApolloQueryResult, OperationVariables, useQuery } from "@apollo/client";
 import { LoaderCircle, TrashIcon } from "lucide-react";
 import Image from "next/image";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import toast from "react-hot-toast";
 import { getBanner, getPortfolio } from "./queries/queriesGraphql";
 
@@ -66,6 +66,9 @@ const ManagementImages = () => {
   } = useQuery(getPortfolio, { variables: { id: user?.id } });
   const bannerUrl = data?.barber?.informacoes?.banner;
   const portfolioUrls = portfolio?.barber?.informacoes?.portfolio;
+  useEffect(() => {
+      refetch();
+  }, []);
   return (
     <div className="w-full max-h-[84%] mt-5 flex-col gap-y-10 overflow-y-auto pb-2 scroll-smooth">
       <div className="px-5 md:px-0">

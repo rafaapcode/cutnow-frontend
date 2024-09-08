@@ -51,7 +51,6 @@ export default function BannerImage({ id, fileSelected }: { id: string, fileSele
   });
 
   const bannerImgs = data?.barbershopInfo?.informacoes?.fotoBanner;
-  console.log(bannerImgs);
   return (
     <>
       {loading ? (
