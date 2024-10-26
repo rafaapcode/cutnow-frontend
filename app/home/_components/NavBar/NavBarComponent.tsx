@@ -23,8 +23,7 @@ const NavBar = () => {
       id: user?.id!,
     },
   });
-  console.log(data);
-  const logoUrl = error
+  const logoUrl = (error || !data?.barbershopInfo?.informacoes?.logo || !data?.barber?.informacoes.foto)
     ? "./default-photo.jpg"
     : ( isAdm ? data?.barbershopInfo?.informacoes?.logo : data?.barber?.informacoes.foto )
 
