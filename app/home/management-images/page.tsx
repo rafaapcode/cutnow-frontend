@@ -69,6 +69,7 @@ const ManagementImages = () => {
   useEffect(() => {
       refetch();
   }, []);
+  console.log(portfolioUrls);
   return (
     <div className="w-full max-h-[84%] mt-5 flex-col gap-y-10 overflow-y-auto pb-2 scroll-smooth">
       <div className="px-5 md:px-0">
@@ -76,8 +77,9 @@ const ManagementImages = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {
             portfolioLoading ? (<SkeletonPortfolioCards />) : (
-              portfolioErr ? (<MessagePortfolioCards/>):
-              portfolioUrls.map((url: string, index: number) => (<PortfolioCards id={user?.id!} index={index} url={url} key={index} refetch={refetch}/>))
+              portfolioErr ? (<MessagePortfolioCards/>) :
+              !portfolioUrls[0] ? <h2 className="mb-5 text-neutral-600 col-span-1 md:col-span-3">Não possui nenhuma foto no momento</h2> :portfolioUrls.map((url: string, index: number) => (<PortfolioCards id={user?.id!} index={index} url={url} key={index} refetch={refetch}/>))
+              
             )
           }
         </div>
@@ -92,7 +94,7 @@ const ManagementImages = () => {
               <p>Ocorreu um erro tente novamente mais tarde.</p>
             </div>
           ) : (
-            <Image alt="Banner" fill src={bannerUrl} className="object-cover" />
+            !bannerUrl ? <h2 className="m-5 text-neutral-600">Não posui nenhum banner</h2> :  <Image alt="Banner" fill src={bannerUrl} className="object-cover" />
           )}
         </div>
       </div>

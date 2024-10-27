@@ -23,9 +23,9 @@ const NavBar = () => {
       id: user?.id!,
     },
   });
-  const logoUrl = (error || !data?.barbershopInfo?.informacoes?.logo || !data?.barber?.informacoes.foto)
+  const logoUrl = (error)
     ? "./default-photo.jpg"
-    : ( isAdm ? data?.barbershopInfo?.informacoes?.logo : data?.barber?.informacoes.foto )
+    : ( isAdm ? (data?.barbershopInfo?.informacoes ? data?.barbershopInfo?.informacoes?.logo : "./default-photo.jpg") : (data?.barber?.informacoes ? data?.barber?.informacoes.foto : "./default-photo.jpg") )
 
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
