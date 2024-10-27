@@ -4,6 +4,7 @@ export const allRequest = gql`
 query AllRequests($barbeiroId: String!) {
   allRequests(barbeiroId: $barbeiroId) {
     barbeiro_id
+    barbearia_id
     data
     avatar
     emailCliente
@@ -15,9 +16,9 @@ query AllRequests($barbeiroId: String!) {
 `;
 
 export const createSchedule = gql`
-  mutation Mutation($deleteBarberId: String!) {
-    deleteBarber(id: $deleteBarberId)
-  }
+  mutation CreateNewSchedule($newSchedule: CreateSchedule!) {
+  createNewSchedule(newSchedule: $newSchedule)
+}
 `;
 
 export const deleteSchedule = gql`
