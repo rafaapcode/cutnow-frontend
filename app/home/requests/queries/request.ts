@@ -21,8 +21,8 @@ export const createSchedule = gql`
 }
 `;
 
-export const deleteSchedule = gql`
-  mutation Mutation($deleteBarberId: String!) {
-    deleteBarber(id: $deleteBarberId)
-  }
+export const deleteRequest = gql`
+ mutation CreateNewSchedule($requestId: String!) {
+  deleteRequest(requestId: $requestId)
+}
 `;
