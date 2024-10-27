@@ -69,6 +69,18 @@ const RequestCard = ({
           toast.success(
             "Agendamento criado com sucesso e SOLICITAÇÃO confirmada !"
           );
+          const response = await fetch("http://localhost:3000/api", {
+            method: "POST",
+            body: JSON.stringify({
+              clientName: nomeCliente,
+              message: `Estamos enviando este email para confirmar seu agendamento no dia ${date}. Acesse o aplicativo para mais informações.`,
+              success: true,
+              clientEmail: emailCliente,
+              subject: "Confirmação de agendamento",
+            }),
+          });
+          const data = await response.json();
+          console.log(data);
           refetch();
         }
       }
@@ -93,14 +105,25 @@ const RequestCard = ({
           "Erro ao deletar a solicitação, entre em contato com o suporte."
         );
       } else {
-        if(!result.deleteRequest) {
+        if (!result.deleteRequest) {
           toast.error(
             "Ocorreu um erro ao recusar a SOLICITAÇÃO , entre em contato do o suporte."
           );
         } else {
-          toast.success(
-            "Solicitação recusada com sucesso !"
-          );
+          toast.success("Solicitação recusada com sucesso !");
+          const response = await fetch("https://localhost:3000/api", {
+            method: "POST",
+            body: JSON.stringify({
+              clientName: nomeCliente,
+              message:
+                "Estamos enviando este email para avisar que sua solicitação foi RECUSADA.",
+              success: false,
+              clientEmail: emailCliente,
+              subject: "Agendamento Recusado",
+            }),
+          });
+          const data = await response.json();
+          console.log(data);
           refetch();
         }
       }
@@ -132,7 +155,10 @@ const RequestCard = ({
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <button onClick={handleClickRejectRequest} className="bg-neutral-500 text-sm text-white py-1 rounded-md font-bold px-2 text hover:bg-neutral-700 transition-all duration-150">
+          <button
+            onClick={handleClickRejectRequest}
+            className="bg-neutral-500 text-sm text-white py-1 rounded-md font-bold px-2 text hover:bg-neutral-700 transition-all duration-150"
+          >
             RECUSAR
           </button>
           <button
