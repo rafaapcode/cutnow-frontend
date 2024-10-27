@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { ApolloQueryResult, OperationVariables, useMutation } from "@apollo/client";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { createSchedule } from "../queries/request";
@@ -12,10 +12,10 @@ type IRequestCardProp = {
   nomeCliente: string;
   tipoServico: string;
   barbearia_id: string;
+  refetch: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>
 }
 
-const RequestCard = ({avatar, barbeiro_id, data, emailCliente, id, nomeCliente, tipoServico, barbearia_id }: IRequestCardProp) => {
-  console.log(id, barbeiro_id, barbearia_id);
+const RequestCard = ({avatar, barbeiro_id, data, emailCliente, id, nomeCliente, tipoServico, barbearia_id, refetch }: IRequestCardProp) => {
   const hourDate = data.split("T");
   const hour = hourDate[1];
   const date = hourDate[0];
@@ -23,10 +23,10 @@ const RequestCard = ({avatar, barbeiro_id, data, emailCliente, id, nomeCliente, 
 
   const handleClickAcceptRequest = async () => {
     try {
-      const res = await createNewSchedule({
+      const {data: result} = await createNewSchedule({
         variables: {
-          "barbeiroId": barbeiro_id,
-          "newSchedule": {
+          barbeiroId: barbeiro_id,
+          newSchedule: {
             tipoServico,
             requestId: id,
             nomeCliente,
@@ -37,7 +37,13 @@ const RequestCard = ({avatar, barbeiro_id, data, emailCliente, id, nomeCliente, 
           }
         }
       });
-      console.log("Solicitação aceita", res);
+      // console.log("Solicitação aceita", res.data);
+      if(!result.createNewSchedule) {
+        toast.error("Ocorreu um erro ao confirmar a SOLICITAÇÃO , entre em contato do o suporte.");
+      } else {
+        toast.success("Agendamento criado com sucesso e SOLICITAÇÃO confirmada !");
+        refetch();
+      }
 
     } catch (error) {
       toast.error("Erro ao criar o agendamento");

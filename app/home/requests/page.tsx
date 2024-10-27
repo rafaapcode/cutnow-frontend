@@ -7,12 +7,11 @@ import { allRequest } from "./queries/request";
 const Requests = () => {
   const user = useAuthStore((state) => state.user);
   
-  const { data, loading, error } = useQuery(allRequest, {
+  const { data, loading, error, refetch } = useQuery(allRequest, {
     variables: {
       barbeiroId: user?.id,
     },
   });
-
   return (
     <section className="w-full mt-12">
       <h2 className="ml-5 md:ml-0 text-title-3 md:text-title-2">Solicitações de Agendamento</h2>
@@ -24,6 +23,8 @@ const Requests = () => {
             ?  <div className="w-[283px] h-[283px] md:w-[320px]  md:h-[320px] xl:w-[350px] xl:h-[350px] bg-neutral-800 animate-pulse rounded-lg relative mx-auto" />
             : data.allRequests.map((barberInfo: any) => (
                 <RequestCard
+                  refetch={refetch}
+                  barbearia_id={barberInfo.barbearia_id}
                   key={barberInfo.id}
                   avatar={barberInfo.avatar}
                   barbeiro_id={barberInfo.barbeiro_id}
