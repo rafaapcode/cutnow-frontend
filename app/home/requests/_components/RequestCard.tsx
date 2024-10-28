@@ -74,7 +74,6 @@ const RequestCard = ({
             body: JSON.stringify({
               clientName: nomeCliente,
               message: `Estamos enviando este email para confirmar seu agendamento no dia ${date}. Acesse o aplicativo para mais informações.`,
-              success: true,
               clientEmail: emailCliente,
               subject: "Confirmação de agendamento",
             }),
@@ -117,7 +116,6 @@ const RequestCard = ({
               clientName: nomeCliente,
               message:
                 "Estamos enviando este email para avisar que sua solicitação foi RECUSADA.",
-              success: false,
               clientEmail: emailCliente,
               subject: "Agendamento Recusado",
             }),

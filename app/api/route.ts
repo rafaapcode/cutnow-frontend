@@ -9,10 +9,10 @@ export async function POST(request: Request) {
   const body = await request.json();
 
   const { data, error } = await resend.emails.send({
-    from: 'CutNow <onboarding@resend.dev>',
+    from: 'CutNow <cutnowbarberapp@rafaapcode.com.br>',
     to: [body.clientEmail],
     subject: body.subject,
-    react: EmailTemplate({ clientName: body.clientName,message: body.message, success: body.success }),
+    react: EmailTemplate({ clientName: body.clientName,message: body.message }),
   });
 
   if (error) {
