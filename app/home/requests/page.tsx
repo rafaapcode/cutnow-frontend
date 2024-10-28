@@ -11,6 +11,7 @@ const Requests = () => {
     variables: {
       barbeiroId: user?.id,
     },
+    pollInterval: 60000
   });
   return (
     <section className="w-full mt-12">
