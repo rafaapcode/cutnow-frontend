@@ -19,7 +19,7 @@ const Home = () => {
   };
   const { data, loading, error } = useQuery(querie, {
     variables: isAdm ? barbershopParam : barberParam,
-    pollInterval: 60000
+    pollInterval: 60000,
   });
   console.log(data);
   return (
@@ -34,8 +34,33 @@ const Home = () => {
           </h2>
         ) : loading ? (
           <div className="bg-neutral-700 w-[282px] h-[185px] md:w-[524px] md:h-[344px] rounded-xl md:p-7 animate-pulse" />
-        ) : (
+        ) : isAdm ? (
           data.allSchedulesOfTodayToBarbershop.map((schedule: any) => {
+            if (!schedule) {
+              return (
+                <h2 key={0} className="text-xl text-neutral-700">
+                  Nenhum agendamento encontrado
+                </h2>
+              );
+            }
+            const clearData = schedule.data.split("T");
+            const date = clearData[0];
+            const hour = clearData[1];
+            return (
+              <Card
+                key={schedule.id}
+                barberPhoto={schedule.barberAvatar}
+                clientAvatar={schedule.clientAvatar}
+                data={date}
+                hour={hour}
+                isAdm={isAdm || false}
+                nomeCliente={schedule.nomeCliente}
+                tipoServico={schedule.tipoServico}
+              />
+            );
+          })
+        ) : (
+          data.allSchedulesOfTodayToBarber.map((schedule: any) => {
             if (!schedule) {
               return (
                 <h2 key={0} className="text-xl text-neutral-700">

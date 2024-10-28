@@ -42,7 +42,7 @@ const Card = ({ barberPhoto, clientAvatar, data, hour, nomeCliente, tipoServico,
           {data}
         </span>
         <span className="text-base md:text-[20px] text-neutral-700">
-          {hour}
+          {hour} h
         </span>
         <button
           disabled
