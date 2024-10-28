@@ -1,5 +1,4 @@
 import * as React from "react";
-import logo from "../public/logo.svg";
 
 interface EmailTemplateProps {
   clientName: string;
@@ -11,7 +10,6 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   message,
 }) => (
   <div className="w-full flex flex-col items-center justify-center p-4 bg-neutral-900">
-    <img src={logo} alt="logo cutnow" className="size-[100px]"/>
     <div className="flex w-full gap-x-3">
       <h1>Olá, {clientName}!</h1>
     </div>
