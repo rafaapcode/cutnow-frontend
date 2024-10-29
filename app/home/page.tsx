@@ -21,7 +21,6 @@ const Home = () => {
     variables: isAdm ? barbershopParam : barberParam,
     pollInterval: 60000,
   });
-  console.log(data);
   return (
     <section className="mt-12">
       <h2 className="ml-5 md:ml-0 text-title-3 md:text-title-2">
