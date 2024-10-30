@@ -25,11 +25,10 @@ const CalendarPage = () => {
       </div>
     )
   }
-
   return (
     <div className="py-2">
       {
-        loading ? <div className="w-full h-screen bg-neutral-700 animate-pulse"/> : <Calendar data={data.allSchedulesOfBarbershop}/>
+        loading ? <div className="w-full h-screen bg-neutral-700 animate-pulse"/> : <Calendar data={isAdm ? data.allSchedulesOfBarbershop : data.allSchedulesOfBarber}/>
       }
     </div>
   )

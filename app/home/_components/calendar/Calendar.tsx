@@ -2,6 +2,7 @@
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import { CircleX } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 
 type IDialogProps = {
@@ -10,7 +11,8 @@ type IDialogProps = {
 
 function Dialog({setOpenDialog }: IDialogProps) {
   return (
-    <div className="bg-white/15 flex flex-col gap-5 backdrop-blur-md rounded-md p-5 w-1/2 h-1/2 absolute z-20 top-[40%] left-[25%]">
+    <div className="bg-white/15 flex flex-col gap-5 backdrop-blur-md rounded-md p-5 w-1/2 h-1/2 absolute z-20 top-[40%] left-[25%] overflow-y-auto">
+      <button onClick={() => setOpenDialog(false)} className="self-end"><CircleX className="size-7"/></button>
       <h2>Rafael</h2>
     </div>
   );
