@@ -1,9 +1,10 @@
 "use client";
+import { SynchronizeCalendar } from "@/app/actions/synchronizeCalendar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAuthStore } from "@/context/authContext";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@apollo/client";
-import { ImageIcon, Newspaper, ScissorsIcon, Settings } from "lucide-react";
+import { FolderSyncIcon, ImageIcon, Newspaper, ScissorsIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,6 +27,12 @@ const NavBar = () => {
   const logoUrl = (error)
     ? "./default-photo.jpg"
     : ( isAdm ? (data?.barbershopInfo?.informacoes ? data?.barbershopInfo?.informacoes?.logo : "./default-photo.jpg") : (data?.barber?.informacoes ? data?.barber?.informacoes.foto : "./default-photo.jpg") )
+
+  const handleClick = () => {
+    SynchronizeCalendar()
+      .then(res => console.log(res))
+      .catch(err => console.log(err.message))
+  };
 
   return (
     <header className="w-full h-28 flex justify-between items-center border-b border-[#393939]">
@@ -81,6 +88,13 @@ const NavBar = () => {
             </Link>
           </>
         )}
+         <a
+          href="http://localhost:3001/calendar"
+          target="_blank"
+          className={"text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1"}
+        >
+          <FolderSyncIcon />
+        </a>
         <Link
           href="/home/settings"
           className={cn(
