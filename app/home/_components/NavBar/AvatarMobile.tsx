@@ -51,16 +51,6 @@ const AvatarMobile = ({ avatarUrl, isAdm, loading }: AvatarMobileProps) => {
           )}
           <DropdownMenuItem>
             <Settings className="mr-2 size-4" />
-            <a
-              href="http://localhost:3001/calendar"
-              target="_blank"
-              className="text-neutral-600 hover:text-neutral-700 transition-all duration-100 pb-1"
-            >
-              Sincronizar com o Calendar
-            </a>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 size-4" />
             <Link href="/home/settings">Settings</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
