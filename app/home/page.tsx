@@ -34,10 +34,10 @@ const Home = () => {
         ) : loading ? (
           <div className="bg-neutral-700 w-[282px] h-[185px] md:w-[524px] md:h-[344px] rounded-xl md:p-7 animate-pulse" />
         ) : isAdm ? (
-          data.allSchedulesOfTodayToBarbershop.map((schedule: any) => {
+          !data.allSchedulesOfTodayToBarbershop[0] ? <h2>Nenhum agendamento encontrado</h2> : data.allSchedulesOfTodayToBarbershop.map((schedule: any) => {
             if (!schedule) {
               return (
-                <h2 key={0} className="text-xl text-neutral-700">
+                <h2 key={0} className="text-xl">
                   Nenhum agendamento encontrado
                 </h2>
               );
@@ -59,10 +59,10 @@ const Home = () => {
             );
           })
         ) : (
-          data.allSchedulesOfTodayToBarber.map((schedule: any) => {
+          !data.allSchedulesOfTodayToBarber[0] ? <h2>Nenhum agedamento encontrado</h2> : data.allSchedulesOfTodayToBarber.map((schedule: any) => {
             if (!schedule) {
               return (
-                <h2 key={0} className="text-xl text-neutral-700">
+                <h2 key={0} className="text-xl">
                   Nenhum agendamento encontrado
                 </h2>
               );
