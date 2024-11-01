@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { ImageIcon, Scissors, Settings } from "lucide-react";
+import { CalendarClockIcon, ImageIcon, Scissors, Settings } from "lucide-react";
 import Link from "next/link";
 import LogOutButton from "../LogOutButton";
 
@@ -49,6 +49,10 @@ const AvatarMobile = ({ avatarUrl, isAdm, loading }: AvatarMobileProps) => {
               </DropdownMenuItem>
             </>
           )}
+          <DropdownMenuItem>
+            <CalendarClockIcon className="mr-2 size-4" />
+            <Link href="/home/calendar">Calendar</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <Settings className="mr-2 size-4" />
             <Link href="/home/settings">Settings</Link>
