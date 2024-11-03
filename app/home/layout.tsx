@@ -13,7 +13,7 @@ const Homelayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const client = new ApolloClient({
-    uri: "http://localhost:3001/graphql",
+    uri: "https://cutnow-api-462529521907.us-central1.run.app/graphql",
     cache: new InMemoryCache(),
     headers: {
       "Authorization": tokenValue()
