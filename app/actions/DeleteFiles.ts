@@ -11,7 +11,7 @@ type ResponseDeleteFiles = {
 export async function DeleteFileBarbershop(index: number, id: string): Promise<ResponseDeleteFiles> {
     try {
       const access_token = cookies().get("access_token");
-      const deleteFile = await axios.delete(`http://localhost:3002/barbershop/structure/${index}/${id}`, {
+      const deleteFile = await axios.delete(`${process.env.UPLOAD_URL}/barbershop/structure/${index}/${id}`, {
         headers: {
           "Authorization": access_token?.value
         }
@@ -33,7 +33,7 @@ export async function DeleteFileBarbershop(index: number, id: string): Promise<R
 export async function DeleteFileBarber(index: number, id: string): Promise<ResponseDeleteFiles> {
   try {
     const access_token = cookies().get("access_token");
-    const deleteFile = await axios.delete(`http://localhost:3002/barber/portfolio/${index}/${id}`, {
+    const deleteFile = await axios.delete(`${process.env.UPLOAD_URL}/barber/portfolio/${index}/${id}`, {
       headers: {
         "Authorization": access_token?.value
       }

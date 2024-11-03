@@ -15,7 +15,7 @@ export async function UploadMultipleFilesBarbershop(
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
     await axios.post(
-      "http://localhost:3002/barbershop/structure",
+      `${process.env.UPLOAD_URL}/barbershop/structure`,
       formdata,
       {
         headers: {
@@ -46,7 +46,7 @@ export async function UploadMultipleFilesBarbers(
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
     await axios.post(
-      "http://localhost:3002/barber/portfolio",
+      `${process.env.UPLOAD_URL}/barber/portfolio`,
       formdata,
       {
         headers: {

@@ -11,7 +11,7 @@ export async function UploadLogoImageBarbershop(formdata: FormData, id: string):
   try {
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
-    await axios.post("http://localhost:3002/barbershop/logo", formdata, {
+    await axios.post(`${process.env.UPLOAD_URL}/barber/portfolio}/barbershop/logo`, formdata, {
       headers: {
         Authorization: access_token?.value!,
         "Content-Type": "multipart/form-data",
@@ -36,7 +36,7 @@ export async function UploadBannerImageBarbershop(formdata: FormData, id: string
   try {
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
-    await axios.post("http://localhost:3002/barbershop/banner", formdata, {
+    await axios.post(`${process.env.UPLOAD_URL}/barbershop/banner`, formdata, {
       headers: {
         Authorization: access_token?.value!,
         "Content-Type": "multipart/form-data",
@@ -61,7 +61,7 @@ export async function UploadFotoImageBarbers(formdata: FormData, id: string): Pr
   try {
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
-    await axios.post("http://localhost:3002/barber/foto", formdata, {
+    await axios.post(`${process.env.UPLOAD_URL}/barber/foto`, formdata, {
       headers: {
         Authorization: access_token?.value!,
         "Content-Type": "multipart/form-data",
@@ -86,7 +86,7 @@ export async function UploadBannerImageBarbers(formdata: FormData, id: string): 
   try {
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
-    await axios.post("http://localhost:3002/barber/banner", formdata, {
+    await axios.post(`${process.env.UPLOAD_URL}/barber/banner`, formdata, {
       headers: {
         Authorization: access_token?.value!,
         "Content-Type": "multipart/form-data",

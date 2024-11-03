@@ -64,7 +64,7 @@ export const UpdateInfo = async (
 export const getBarbershopInfo = async (id: string) => {
   try {
     const access_token = cookies().get('access_token');
-    const result = await axios.get(`http://localhost:3001/barbershops/${id}`, {
+    const result = await axios.get(`${process.env.BASE_URL_API}/barbershops/${id}`, {
       headers: {
         "Authorization": access_token?.value
       }

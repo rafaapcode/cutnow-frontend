@@ -91,6 +91,7 @@ export default function StructureImages({
 
   const structureImgs =
     data?.barbershopInfo?.informacoes?.fotosEstruturaBarbearia;
+
   return (
     <>
       {loading ? (
@@ -98,9 +99,15 @@ export default function StructureImages({
       ) : error ? (
         <Aviso msg="Ocorreu um erro ao buscar as imagens" />
       ) : structureImgs.length > 0 ? (
-        structureImgs.map((url: any, index: any) => (
-          <Images index={index} url={url} key={index} id={id} refetch={refetch}/>
-        ))
+        structureImgs.map((url: any, index: any) => {
+          return (
+            <>
+              {
+                !url ? null : <Images index={index} url={url} key={index} id={id} refetch={refetch}/>
+              }
+            </>
+          )
+        })
       ) : (
         !fileSelected && <Aviso msg="Nenhuma imagem encontrada" />
       )}
