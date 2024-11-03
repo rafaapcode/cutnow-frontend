@@ -26,7 +26,7 @@ const AvatarMobile = ({ avatarUrl, isAdm, loading }: AvatarMobileProps) => {
           ) : (
             <Avatar className="size-full">
               <AvatarImage
-                src={avatarUrl}
+                src={avatarUrl || "./default-photo.jpg"}
                 alt="logo adm barbershop"
                 fetchPriority="high"
               />

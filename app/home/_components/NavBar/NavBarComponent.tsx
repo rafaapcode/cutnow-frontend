@@ -104,8 +104,9 @@ const NavBar = () => {
           {loading ? (
             <div className="size-full rounded-full bg-neutral-800 animate-pulse" />
           ) : (
+
             <Avatar className="size-full">
-              <AvatarImage src={logoUrl} alt="logo adm barbershop" />
+              <AvatarImage src={logoUrl || "./default-photo.jpg"} alt="logo adm barbershop" />
             </Avatar>
           )}
         </div>
@@ -115,7 +116,7 @@ const NavBar = () => {
           isAdm={isAdm}
           loading={loading}
           avatarUrl={
-            logoUrl
+            logoUrl || "./default-photo.jpg"
           }
         />
       </div>
