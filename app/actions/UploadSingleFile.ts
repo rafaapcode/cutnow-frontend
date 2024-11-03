@@ -11,7 +11,7 @@ export async function UploadLogoImageBarbershop(formdata: FormData, id: string):
   try {
     const access_token = cookies().get("access_token");
     formdata.append("id", id);
-    await axios.post(`${process.env.UPLOAD_URL}/barber/portfolio}/barbershop/logo`, formdata, {
+    await axios.post(`${process.env.UPLOAD_URL}/barber/portfolio/barbershop/logo`, formdata, {
       headers: {
         Authorization: access_token?.value!,
         "Content-Type": "multipart/form-data",
