@@ -22,6 +22,7 @@ export const loginAdm = async (
       signal: controller.signal,
       withCredentials: true,
     });
+    console.log(response);
     const header_cookie_access = response.headers["set-cookie"] && response.headers["set-cookie"][0].split(';');
     let accessToken = header_cookie_access && header_cookie_access[0];
     accessToken = accessToken?.replace('access_token=', '');
