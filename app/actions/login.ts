@@ -40,6 +40,7 @@ export const loginAdm = async (
       accessToken
     };
   } catch (error: any) {
+    console.log(error);
     if (error.status === 400) {
       return {
         status: false,

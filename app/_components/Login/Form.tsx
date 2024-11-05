@@ -43,10 +43,14 @@ const FormLogin = ({userType}: IUserType) => {
               localStorage.setItem("token", res.accessToken ?? "");
               router.push('/home');
             } else {
+              console.log(res);
               toast.error(res.message);
             }
           })
-          .catch(err => toast.error(err.message))
+          .catch(err => {
+            console.log(err);
+            toast.error(err.message)
+          })
           .finally(() => {
             setLoading(false);
           });
