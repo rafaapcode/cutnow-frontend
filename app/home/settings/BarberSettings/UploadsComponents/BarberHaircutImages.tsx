@@ -59,7 +59,6 @@ const BarberHairCutImages = () => {
 
     closeBtn.current?.click();
   };
-  console.log(portfolioImages);
   return (
     <section className="mt-10 w-full mx-auto flex flex-col items-center gap-5 overflow-y-auto">
       <div className="flex flex-col gap-2">
