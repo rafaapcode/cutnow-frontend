@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cutnow - ADM
 
-## Getting Started
+## Objetivo
+- Criar um aplicativo para barbearia , barbeiros e cliente. Para fins de aprendizado.
+- Aprender e explorar tecnologias que tenho interesse.
 
-First, run the development server:
+## Tecnologias Usadas
+- AWS
+- GOOGLE CLOUD
+- NESTJS
+- EXPRESS
+- VITEST
+- GITHUB ACTIONS
+- NEXTJS
+- GOLANG
+- DOCKER
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Aprendizado
+- Com esse projeto consegui explorar muitas tecnologias que sempre tive curiosidade e também aprender e entender o processo de deploy de um web app.
+- Consegui com esse projeto aplicar conceitos de CLEAN ARCHITECTURE e testes no BACKEND do cliente.
+- Conforme o projeto ia aumentando eu ia entendendo as dificuldades e tentando melhorar nas outras parte, por conta disso algumas partes do projeto como: FRONTEND-ADM e BACKEND-ADM não estão usados CLEARN ARCH e design patterns.
+- Consegui colocar em prática os conceitos aprendidos em GO , criando APIs de upload das fotos e também a LAMBDA function com a linguagem.
+- Consegui também explorar o GRAPHQL que é uma coisa que sempre quis, por isso falo que esse projeto foi exclusivamente para estudo , misturei muitas tecnologias que sempre quis usar.
+- Consegui colocar em prática alguns design patterns no Front-End , como:  Container Components e Layout components.
+- Por último e acredito que o maior aprendizado que tive foi a importância da arquitetura em um projeto, pois durante o desenvolvimento do APP me encontrei em alguns momentos em que fiquei perdido na minha aplicação, por isso criei a parte do CLIENTE usando CLEAN ARCH no backend e uma arquitetura mais limpa e design patterns no FRONT-END. Outra coisa que entendi durante o processo de desenvolvimento foi que o fluxo de dados da aplicação devem estar muito claro, 
