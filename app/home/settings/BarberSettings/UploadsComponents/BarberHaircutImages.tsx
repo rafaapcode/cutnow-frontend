@@ -59,6 +59,8 @@ const BarberHairCutImages = () => {
 
     closeBtn.current?.click();
   };
+  console.log(files);
+  console.log(files.length);
   return (
     <section className="mt-10 w-full mx-auto flex flex-col items-center gap-5 overflow-y-auto">
       <div className="flex flex-col gap-2">
@@ -72,7 +74,7 @@ const BarberHairCutImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      {files.length <= 0 &&
+      {(!files || files.length <= 0) &&
       !error &&
       !loading &&
       portfolioImages &&
