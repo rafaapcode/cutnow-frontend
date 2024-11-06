@@ -69,22 +69,17 @@ const ManagementImages = () => {
   useEffect(() => {
     refetch();
   }, []);
-  console.log("errors", portfolioErr, error);
-  console.log("data", data?.barber)
-  console.log("portfolio data",  portfolio?.barber);
-  console.log("Portfolio", portfolioUrls);
-  console.log("Portfolio", bannerUrl);
   return (
     <div className="w-full max-h-[84%] mt-5 flex-col gap-y-10 overflow-y-auto pb-2 scroll-smooth">
       <div className="px-5 md:px-0">
         <h2 className="text-xl md:text-2xl mb-2">PORTFOLIO</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2">
-          {/* {
+          {
             portfolioLoading ? (<SkeletonPortfolioCards />) : (
               portfolioErr ? (<MessagePortfolioCards/>) :
-              (!portfolioUrls[0] || !portfolioUrls) ? <h2 className="mb-5 text-neutral-600 col-span-1 md:col-span-3">Não possui nenhuma foto no momento</h2> : portfolioUrls.map((url: string, index: number) => (<PortfolioCards id={user?.id!} index={index} url={url} key={index} refetch={refetch}/>))
+              (!portfolioUrls || !portfolioUrls[0]) ? <h2 className="mb-5 text-neutral-600 col-span-1 md:col-span-3">Não possui nenhuma foto no momento</h2> : portfolioUrls.map((url: string, index: number) => (<PortfolioCards id={user?.id!} index={index} url={url} key={index} refetch={refetch}/>))
             )
-          } */}
+          }
         </div>
       </div>
       <div className="px-5 md:px-0">
