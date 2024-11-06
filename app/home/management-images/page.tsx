@@ -67,8 +67,13 @@ const ManagementImages = () => {
   const bannerUrl = data?.barber?.informacoes ? data?.barber?.informacoes?.banner : null;
   const portfolioUrls = portfolio?.barber?.informacoes ? portfolio?.barber?.informacoes?.portfolio : null;
   useEffect(() => {
-      refetch();
+    refetch();
   }, []);
+  console.log("errors", portfolioErr, error);
+  console.log("data", data?.barber)
+  console.log("portfolio data",  portfolio?.barber);
+  console.log("Portfolio", portfolioUrls);
+  console.log("Portfolio", bannerUrl);
   return (
     <div className="w-full max-h-[84%] mt-5 flex-col gap-y-10 overflow-y-auto pb-2 scroll-smooth">
       <div className="px-5 md:px-0">
