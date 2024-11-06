@@ -19,7 +19,7 @@ const BarberHairCutImages = () => {
     variables: { id: user?.id },
   });
 
-  const portfolioImages = data?.barber?.informacoes?.portfolio;
+  const portfolioImages = data?.barber?.informacoes ? data?.barber?.informacoes?.portfolio : null;
 
   const onchange = (e: any) => {
     setFiles((prev) => [...prev, ...e.target.files]);
@@ -59,8 +59,7 @@ const BarberHairCutImages = () => {
 
     closeBtn.current?.click();
   };
-  console.log(files);
-  console.log(files.length);
+  console.log(portfolioImages);
   return (
     <section className="mt-10 w-full mx-auto flex flex-col items-center gap-5 overflow-y-auto">
       <div className="flex flex-col gap-2">
@@ -74,11 +73,11 @@ const BarberHairCutImages = () => {
           className="file:text-white bg-neutral-900 file:cursor-pointer"
         />
       </div>
-      {(!files || files.length <= 0) &&
+      {files.length <= 0 &&
       !error &&
       !loading &&
       portfolioImages &&
-      portfolioImages.length > 0 ? (
+      (portfolioImages && portfolioImages.length > 0) ? (
         <span className="text-neutral-500 font-semibold">
           {portfolioImages.length === 1 ? (
             <span className="text-neutral-500 font-semibold">
@@ -93,13 +92,13 @@ const BarberHairCutImages = () => {
       ) : (
         <></>
       )}
-      {files.length > 0 && (
+      {(portfolioImages && files.length > 0) && (
         <span className="text-neutral-500 font-semibold">
-          {files.length + portfolioImages.length} Imagens selecionadas
+          {files.length + (portfolioImages ? portfolioImages.length : 0)} Imagens selecionadas
         </span>
       )}
       <button
-        disabled={isPending || !files.length || files.length > 15 || (files.length + portfolioImages.length) > 15}
+        disabled={isPending || !files.length || files.length > 15 || (files.length + (portfolioImages ? portfolioImages.length : 0)) > 15}
         onClick={onClick}
         className="bg-terciary-green px-2 py-1 text-black tracking-wider font-semibold hover:bg-secondary-green transition-all duration-150 rounded-md mb-5 disabled:bg-[#55641c]"
       >
