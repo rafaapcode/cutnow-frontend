@@ -26,3 +26,8 @@
 
 ### Link
 https://cutnow-frontend.vercel.app/
+
+
+
+https://github.com/user-attachments/assets/6522c3ae-dda4-4a73-8095-9f77ecca4dec
+
