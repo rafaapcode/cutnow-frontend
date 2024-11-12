@@ -24,8 +24,9 @@
 - Consegui colocar em prática alguns design patterns no Front-End , como:  Container Components e Layout components.
 - Por último e acredito que o maior aprendizado que tive foi a importância da arquitetura em um projeto, pois durante o desenvolvimento do APP me encontrei em alguns momentos em que fiquei perdido na minha aplicação, por isso criei a parte do CLIENTE usando CLEAN ARCH no backend e uma arquitetura mais limpa e design patterns no FRONT-END. Outra coisa que entendi durante o processo de desenvolvimento foi que o fluxo de dados da aplicação devem estar muito claro.
 
-### Link
-https://cutnow-frontend.vercel.app/
+### Obs
+-  Tive que retirar as APIs do ar , por conta do preço que estava sendo cobrado
+-  Eram 4 serviços, acredito que se eu tivesse feito em somente 1 serviço seria mais barato ( +1 aprendizado )
 
 
 
